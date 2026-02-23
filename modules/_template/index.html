@@ -19,15 +19,39 @@
   <style>
     .reveal .slides section { background-color: var(--color-base); }
     .reveal .slide-background { background-color: var(--color-base); }
+
+    /* Starry background for Reveal.js */
+    .starry-bg-reveal {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .starry-bg-reveal .star {
+      position: absolute;
+      border-radius: 50%;
+      animation: twinkle ease-in-out infinite;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.15; transform: scale(1); }
+      50%      { opacity: 0.6; transform: scale(1.15); }
+    }
+
     /* Add module-specific styles here */
   </style>
 </head>
 <body>
+  <!-- Starry Background Layer -->
+  <div class="starry-bg-reveal" id="starry-bg"></div>
+
   <div class="reveal">
     <div class="slides">
 
       <!-- ============ TITLE SLIDE ============ -->
-      <section data-background-color="#0f172a">
+      <section data-background-color="#120e10">
         <div class="module-title">
           <div class="module-title__number">Module XX of 12</div>
           <h1 class="module-title__heading">Module Title</h1>
@@ -45,7 +69,7 @@
       </section>
 
       <!-- ============ CONTENT SLIDE — Assertion-Evidence ============ -->
-      <section data-background-color="#0f172a" class="bg-gradient">
+      <section data-background-color="#120e10" class="bg-gradient">
         <h2>Clinical Assertion Goes Here</h2>
         <p>Supporting context that frames the evidence.</p>
 
@@ -64,7 +88,7 @@
       </section>
 
       <!-- ============ SPLIT LAYOUT with Glass Panels ============ -->
-      <section data-background-color="#0f172a">
+      <section data-background-color="#120e10">
         <h2>Split Content Layout</h2>
         <p>Two-column layout for visual-narrative pairings.</p>
 
@@ -97,7 +121,7 @@
       </section>
 
       <!-- ============ CASE STUDY SLIDE ============ -->
-      <section data-background-color="#0f172a">
+      <section data-background-color="#120e10">
         <h2>Case Study: Patient Name</h2>
 
         <div class="case-study">
@@ -128,7 +152,7 @@
       </section>
 
       <!-- ============ DATA VISUALIZATION SLIDE ============ -->
-      <section data-background-color="#0f172a" class="bg-gradient">
+      <section data-background-color="#120e10" class="bg-gradient">
         <h2>Data Visualization Title</h2>
         <p>Context for the chart or visualization.</p>
 
@@ -146,7 +170,7 @@
       </section>
 
       <!-- ============ KEY TAKEAWAYS ============ -->
-      <section data-background-color="#0f172a" class="bg-gradient">
+      <section data-background-color="#120e10" class="bg-gradient">
         <h2>Module XX — Key Takeaways</h2>
 
         <div style="display: grid; gap: var(--space-lg); margin-top: var(--space-xl); max-width: 900px;">
@@ -159,11 +183,14 @@
           <!-- Add more takeaways -->
         </div>
 
-        <div style="text-align: center; margin-top: var(--space-2xl);" class="fragment fade-up">
-          <p style="color: var(--color-primary); font-weight: 600;">
+        <div style="text-align: center; margin-top: var(--space-xl);" class="fragment fade-up">
+          <p style="color: var(--color-primary); font-weight: 500; font-family: var(--font-heading); font-size: 1.05em; margin: 0 auto var(--space-md);">
             Next Module: Title
           </p>
-          <span class="badge badge--primary">Module XX &rarr;</span>
+          <div class="deck-nav">
+            <a href="../../" class="deck-nav__link">← Course Home</a>
+            <span class="badge badge--primary">Module XX →</span>
+          </div>
         </div>
 
         <aside class="notes">Speaker notes.</aside>
@@ -182,7 +209,40 @@
   <script src="../../assets/js/course-engine.js"></script>
 
   <script>
+    // Generate starry background
+    (function() {
+      var container = document.getElementById('starry-bg');
+      for (var i = 0; i < 80; i++) {
+        var star = document.createElement('div');
+        star.className = 'star';
+        var size = 0.3 + Math.random() * 1.0;
+        var opacity = 0.1 + Math.random() * 0.4;
+        star.style.cssText =
+          'left:' + (Math.random() * 100) + '%;' +
+          'top:' + (Math.random() * 100) + '%;' +
+          'width:' + size + 'px;' +
+          'height:' + size + 'px;' +
+          'background:rgba(255,250,245,' + opacity + ');' +
+          'animation-delay:' + (Math.random() * 5) + 's;' +
+          'animation-duration:' + (3 + Math.random() * 4) + 's;';
+        container.appendChild(star);
+      }
+    })();
+
     initCoursePresentation();
+
+    // Auto-redirect when advancing past the last slide
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        var state = Reveal.getState();
+        var totalSlides = Reveal.getTotalSlides();
+        var isLastSlide = (state.indexh === totalSlides - 1);
+        var fragments = Reveal.getCurrentSlide().querySelectorAll('.fragment:not(.visible)');
+        if (isLastSlide && fragments.length === 0) {
+          window.location.href = '../../';
+        }
+      }
+    });
 
     // Module-specific D3 charts or GSAP timelines go here
     // Example:

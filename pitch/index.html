@@ -86,8 +86,9 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: var(--space-2xl);
-      margin-top: var(--space-2xl);
+      gap: var(--space-xl);
+      margin-top: var(--space-xl);
+      flex-wrap: wrap;
     }
 
     .shift-box {
@@ -117,8 +118,8 @@
     .pillar-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: var(--space-lg);
-      margin-top: var(--space-2xl);
+      gap: var(--space-md);
+      margin-top: var(--space-xl);
     }
 
     .pillar-item {
@@ -686,11 +687,15 @@
             healthspan — not just manage menopause.
           </p>
 
-          <a href="#" class="cta-button fragment fade-up">Begin the Journey →</a>
+          <a href="../modules/module-01/" class="cta-button fragment fade-up">Begin the Journey →</a>
 
           <p style="color: var(--text-muted); font-size: 0.85em; margin-top: var(--space-lg);" class="fragment fade-up">
             Evidence-based ◆ CME Eligible ◆ Lifetime Access
           </p>
+
+          <div class="deck-nav fragment fade-up" style="margin-top: var(--space-lg);">
+            <a href="../" class="deck-nav__link">← Course Home</a>
+          </div>
         </div>
 
         <aside class="notes">
@@ -735,6 +740,19 @@
     // Initialize Reveal.js
     initCoursePresentation({
       center: true,
+    });
+
+    // Auto-redirect when advancing past the last slide
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        var state = Reveal.getState();
+        var totalSlides = Reveal.getTotalSlides();
+        var isLastSlide = (state.indexh === totalSlides - 1);
+        var fragments = Reveal.getCurrentSlide().querySelectorAll('.fragment:not(.visible)');
+        if (isLastSlide && fragments.length === 0) {
+          window.location.href = '../modules/module-01/';
+        }
+      }
     });
   </script>
 </body>

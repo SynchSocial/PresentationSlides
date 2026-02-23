@@ -502,52 +502,52 @@
         <h2>Baseline Lab Panel</h2>
         <p>The comprehensive panel that informs your 6-pillar assessment.</p>
 
-        <div class="kpi-grid" style="grid-template-columns: repeat(4, 1fr);">
-          <div class="kpi-card kpi-card--warning fragment fade-up">
+        <div class="kpi-grid" style="grid-template-columns: repeat(4, 1fr); gap: var(--space-md);">
+          <div class="kpi-card kpi-card--warning fragment fade-up" style="padding: var(--space-md);">
             <div class="kpi-card__label">Estradiol</div>
-            <div class="kpi-card__value status-warning">24</div>
+            <div class="kpi-card__value status-warning" style="font-size: 2em;">24</div>
             <div class="kpi-card__unit">pg/mL</div>
             <div class="kpi-card__trend status-warning">↓ Below optimal</div>
           </div>
-          <div class="kpi-card kpi-card--critical fragment fade-up">
+          <div class="kpi-card kpi-card--critical fragment fade-up" style="padding: var(--space-md);">
             <div class="kpi-card__label">FSH</div>
-            <div class="kpi-card__value status-critical">78</div>
+            <div class="kpi-card__value status-critical" style="font-size: 2em;">78</div>
             <div class="kpi-card__unit">mIU/mL</div>
             <div class="kpi-card__trend status-critical">↑ Elevated</div>
           </div>
-          <div class="kpi-card kpi-card--normal fragment fade-up">
+          <div class="kpi-card kpi-card--normal fragment fade-up" style="padding: var(--space-md);">
             <div class="kpi-card__label">TSH</div>
-            <div class="kpi-card__value status-normal">1.8</div>
+            <div class="kpi-card__value status-normal" style="font-size: 2em;">1.8</div>
             <div class="kpi-card__unit">mIU/L</div>
             <div class="kpi-card__trend status-normal">✓ Optimal</div>
           </div>
-          <div class="kpi-card kpi-card--warning fragment fade-up">
+          <div class="kpi-card kpi-card--warning fragment fade-up" style="padding: var(--space-md);">
             <div class="kpi-card__label">DHEA-S</div>
-            <div class="kpi-card__value status-warning">95</div>
+            <div class="kpi-card__value status-warning" style="font-size: 2em;">95</div>
             <div class="kpi-card__unit">&mu;g/dL</div>
             <div class="kpi-card__trend status-warning">↓ Low-normal</div>
           </div>
-          <div class="kpi-card kpi-card--warning fragment fade-up">
+          <div class="kpi-card kpi-card--warning fragment fade-up" style="padding: var(--space-md);">
             <div class="kpi-card__label">Fasting Insulin</div>
-            <div class="kpi-card__value status-warning">11.2</div>
+            <div class="kpi-card__value status-warning" style="font-size: 2em;">11.2</div>
             <div class="kpi-card__unit">&mu;IU/mL</div>
             <div class="kpi-card__trend status-warning">↑ Suboptimal</div>
           </div>
-          <div class="kpi-card kpi-card--normal fragment fade-up">
+          <div class="kpi-card kpi-card--normal fragment fade-up" style="padding: var(--space-md);">
             <div class="kpi-card__label">HbA1c</div>
-            <div class="kpi-card__value status-normal">5.4</div>
+            <div class="kpi-card__value status-normal" style="font-size: 2em;">5.4</div>
             <div class="kpi-card__unit">%</div>
             <div class="kpi-card__trend status-normal">✓ Optimal</div>
           </div>
-          <div class="kpi-card kpi-card--warning fragment fade-up">
+          <div class="kpi-card kpi-card--warning fragment fade-up" style="padding: var(--space-md);">
             <div class="kpi-card__label">hs-CRP</div>
-            <div class="kpi-card__value status-warning">2.1</div>
+            <div class="kpi-card__value status-warning" style="font-size: 2em;">2.1</div>
             <div class="kpi-card__unit">mg/L</div>
             <div class="kpi-card__trend status-warning">↑ Mild elevation</div>
           </div>
-          <div class="kpi-card kpi-card--normal fragment fade-up">
+          <div class="kpi-card kpi-card--normal fragment fade-up" style="padding: var(--space-md);">
             <div class="kpi-card__label">Vitamin D</div>
-            <div class="kpi-card__value status-normal">52</div>
+            <div class="kpi-card__value status-normal" style="font-size: 2em;">52</div>
             <div class="kpi-card__unit">ng/mL</div>
             <div class="kpi-card__trend status-normal">✓ Optimal</div>
           </div>
@@ -658,7 +658,7 @@
         <h2>The Hormonal Cascade</h2>
         <p>Understanding upstream-downstream relationships guides treatment priority.</p>
 
-        <div class="hormone-cascade" style="margin-top: var(--space-2xl);">
+        <div class="hormone-cascade" style="margin-top: var(--space-xl);">
           <div class="hormone-node fragment fade-up" style="border-color: var(--color-primary); background: var(--color-primary-dim);">
             <div class="hormone-node__name" style="color: var(--color-primary);">Pregnenolone</div>
             <div class="hormone-node__detail">Master precursor</div>
@@ -680,7 +680,7 @@
           </div>
         </div>
 
-        <div class="clinical-note fragment fade-up" style="margin-top: var(--space-2xl);">
+        <div class="clinical-note fragment fade-up" style="margin-top: var(--space-xl);">
           <strong>Clinical Pearl:</strong> Always assess upstream hormones before replacing downstream ones.
           A patient with low DHEA-S and low estradiol may benefit from DHEA supplementation alone,
           as it converts to both androgens and estrogens. Treating the precursor addresses multiple
@@ -774,22 +774,22 @@
 
         <div class="split" style="margin-top: var(--space-xl);">
           <div>
-            <div class="icon-row" style="flex-direction: column; gap: var(--space-lg);">
-              <div class="glass-panel fragment fade-up" style="padding: var(--space-lg);">
-                <h3 style="margin-bottom: var(--space-sm);">Step 1: Comprehensive Assessment</h3>
-                <p style="margin:0; font-size:0.9em;">Full lab panel + symptom mapping across all 6 pillars. No pillar is skipped.</p>
+            <div class="icon-row" style="flex-direction: column; gap: var(--space-md);">
+              <div class="glass-panel fragment fade-up" style="padding: var(--space-md) var(--space-lg);">
+                <h3 style="margin-bottom: var(--space-xs); font-size: 1.15em;">Step 1: Comprehensive Assessment</h3>
+                <p style="margin:0; font-size:0.85em;">Full lab panel + symptom mapping across all 6 pillars. No pillar is skipped.</p>
               </div>
-              <div class="glass-panel fragment fade-up" style="padding: var(--space-lg);">
-                <h3 style="margin-bottom: var(--space-sm);">Step 2: Root Cause Identification</h3>
-                <p style="margin:0; font-size:0.9em;">Trace symptoms upstream. Which pillar is the primary driver?</p>
+              <div class="glass-panel fragment fade-up" style="padding: var(--space-md) var(--space-lg);">
+                <h3 style="margin-bottom: var(--space-xs); font-size: 1.15em;">Step 2: Root Cause Identification</h3>
+                <p style="margin:0; font-size:0.85em;">Trace symptoms upstream. Which pillar is the primary driver?</p>
               </div>
-              <div class="glass-panel fragment fade-up" style="padding: var(--space-lg);">
-                <h3 style="margin-bottom: var(--space-sm);">Step 3: Prioritized Protocol</h3>
-                <p style="margin:0; font-size:0.9em;">Address the root cause first. Downstream improvements often follow without direct intervention.</p>
+              <div class="glass-panel fragment fade-up" style="padding: var(--space-md) var(--space-lg);">
+                <h3 style="margin-bottom: var(--space-xs); font-size: 1.15em;">Step 3: Prioritized Protocol</h3>
+                <p style="margin:0; font-size:0.85em;">Address the root cause first. Downstream improvements often follow without direct intervention.</p>
               </div>
-              <div class="glass-panel fragment fade-up" style="padding: var(--space-lg);">
-                <h3 style="margin-bottom: var(--space-sm);">Step 4: Monitor & Iterate</h3>
-                <p style="margin:0; font-size:0.9em;">Retest at 8-12 weeks. Reassess all pillars — improvement in one often cascades.</p>
+              <div class="glass-panel fragment fade-up" style="padding: var(--space-md) var(--space-lg);">
+                <h3 style="margin-bottom: var(--space-xs); font-size: 1.15em;">Step 4: Monitor & Iterate</h3>
+                <p style="margin:0; font-size:0.85em;">Retest at 8-12 weeks. Reassess all pillars — improvement in one often cascades.</p>
               </div>
             </div>
           </div>
@@ -861,11 +861,14 @@
           </div>
         </div>
 
-        <div style="text-align: center; margin-top: var(--space-2xl);" class="fragment fade-up">
-          <p style="color: var(--color-primary); font-weight: 500; font-size: 1.1em; font-family: var(--font-heading);">
-            Next Module: Hormonal Foundations — Deep-diving into the master regulator
+        <div style="text-align: center; margin-top: var(--space-xl);" class="fragment fade-up">
+          <p style="color: var(--color-primary); font-weight: 500; font-size: 1.05em; font-family: var(--font-heading); margin: 0 auto var(--space-md);">
+            Next: Hormonal Foundations — Deep-diving into the master regulator
           </p>
-          <span class="badge badge--primary">Module 02 →</span>
+          <div class="deck-nav">
+            <a href="../../" class="deck-nav__link">← Course Home</a>
+            <span class="badge badge--accent" style="padding: 6px 16px;">Module 02 — Coming Soon</span>
+          </div>
         </div>
 
         <aside class="notes">
@@ -918,6 +921,19 @@
 
     // Initialize
     initCoursePresentation();
+
+    // Auto-redirect when advancing past the last slide → back to course home
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        var state = Reveal.getState();
+        var totalSlides = Reveal.getTotalSlides();
+        var isLastSlide = (state.indexh === totalSlides - 1);
+        var fragments = Reveal.getCurrentSlide().querySelectorAll('.fragment:not(.visible)');
+        if (isLastSlide && fragments.length === 0) {
+          window.location.href = '../../';
+        }
+      }
+    });
 
     // D3 chart: Estrogen decline by decade — warm palette
     Reveal.on('slidechanged', function (event) {

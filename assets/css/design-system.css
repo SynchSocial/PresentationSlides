@@ -618,6 +618,71 @@
     transparent 50%);
 }
 
+/* ---------- Reveal.js Link & Selection Overrides ---------- */
+.reveal a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color var(--duration-fast) ease;
+}
+
+.reveal a:hover {
+  color: rgba(232, 180, 190, 0.9);
+}
+
+.reveal ::selection {
+  background: rgba(201, 122, 138, 0.35);
+  color: var(--text-primary);
+}
+
+.reveal ::-moz-selection {
+  background: rgba(201, 122, 138, 0.35);
+  color: var(--text-primary);
+}
+
+/* ---------- End-of-Deck Navigation ---------- */
+.deck-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-lg);
+  margin-top: var(--space-xl);
+}
+
+.deck-nav__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  border: 1px solid rgba(201, 122, 138, 0.25);
+  border-radius: var(--radius-full);
+  color: var(--color-primary);
+  font-weight: 500;
+  font-size: 0.9em;
+  text-decoration: none;
+  transition: background var(--duration-fast) ease,
+              border-color var(--duration-fast) ease,
+              transform var(--duration-fast) ease;
+}
+
+.deck-nav__link:hover {
+  background: rgba(201, 122, 138, 0.08);
+  border-color: rgba(201, 122, 138, 0.4);
+  transform: translateY(-1px);
+}
+
+.deck-nav__link--primary {
+  background: linear-gradient(135deg, #c97a8a 0%, #9a5a6a 100%);
+  border: none;
+  color: rgba(255, 250, 245, 0.95);
+  box-shadow: 0 6px 20px rgba(201, 122, 138, 0.2);
+}
+
+.deck-nav__link--primary:hover {
+  background: linear-gradient(135deg, #d48a9a 0%, #a46a7a 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(201, 122, 138, 0.3);
+}
+
 /* ---------- Reveal.js Controls & Progress Overrides ---------- */
 .reveal .controls {
   color: var(--color-primary);
