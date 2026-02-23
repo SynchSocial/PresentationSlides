@@ -30,19 +30,19 @@
       height: 600px;
       border-radius: 50%;
       filter: blur(120px);
-      opacity: 0.12;
       pointer-events: none;
       z-index: 0;
     }
-    .hero-glow--teal  { background: var(--color-primary); top: -200px; right: -100px; }
-    .hero-glow--blue  { background: var(--color-info); bottom: -200px; left: -100px; }
-    .hero-glow--amber { background: var(--color-accent); top: 50%; left: 60%; }
+    .hero-glow--rose  { background: rgba(201, 122, 138, 0.1); top: -200px; right: -100px; }
+    .hero-glow--blue  { background: rgba(138, 180, 200, 0.06); bottom: -200px; left: -100px; opacity: 0.8; }
+    .hero-glow--bronze { background: rgba(166, 135, 95, 0.06); top: 50%; left: 60%; width: 400px; height: 400px; }
 
     .stat-highlight {
       font-family: var(--font-heading);
       font-size: 3.5em;
+      font-weight: 400;
       line-height: 1;
-      background: linear-gradient(135deg, var(--color-primary), #5eead4);
+      background: linear-gradient(135deg, rgba(255, 250, 245, 0.95), var(--color-primary));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -72,8 +72,15 @@
       align-items: center;
       justify-content: center;
       font-size: 1.6em;
-      border: 2px solid rgba(20,184,166,0.3);
-      background: rgba(20,184,166,0.08);
+      border: 2px solid rgba(201, 122, 138, 0.25);
+      background: rgba(201, 122, 138, 0.08);
+      color: var(--color-primary);
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .icon-item__circle:hover {
+      border-color: rgba(201, 122, 138, 0.4);
+      box-shadow: 0 0 20px rgba(201, 122, 138, 0.15);
     }
 
     .icon-item__label {
@@ -95,16 +102,22 @@
       align-items: center;
       gap: var(--space-md);
       padding: var(--space-md) var(--space-lg);
-      background: rgba(30,41,59,0.4);
+      background: rgba(30, 24, 26, 0.45);
       border-radius: var(--radius-sm);
       border: 1px solid var(--color-border);
+      transition: border-color 0.3s ease;
+    }
+
+    .agenda-item:hover {
+      border-color: rgba(201, 122, 138, 0.15);
     }
 
     .agenda-item__num {
       font-family: var(--font-heading);
       font-size: 1.8em;
+      font-weight: 400;
       color: var(--color-primary);
-      opacity: 0.5;
+      opacity: 0.45;
       min-width: 40px;
     }
 
@@ -128,6 +141,11 @@
       text-align: center;
       border: 1px solid;
       min-width: 140px;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .hormone-node:hover {
+      box-shadow: 0 0 20px rgba(201, 122, 138, 0.1);
     }
 
     .hormone-node__name {
@@ -151,15 +169,23 @@
       align-items: flex-start;
       gap: var(--space-lg);
       padding: var(--space-xl);
-      background: linear-gradient(135deg, rgba(20,184,166,0.1), rgba(59,130,246,0.05));
-      border: 1px solid rgba(20,184,166,0.2);
+      background: linear-gradient(135deg, rgba(201, 122, 138, 0.08), rgba(138, 180, 200, 0.04));
+      border: 1px solid rgba(201, 122, 138, 0.15);
       border-radius: var(--radius-md);
       margin-top: var(--space-xl);
+      transition: border-color 0.3s ease;
+    }
+
+    .key-takeaway:hover {
+      border-color: rgba(201, 122, 138, 0.25);
     }
 
     .key-takeaway__icon {
-      font-size: 2em;
+      font-family: var(--font-heading);
+      font-size: 1.8em;
       flex-shrink: 0;
+      color: var(--color-primary);
+      opacity: 0.7;
     }
 
     .key-takeaway__text {
@@ -188,15 +214,46 @@
       font-weight: 600;
       text-align: right;
     }
+
+    /* Pillar SVG icons */
+    .pillar-svg-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-primary);
+    }
+
+    /* Starry background for Reveal.js */
+    .starry-bg-reveal {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .starry-bg-reveal .star {
+      position: absolute;
+      border-radius: 50%;
+      animation: twinkle ease-in-out infinite;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.15; transform: scale(1); }
+      50%      { opacity: 0.6; transform: scale(1.15); }
+    }
   </style>
 </head>
 <body>
+  <!-- Starry Background Layer -->
+  <div class="starry-bg-reveal" id="starry-bg"></div>
+
   <div class="reveal">
     <div class="slides">
 
       <!-- ============ SLIDE 1: Module Title ============ -->
-      <section data-background-color="#0f172a">
-        <div class="hero-glow hero-glow--teal"></div>
+      <section data-background-color="#120e10">
+        <div class="hero-glow hero-glow--rose"></div>
         <div class="hero-glow hero-glow--blue"></div>
         <div class="module-title">
           <div class="module-title__number">Module 01 of 12</div>
@@ -218,7 +275,7 @@
       </section>
 
       <!-- ============ SLIDE 2: The Problem ============ -->
-      <section data-background-color="#0f172a" class="bg-gradient">
+      <section data-background-color="#120e10" class="bg-gradient">
         <h2>The Longevity Gap</h2>
         <p>Women live longer than men on average — but spend more years in poor health.</p>
 
@@ -241,7 +298,7 @@
         </div>
 
         <div class="key-takeaway fragment fade-up">
-          <div class="key-takeaway__icon">&#x1F3AF;</div>
+          <div class="key-takeaway__icon">◆</div>
           <div class="key-takeaway__text">
             <strong>Our goal:</strong> Close the 13.7-year gap between lifespan and healthspan through proactive, evidence-based intervention across six interconnected pillars.
           </div>
@@ -255,7 +312,7 @@
       </section>
 
       <!-- ============ SLIDE 3: Course Agenda Overview ============ -->
-      <section data-background-color="#0f172a">
+      <section data-background-color="#120e10">
         <h2>12-Week Journey</h2>
         <p>Each module builds on the framework introduced today.</p>
 
@@ -319,38 +376,50 @@
       </section>
 
       <!-- ============ SLIDE 4: The 6-Pillar Model (Animated) ============ -->
-      <section data-background-color="#0f172a" class="bg-gradient">
+      <section data-background-color="#120e10" class="bg-gradient">
         <h2 style="text-align:center;">The 6-Pillar Longevity Model</h2>
         <p style="text-align:center;">Six interconnected domains that drive healthspan in women.</p>
 
         <div class="pillars-container">
           <div class="pillar">
-            <div class="pillar__icon">&#x1F9EC;</div>
+            <div class="pillar__icon pillar-svg-icon">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v20M8 6l4-4 4 4M8 18l4 4 4-4"/></svg>
+            </div>
             <div class="pillar__column"></div>
             <div class="pillar__label">Hormonal<br>Balance</div>
           </div>
           <div class="pillar">
-            <div class="pillar__icon">&#x1F525;</div>
+            <div class="pillar__icon pillar-svg-icon">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 12h4l3-9 4 18 3-9h4"/></svg>
+            </div>
             <div class="pillar__column"></div>
             <div class="pillar__label">Metabolic<br>Health</div>
           </div>
           <div class="pillar">
-            <div class="pillar__icon">&#x2764;&#xFE0F;</div>
+            <div class="pillar__icon pillar-svg-icon">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </div>
             <div class="pillar__column"></div>
             <div class="pillar__label">Cardio-<br>vascular</div>
           </div>
           <div class="pillar">
-            <div class="pillar__icon">&#x1F9B4;</div>
+            <div class="pillar__icon pillar-svg-icon">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="2" width="12" height="20" rx="2"/><circle cx="12" cy="12" r="4"/></svg>
+            </div>
             <div class="pillar__column"></div>
             <div class="pillar__label">Musculo-<br>skeletal</div>
           </div>
           <div class="pillar">
-            <div class="pillar__icon">&#x1F9E0;</div>
+            <div class="pillar__icon pillar-svg-icon">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            </div>
             <div class="pillar__column"></div>
             <div class="pillar__label">Neuro-<br>cognitive</div>
           </div>
           <div class="pillar">
-            <div class="pillar__icon">&#x1F6E1;&#xFE0F;</div>
+            <div class="pillar__icon pillar-svg-icon">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l8 4v5c0 5-3.5 9.5-8 11-4.5-1.5-8-6-8-11V7l8-4z"/></svg>
+            </div>
             <div class="pillar__column"></div>
             <div class="pillar__label">Immune &<br>Gut Health</div>
           </div>
@@ -366,7 +435,7 @@
       </section>
 
       <!-- ============ SLIDE 5: Pillar Deep-Dive Preview ============ -->
-      <section data-background-color="#0f172a">
+      <section data-background-color="#120e10">
         <h2>Pillar Interconnections</h2>
         <p>No pillar operates in isolation. Hormonal changes cascade across all systems.</p>
 
@@ -429,7 +498,7 @@
       </section>
 
       <!-- ============ SLIDE 6: Lab Panel Dashboard ============ -->
-      <section data-background-color="#0f172a" class="bg-gradient--warm">
+      <section data-background-color="#120e10" class="bg-gradient--warm">
         <h2>Baseline Lab Panel</h2>
         <p>The comprehensive panel that informs your 6-pillar assessment.</p>
 
@@ -438,49 +507,49 @@
             <div class="kpi-card__label">Estradiol</div>
             <div class="kpi-card__value status-warning">24</div>
             <div class="kpi-card__unit">pg/mL</div>
-            <div class="kpi-card__trend status-warning">&#x2193; Below optimal</div>
+            <div class="kpi-card__trend status-warning">↓ Below optimal</div>
           </div>
           <div class="kpi-card kpi-card--critical fragment fade-up">
             <div class="kpi-card__label">FSH</div>
             <div class="kpi-card__value status-critical">78</div>
             <div class="kpi-card__unit">mIU/mL</div>
-            <div class="kpi-card__trend status-critical">&#x2191; Elevated</div>
+            <div class="kpi-card__trend status-critical">↑ Elevated</div>
           </div>
           <div class="kpi-card kpi-card--normal fragment fade-up">
             <div class="kpi-card__label">TSH</div>
             <div class="kpi-card__value status-normal">1.8</div>
             <div class="kpi-card__unit">mIU/L</div>
-            <div class="kpi-card__trend status-normal">&#x2713; Optimal</div>
+            <div class="kpi-card__trend status-normal">✓ Optimal</div>
           </div>
           <div class="kpi-card kpi-card--warning fragment fade-up">
             <div class="kpi-card__label">DHEA-S</div>
             <div class="kpi-card__value status-warning">95</div>
             <div class="kpi-card__unit">&mu;g/dL</div>
-            <div class="kpi-card__trend status-warning">&#x2193; Low-normal</div>
+            <div class="kpi-card__trend status-warning">↓ Low-normal</div>
           </div>
           <div class="kpi-card kpi-card--warning fragment fade-up">
             <div class="kpi-card__label">Fasting Insulin</div>
             <div class="kpi-card__value status-warning">11.2</div>
             <div class="kpi-card__unit">&mu;IU/mL</div>
-            <div class="kpi-card__trend status-warning">&#x2191; Suboptimal</div>
+            <div class="kpi-card__trend status-warning">↑ Suboptimal</div>
           </div>
           <div class="kpi-card kpi-card--normal fragment fade-up">
             <div class="kpi-card__label">HbA1c</div>
             <div class="kpi-card__value status-normal">5.4</div>
             <div class="kpi-card__unit">%</div>
-            <div class="kpi-card__trend status-normal">&#x2713; Optimal</div>
+            <div class="kpi-card__trend status-normal">✓ Optimal</div>
           </div>
           <div class="kpi-card kpi-card--warning fragment fade-up">
             <div class="kpi-card__label">hs-CRP</div>
             <div class="kpi-card__value status-warning">2.1</div>
             <div class="kpi-card__unit">mg/L</div>
-            <div class="kpi-card__trend status-warning">&#x2191; Mild elevation</div>
+            <div class="kpi-card__trend status-warning">↑ Mild elevation</div>
           </div>
           <div class="kpi-card kpi-card--normal fragment fade-up">
             <div class="kpi-card__label">Vitamin D</div>
             <div class="kpi-card__value status-normal">52</div>
             <div class="kpi-card__unit">ng/mL</div>
-            <div class="kpi-card__trend status-normal">&#x2713; Optimal</div>
+            <div class="kpi-card__trend status-normal">✓ Optimal</div>
           </div>
         </div>
 
@@ -493,7 +562,7 @@
       </section>
 
       <!-- ============ SLIDE 7: Case Study Introduction ============ -->
-      <section data-background-color="#0f172a">
+      <section data-background-color="#120e10">
         <h2>Case Study: Sarah M.</h2>
 
         <div class="case-study">
@@ -502,7 +571,7 @@
             <div class="case-study__header">
               <div class="case-study__name">Sarah M.</div>
               <div class="case-study__demographics">
-                52 y/o &bull; Physician (IM) &bull; BMI 26.8 &bull; Post-menopause 2 years
+                52 y/o · Physician (IM) · BMI 26.8 · Post-menopause 2 years
               </div>
             </div>
             <div class="case-study__complaint">
@@ -545,7 +614,7 @@
       </section>
 
       <!-- ============ SLIDE 8: D3.js Data Visualization ============ -->
-      <section data-background-color="#0f172a" class="bg-gradient">
+      <section data-background-color="#120e10" class="bg-gradient">
         <h2>Estrogen Decline by Decade</h2>
         <p>Average estradiol levels across reproductive stages.</p>
 
@@ -585,7 +654,7 @@
       </section>
 
       <!-- ============ SLIDE 9: Hormone Cascade Diagram ============ -->
-      <section data-background-color="#0f172a">
+      <section data-background-color="#120e10">
         <h2>The Hormonal Cascade</h2>
         <p>Understanding upstream-downstream relationships guides treatment priority.</p>
 
@@ -594,19 +663,19 @@
             <div class="hormone-node__name" style="color: var(--color-primary);">Pregnenolone</div>
             <div class="hormone-node__detail">Master precursor</div>
           </div>
-          <div class="hormone-arrow fragment fade-up">&#x2192;</div>
-          <div class="hormone-node fragment fade-up" style="border-color: var(--color-info); background: rgba(59,130,246,0.1);">
+          <div class="hormone-arrow fragment fade-up">→</div>
+          <div class="hormone-node fragment fade-up" style="border-color: var(--color-info); background: rgba(138, 180, 200, 0.1);">
             <div class="hormone-node__name" style="color: var(--color-info);">Progesterone</div>
             <div class="hormone-node__detail">Calming, bone-building</div>
           </div>
-          <div class="hormone-arrow fragment fade-up">&#x2192;</div>
+          <div class="hormone-arrow fragment fade-up">→</div>
           <div class="hormone-node fragment fade-up" style="border-color: var(--color-accent); background: var(--color-accent-dim);">
             <div class="hormone-node__name" style="color: var(--color-accent);">DHEA</div>
             <div class="hormone-node__detail">Vitality marker</div>
           </div>
-          <div class="hormone-arrow fragment fade-up">&#x2192;</div>
-          <div class="hormone-node fragment fade-up" style="border-color: var(--color-success); background: rgba(34,197,94,0.1);">
-            <div class="hormone-node__name" style="color: var(--color-success);">Estradiol &amp; Testosterone</div>
+          <div class="hormone-arrow fragment fade-up">→</div>
+          <div class="hormone-node fragment fade-up" style="border-color: var(--color-success); background: rgba(125, 186, 142, 0.1);">
+            <div class="hormone-node__name" style="color: var(--color-success);">Estradiol & Testosterone</div>
             <div class="hormone-node__detail">End-organ effects</div>
           </div>
         </div>
@@ -627,7 +696,7 @@
       </section>
 
       <!-- ============ SLIDE 10: Reference Ranges ============ -->
-      <section data-background-color="#0f172a" class="bg-gradient--warm">
+      <section data-background-color="#120e10" class="bg-gradient--warm">
         <h2>Optimal vs. "Normal" Ranges</h2>
         <p>Longevity medicine targets the optimal range, not just the reference range.</p>
 
@@ -699,7 +768,7 @@
       </section>
 
       <!-- ============ SLIDE 11: Framework Application ============ -->
-      <section data-background-color="#0f172a">
+      <section data-background-color="#120e10">
         <h2>Applying the Framework</h2>
         <p>A systematic approach to every patient encounter.</p>
 
@@ -741,7 +810,7 @@
                 </li>
                 <li style="padding: 6px 0; border-bottom: 1px solid var(--color-border);">
                   <span class="badge badge--primary">Priority 2</span>
-                  Vitamin D repletion: 10,000 IU/day × 8 weeks, then 5,000 IU maintenance
+                  Vitamin D repletion: 10,000 IU/day x 8 weeks, then 5,000 IU maintenance
                 </li>
                 <li style="padding: 6px 0;">
                   <span class="badge badge--success">Expected</span>
@@ -762,7 +831,7 @@
       </section>
 
       <!-- ============ SLIDE 12: Key Takeaways ============ -->
-      <section data-background-color="#0f172a" class="bg-gradient">
+      <section data-background-color="#120e10" class="bg-gradient">
         <h2>Module 1 — Key Takeaways</h2>
 
         <div style="display: grid; gap: var(--space-lg); margin-top: var(--space-xl); max-width: 900px;">
@@ -793,7 +862,7 @@
         </div>
 
         <div style="text-align: center; margin-top: var(--space-2xl);" class="fragment fade-up">
-          <p style="color: var(--color-primary); font-weight: 600; font-size: 1.1em;">
+          <p style="color: var(--color-primary); font-weight: 500; font-size: 1.1em; font-family: var(--font-heading);">
             Next Module: Hormonal Foundations — Deep-diving into the master regulator
           </p>
           <span class="badge badge--primary">Module 02 →</span>
@@ -827,32 +896,52 @@
   <script src="../../assets/js/course-engine.js"></script>
 
   <script>
+    // Generate starry background
+    (function() {
+      var container = document.getElementById('starry-bg');
+      for (var i = 0; i < 80; i++) {
+        var star = document.createElement('div');
+        star.className = 'star';
+        var size = 0.3 + Math.random() * 1.0;
+        var opacity = 0.1 + Math.random() * 0.4;
+        star.style.cssText =
+          'left:' + (Math.random() * 100) + '%;' +
+          'top:' + (Math.random() * 100) + '%;' +
+          'width:' + size + 'px;' +
+          'height:' + size + 'px;' +
+          'background:rgba(255,250,245,' + opacity + ');' +
+          'animation-delay:' + (Math.random() * 5) + 's;' +
+          'animation-duration:' + (3 + Math.random() * 4) + 's;';
+        container.appendChild(star);
+      }
+    })();
+
     // Initialize
     initCoursePresentation();
 
-    // D3 chart: Estrogen decline by decade
+    // D3 chart: Estrogen decline by decade — warm palette
     Reveal.on('slidechanged', function (event) {
       if (event.currentSlide.querySelector('#estrogen-chart')) {
         CourseCharts.horizontalBars('#estrogen-chart', [
-          { label: '30s', value: 150, max: 300, color: '#22c55e', unit: ' pg/mL' },
-          { label: 'Early 40s', value: 120, max: 300, color: '#22c55e', unit: ' pg/mL' },
-          { label: 'Late 40s', value: 60,  max: 300, color: '#f59e0b', unit: ' pg/mL' },
-          { label: 'Early 50s', value: 30,  max: 300, color: '#ef4444', unit: ' pg/mL' },
-          { label: '60s+', value: 15,  max: 300, color: '#ef4444', unit: ' pg/mL' },
+          { label: '30s', value: 150, max: 300, color: '#7dba8e', unit: ' pg/mL' },
+          { label: 'Early 40s', value: 120, max: 300, color: '#7dba8e', unit: ' pg/mL' },
+          { label: 'Late 40s', value: 60,  max: 300, color: '#a6875f', unit: ' pg/mL' },
+          { label: 'Early 50s', value: 30,  max: 300, color: '#c96a6a', unit: ' pg/mL' },
+          { label: '60s+', value: 15,  max: 300, color: '#c96a6a', unit: ' pg/mL' },
         ], { width: 480, height: 280 });
       }
     });
 
     // Also trigger on initial load if we're already on the chart slide
     Reveal.on('ready', function () {
-      const currentSlide = Reveal.getCurrentSlide();
+      var currentSlide = Reveal.getCurrentSlide();
       if (currentSlide && currentSlide.querySelector('#estrogen-chart')) {
         CourseCharts.horizontalBars('#estrogen-chart', [
-          { label: '30s', value: 150, max: 300, color: '#22c55e', unit: ' pg/mL' },
-          { label: 'Early 40s', value: 120, max: 300, color: '#22c55e', unit: ' pg/mL' },
-          { label: 'Late 40s', value: 60,  max: 300, color: '#f59e0b', unit: ' pg/mL' },
-          { label: 'Early 50s', value: 30,  max: 300, color: '#ef4444', unit: ' pg/mL' },
-          { label: '60s+', value: 15,  max: 300, color: '#ef4444', unit: ' pg/mL' },
+          { label: '30s', value: 150, max: 300, color: '#7dba8e', unit: ' pg/mL' },
+          { label: 'Early 40s', value: 120, max: 300, color: '#7dba8e', unit: ' pg/mL' },
+          { label: 'Late 40s', value: 60,  max: 300, color: '#a6875f', unit: ' pg/mL' },
+          { label: 'Early 50s', value: 30,  max: 300, color: '#c96a6a', unit: ' pg/mL' },
+          { label: '60s+', value: 15,  max: 300, color: '#c96a6a', unit: ' pg/mL' },
         ], { width: 480, height: 280 });
       }
     });
