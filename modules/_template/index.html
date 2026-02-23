@@ -17,7 +17,13 @@
   <script src="https://unpkg.com/@lottiefiles/lottie-player@2.0.8/dist/lottie-player.js"></script>
 
   <style>
-    .reveal .slides section { background-color: var(--color-base); }
+    .reveal .slides section {
+      background-color: var(--color-base);
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: flex-start !important;
+    }
+    .reveal .slides section > div { width: 100%; }
     .reveal .slide-background { background-color: var(--color-base); }
 
     /* Starry background for Reveal.js */

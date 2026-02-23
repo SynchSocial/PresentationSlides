@@ -20,6 +20,17 @@
     /* Module-specific overrides */
     .reveal .slides section {
       background-color: var(--color-base);
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: flex-start !important;
+    }
+    .reveal .slides section > .split,
+    .reveal .slides section > .kpi-grid,
+    .reveal .slides section > .pillars-container,
+    .reveal .slides section > .key-takeaway,
+    .reveal .slides section > .agenda-grid,
+    .reveal .slides section > div {
+      width: 100%;
     }
     .reveal .slide-background {
       background-color: var(--color-base);
@@ -439,28 +450,24 @@
         <h2>Pillar Interconnections</h2>
         <p>No pillar operates in isolation. Hormonal changes cascade across all systems.</p>
 
-        <div class="split" style="margin-top: var(--space-xl);">
+        <div class="split" style="margin-top: var(--space-md);">
           <div>
-            <div class="glass-panel glass-panel--accent">
-              <h3>Estrogen Decline Cascade</h3>
+            <div class="glass-panel glass-panel--accent" style="padding: var(--space-lg);">
+              <h3 style="margin-bottom: var(--space-sm);">Estrogen Decline Cascade</h3>
               <div class="timeline">
-                <div class="timeline__item fragment fade-up">
+                <div class="timeline__item fragment fade-up" style="margin-bottom: var(--space-md);">
                   <div class="timeline__label">Perimenopause onset</div>
                   <div class="timeline__content">Estradiol fluctuations begin 2-8 years before final period</div>
                 </div>
-                <div class="timeline__item fragment fade-up">
+                <div class="timeline__item fragment fade-up" style="margin-bottom: var(--space-md);">
                   <div class="timeline__label">Bone loss accelerates</div>
                   <div class="timeline__content">1-3% annual BMD loss in first 5 years post-menopause</div>
                 </div>
-                <div class="timeline__item fragment fade-up">
+                <div class="timeline__item fragment fade-up" style="margin-bottom: var(--space-md);">
                   <div class="timeline__label">Cardiovascular risk rises</div>
                   <div class="timeline__content">LDL increases, endothelial function declines</div>
                 </div>
-                <div class="timeline__item fragment fade-up">
-                  <div class="timeline__label">Cognitive changes emerge</div>
-                  <div class="timeline__content">Brain glucose hypometabolism detectable on PET imaging</div>
-                </div>
-                <div class="timeline__item fragment fade-up">
+                <div class="timeline__item fragment fade-up" style="margin-bottom: 0;">
                   <div class="timeline__label">Metabolic shift</div>
                   <div class="timeline__content">Visceral adiposity increases, insulin sensitivity decreases</div>
                 </div>
@@ -468,23 +475,23 @@
             </div>
           </div>
           <div>
-            <div class="glass-panel">
-              <h3>Key Insight</h3>
-              <p style="font-size: 1.1em; color: var(--text-secondary);">
+            <div class="glass-panel" style="padding: var(--space-lg);">
+              <h3 style="margin-bottom: var(--space-sm);">Key Insight</h3>
+              <p style="font-size: 1em; color: var(--text-secondary); margin-bottom: var(--space-sm);">
                 The hormonal pillar is the <em>master regulator</em> — estrogen decline
                 drives changes across all other five pillars simultaneously.
               </p>
-              <p>
+              <p style="margin-bottom: var(--space-md);">
                 This is why Module 2 (Hormonal Foundations) precedes all other
                 pillar deep-dives. Understanding this cascade informs every
                 subsequent clinical decision.
               </p>
 
-              <div class="clinical-note clinical-note--alert" style="margin-top: var(--space-lg);">
+              <div class="clinical-note clinical-note--alert" style="margin-top: 0;">
                 <strong>Clinical Pearl:</strong> The "window of opportunity" for
                 hormone therapy initiation (within 10 years of menopause or
-                before age 60) exists precisely because early intervention
-                can prevent downstream cascading damage across multiple pillars.
+                before age 60) exists because early intervention prevents
+                cascading damage across multiple pillars.
               </div>
             </div>
           </div>
@@ -772,49 +779,49 @@
         <h2>Applying the Framework</h2>
         <p>A systematic approach to every patient encounter.</p>
 
-        <div class="split" style="margin-top: var(--space-xl);">
+        <div class="split" style="margin-top: var(--space-md);">
           <div>
-            <div class="icon-row" style="flex-direction: column; gap: var(--space-md);">
-              <div class="glass-panel fragment fade-up" style="padding: var(--space-md) var(--space-lg);">
-                <h3 style="margin-bottom: var(--space-xs); font-size: 1.15em;">Step 1: Comprehensive Assessment</h3>
-                <p style="margin:0; font-size:0.85em;">Full lab panel + symptom mapping across all 6 pillars. No pillar is skipped.</p>
+            <div class="icon-row" style="flex-direction: column; gap: var(--space-sm);">
+              <div class="glass-panel fragment fade-up" style="padding: var(--space-sm) var(--space-lg);">
+                <h3 style="margin-bottom: 2px; font-size: 1.1em;">Step 1: Comprehensive Assessment</h3>
+                <p style="margin:0; font-size:0.82em;">Full lab panel + symptom mapping across all 6 pillars.</p>
               </div>
-              <div class="glass-panel fragment fade-up" style="padding: var(--space-md) var(--space-lg);">
-                <h3 style="margin-bottom: var(--space-xs); font-size: 1.15em;">Step 2: Root Cause Identification</h3>
-                <p style="margin:0; font-size:0.85em;">Trace symptoms upstream. Which pillar is the primary driver?</p>
+              <div class="glass-panel fragment fade-up" style="padding: var(--space-sm) var(--space-lg);">
+                <h3 style="margin-bottom: 2px; font-size: 1.1em;">Step 2: Root Cause Identification</h3>
+                <p style="margin:0; font-size:0.82em;">Trace symptoms upstream. Which pillar is the primary driver?</p>
               </div>
-              <div class="glass-panel fragment fade-up" style="padding: var(--space-md) var(--space-lg);">
-                <h3 style="margin-bottom: var(--space-xs); font-size: 1.15em;">Step 3: Prioritized Protocol</h3>
-                <p style="margin:0; font-size:0.85em;">Address the root cause first. Downstream improvements often follow without direct intervention.</p>
+              <div class="glass-panel fragment fade-up" style="padding: var(--space-sm) var(--space-lg);">
+                <h3 style="margin-bottom: 2px; font-size: 1.1em;">Step 3: Prioritized Protocol</h3>
+                <p style="margin:0; font-size:0.82em;">Address root cause first. Downstream improvements often follow.</p>
               </div>
-              <div class="glass-panel fragment fade-up" style="padding: var(--space-md) var(--space-lg);">
-                <h3 style="margin-bottom: var(--space-xs); font-size: 1.15em;">Step 4: Monitor & Iterate</h3>
-                <p style="margin:0; font-size:0.85em;">Retest at 8-12 weeks. Reassess all pillars — improvement in one often cascades.</p>
+              <div class="glass-panel fragment fade-up" style="padding: var(--space-sm) var(--space-lg);">
+                <h3 style="margin-bottom: 2px; font-size: 1.1em;">Step 4: Monitor & Iterate</h3>
+                <p style="margin:0; font-size:0.82em;">Retest at 8-12 weeks. Improvement in one pillar often cascades.</p>
               </div>
             </div>
           </div>
           <div>
-            <div class="glass-panel glass-panel--accent">
-              <h3>Returning to Sarah M.</h3>
-              <p style="font-size:0.95em;">
+            <div class="glass-panel glass-panel--accent" style="padding: var(--space-lg);">
+              <h3 style="margin-bottom: var(--space-xs);">Returning to Sarah M.</h3>
+              <p style="font-size:0.88em; margin-bottom: var(--space-sm);">
                 Applying our framework to Sarah's case:
               </p>
-              <ul style="list-style: none; padding: 0; font-size: 0.9em; color: var(--text-secondary);">
-                <li style="padding: 6px 0; border-bottom: 1px solid var(--color-border);">
+              <ul style="list-style: none; padding: 0; font-size: 0.85em; color: var(--text-secondary);">
+                <li style="padding: 5px 0; border-bottom: 1px solid var(--color-border);">
                   <span class="badge badge--danger">Root Cause</span>
                   Estradiol 12 pg/mL — severe deficiency driving multi-system decline
                 </li>
-                <li style="padding: 6px 0; border-bottom: 1px solid var(--color-border);">
+                <li style="padding: 5px 0; border-bottom: 1px solid var(--color-border);">
                   <span class="badge badge--accent">Priority 1</span>
                   Hormone replacement: transdermal E2 + micronized progesterone
                 </li>
-                <li style="padding: 6px 0; border-bottom: 1px solid var(--color-border);">
+                <li style="padding: 5px 0; border-bottom: 1px solid var(--color-border);">
                   <span class="badge badge--primary">Priority 2</span>
-                  Vitamin D repletion: 10,000 IU/day x 8 weeks, then 5,000 IU maintenance
+                  Vitamin D repletion: 10,000 IU/day x 8 weeks, then maintenance
                 </li>
-                <li style="padding: 6px 0;">
+                <li style="padding: 5px 0;">
                   <span class="badge badge--success">Expected</span>
-                  Downstream improvements in insulin sensitivity, inflammation, cognition, sleep
+                  Downstream improvements in insulin sensitivity, inflammation, cognition
                 </li>
               </ul>
             </div>
@@ -861,13 +868,13 @@
           </div>
         </div>
 
-        <div style="text-align: center; margin-top: var(--space-xl);" class="fragment fade-up">
+        <div style="text-align: center; margin-top: var(--space-lg); width: 100%;" class="fragment fade-up">
           <p style="color: var(--color-primary); font-weight: 500; font-size: 1.05em; font-family: var(--font-heading); margin: 0 auto var(--space-md);">
-            Next: Hormonal Foundations — Deep-diving into the master regulator
+            Next Module: Hormonal Foundations — Deep-diving into the master regulator
           </p>
           <div class="deck-nav">
             <a href="../../" class="deck-nav__link">← Course Home</a>
-            <span class="badge badge--accent" style="padding: 6px 16px;">Module 02 — Coming Soon</span>
+            <a href="../../" class="deck-nav__link deck-nav__link--primary">Module 02 →</a>
           </div>
         </div>
 

@@ -20,6 +20,14 @@
     /* Slide base */
     .reveal .slides section {
       background-color: var(--color-base);
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: flex-start !important;
+    }
+    .reveal .slides section > div,
+    .reveal .slides section > .split,
+    .reveal .slides section > .kpi-grid {
+      width: 100%;
     }
     .reveal .slide-background {
       background-color: var(--color-base);
