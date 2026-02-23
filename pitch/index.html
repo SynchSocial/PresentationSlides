@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Course Pitch — Women's Longevity Medicine</title>
+  <title>The Women's Longevity Method — Pitch Deck</title>
 
   <!-- Reveal.js 5.x -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
@@ -17,328 +17,687 @@
   <script src="https://unpkg.com/@lottiefiles/lottie-player@2.0.8/dist/lottie-player.js"></script>
 
   <style>
-    .reveal .slides section { background-color: var(--color-base); }
-    .reveal .slide-background { background-color: var(--color-base); }
-
-    .pitch-stat {
-      text-align: center;
-      padding: var(--space-xl);
+    /* Slide base */
+    .reveal .slides section {
+      background-color: var(--color-base);
+    }
+    .reveal .slide-background {
+      background-color: var(--color-base);
     }
 
-    .pitch-stat__number {
+    /* Hero glow effects */
+    .hero-glow {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .hero-glow--rose  { background: rgba(201, 122, 138, 0.1); width: 600px; height: 600px; top: -200px; right: -100px; }
+    .hero-glow--blue  { background: rgba(138, 180, 200, 0.06); width: 500px; height: 500px; bottom: -200px; left: -100px; }
+    .hero-glow--bronze { background: rgba(166, 135, 95, 0.06); width: 400px; height: 400px; top: 40%; left: 60%; }
+
+    /* Pitch-specific stat highlight */
+    .stat-highlight {
       font-family: var(--font-heading);
-      font-size: 4em;
+      font-size: 3.5em;
+      font-weight: 400;
       line-height: 1;
-      background: linear-gradient(135deg, var(--color-primary), #5eead4);
+      background: linear-gradient(135deg, rgba(255, 250, 245, 0.95), var(--color-primary));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
 
-    .pitch-stat__label {
-      font-size: 0.95em;
-      color: var(--text-muted);
-      margin-top: 8px;
-    }
-
-    .pricing-card {
-      text-align: center;
-      padding: var(--space-2xl);
-      background: rgba(30,41,59,0.6);
-      backdrop-filter: blur(20px);
-      border: 2px solid rgba(20,184,166,0.3);
-      border-radius: var(--radius-lg);
-      box-shadow: 0 0 40px rgba(20,184,166,0.15);
-      max-width: 420px;
-      margin: 0 auto;
-    }
-
-    .pricing-card__price {
-      font-family: var(--font-heading);
-      font-size: 3.5em;
-      color: var(--text-primary);
-      line-height: 1;
-    }
-
-    .pricing-card__period {
-      font-size: 0.9em;
-      color: var(--text-muted);
-      margin-bottom: var(--space-lg);
-    }
-
-    .pricing-card__features {
+    /* Problem/Gap list items */
+    .problem-list {
       list-style: none;
       padding: 0;
-      text-align: left;
-      margin: var(--space-lg) 0;
+      margin: 0;
     }
 
-    .pricing-card__features li {
-      padding: 8px 0;
-      border-bottom: 1px solid var(--color-border);
+    .problem-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(212, 175, 165, 0.08);
+      font-size: 1em;
       color: var(--text-secondary);
-      font-size: 0.9em;
     }
 
-    .pricing-card__features li::before {
-      content: '\2713';
+    .problem-list li:last-child {
+      border-bottom: none;
+    }
+
+    .problem-list .marker {
       color: var(--color-primary);
-      font-weight: 700;
-      margin-right: 10px;
+      font-size: 0.9em;
+      flex-shrink: 0;
+      margin-top: 2px;
     }
 
-    .testimonial {
-      font-family: var(--font-heading);
-      font-size: 1.6em;
-      color: var(--text-primary);
-      line-height: 1.4;
+    .problem-list .marker--bronze {
+      color: var(--color-accent);
+    }
+
+    /* Shift diagram */
+    .shift-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-2xl);
+      margin-top: var(--space-2xl);
+    }
+
+    .shift-box {
+      padding: var(--space-xl) var(--space-2xl);
+      border-radius: var(--radius-lg);
       text-align: center;
-      max-width: 36ch;
-      margin: 0 auto;
+      min-width: 260px;
     }
 
-    .testimonial__author {
-      font-family: var(--font-body);
-      font-size: 0.5em;
-      color: var(--text-muted);
-      margin-top: var(--space-lg);
-      font-style: normal;
+    .shift-box--from {
+      background: rgba(201, 106, 106, 0.08);
+      border: 1px solid rgba(201, 106, 106, 0.2);
     }
 
-    .value-grid {
+    .shift-box--to {
+      background: rgba(125, 186, 142, 0.08);
+      border: 1px solid rgba(125, 186, 142, 0.2);
+    }
+
+    .shift-arrow {
+      font-size: 2em;
+      color: var(--color-primary);
+      opacity: 0.7;
+    }
+
+    /* Pillar visual grid */
+    .pillar-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: var(--space-lg);
       margin-top: var(--space-2xl);
     }
 
-    .value-item {
-      text-align: center;
+    .pillar-item {
+      position: relative;
       padding: var(--space-xl);
-      background: rgba(30,41,59,0.4);
-      border-radius: var(--radius-md);
+      background: rgba(30, 24, 26, 0.55);
       border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      text-align: center;
+      transition: border-color 0.35s ease, box-shadow 0.35s ease, transform 0.35s ease;
+      overflow: hidden;
     }
 
-    .value-item__icon {
-      font-size: 2.4em;
-      margin-bottom: var(--space-md);
+    .pillar-item::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 0%, rgba(201, 122, 138, 0.08) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.35s ease;
+      pointer-events: none;
     }
 
-    .value-item__title {
-      font-weight: 600;
-      font-size: 1.05em;
+    .pillar-item:hover,
+    .pillar-item.visible {
+      border-color: rgba(201, 122, 138, 0.2);
+      box-shadow: 0 0 30px rgba(201, 122, 138, 0.08);
+      transform: translateY(-2px);
+    }
+
+    .pillar-item:hover::before,
+    .pillar-item.visible::before {
+      opacity: 1;
+    }
+
+    .pillar-item__icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: rgba(201, 122, 138, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto var(--space-md);
+      color: var(--color-primary);
+    }
+
+    .pillar-item__title {
+      font-family: var(--font-heading);
+      font-size: 1.15em;
+      font-weight: 500;
       color: var(--text-primary);
-      margin-bottom: var(--space-sm);
+      margin-bottom: var(--space-xs);
     }
 
-    .value-item__desc {
-      font-size: 0.85em;
+    .pillar-item__desc {
+      font-size: 0.82em;
       color: var(--text-muted);
+      line-height: 1.45;
     }
 
-    .cta-button {
-      display: inline-block;
-      padding: 16px 40px;
-      background: var(--color-primary);
-      color: var(--color-base);
-      font-weight: 700;
-      font-size: 1.1em;
-      border-radius: 10px;
-      text-decoration: none;
+    /* Learning outcome grid */
+    .outcome-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-md);
       margin-top: var(--space-xl);
-      box-shadow: 0 0 30px rgba(20,184,166,0.3);
+    }
+
+    .outcome-item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-md);
+      padding: var(--space-lg);
+      background: rgba(30, 24, 26, 0.45);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--color-border);
+      transition: border-color 0.3s ease;
+    }
+
+    .outcome-item:hover {
+      border-color: rgba(201, 122, 138, 0.15);
+    }
+
+    .outcome-item__marker {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: rgba(201, 122, 138, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--color-primary);
+      font-size: 0.8em;
+    }
+
+    .outcome-item__text {
+      font-size: 0.95em;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* Results deliverable list */
+    .results-list {
+      list-style: none;
+      padding: 0;
+      margin: var(--space-xl) 0 0 0;
+      max-width: 500px;
+    }
+
+    .results-list li {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 20px;
+      background: rgba(30, 24, 26, 0.45);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      margin-bottom: var(--space-sm);
+      transition: border-color 0.3s ease, background 0.3s ease;
+    }
+
+    .results-list li:hover {
+      border-color: rgba(201, 122, 138, 0.2);
+      background: rgba(201, 122, 138, 0.04);
+    }
+
+    .results-list .check {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(201, 122, 138, 0.3), rgba(166, 135, 95, 0.2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--color-primary);
+      font-size: 0.75em;
+    }
+
+    .results-list li span {
+      font-size: 1em;
+      color: var(--text-secondary);
+    }
+
+    /* Invitation quote */
+    .invitation-quote {
+      font-family: var(--font-heading);
+      font-size: 1.7em;
+      font-weight: 400;
+      color: var(--text-primary);
+      text-align: center;
+      max-width: 32ch;
+      margin: 0 auto;
+      line-height: 1.4;
+      letter-spacing: 0.02em;
+    }
+
+    .invitation-body {
+      font-size: 1.1em;
+      color: var(--text-secondary);
+      text-align: center;
+      max-width: 50ch;
+      margin: var(--space-lg) auto 0;
+      line-height: 1.65;
+    }
+
+    /* CTA button */
+    .cta-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 18px 40px;
+      background: linear-gradient(135deg, #c97a8a 0%, #9a5a6a 100%);
+      color: rgba(255, 250, 245, 0.95);
+      font-weight: 500;
+      font-size: 1.05em;
+      border-radius: 28px;
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      margin-top: var(--space-xl);
+      box-shadow: 0 8px 28px rgba(201, 122, 138, 0.25),
+                  0 1px 0 rgba(255, 255, 255, 0.12) inset,
+                  0 -2px 0 rgba(0, 0, 0, 0.2) inset;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                  box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-button::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+      animation: buttonShimmer 3s ease-in-out infinite;
+      transform: skewX(-20deg);
+    }
+
+    .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(201, 122, 138, 0.35);
+    }
+
+    @keyframes buttonShimmer {
+      0% { left: -100%; }
+      100% { left: 200%; }
+    }
+
+    /* Ornate section divider */
+    .ornate-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin: var(--space-lg) 0;
+    }
+
+    .ornate-divider__line--left {
+      height: 1px;
+      width: 50px;
+      background: linear-gradient(90deg, transparent, rgba(139, 109, 76, 0.4));
+    }
+
+    .ornate-divider__line--right {
+      height: 1px;
+      width: 50px;
+      background: linear-gradient(90deg, rgba(139, 109, 76, 0.4), transparent);
+    }
+
+    .ornate-divider__dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: rgba(201, 122, 138, 0.5);
+      box-shadow: 0 0 8px rgba(201, 122, 138, 0.3);
+    }
+
+    /* Starry background for Reveal.js */
+    .starry-bg-reveal {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .starry-bg-reveal .star {
+      position: absolute;
+      border-radius: 50%;
+      animation: twinkle ease-in-out infinite;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.2; transform: scale(1); }
+      50%      { opacity: 0.8; transform: scale(1.2); }
     }
   </style>
 </head>
 <body>
+  <!-- Starry Background Layer -->
+  <div class="starry-bg-reveal" id="starry-bg"></div>
+
   <div class="reveal">
     <div class="slides">
 
-      <!-- Slide 1: Title -->
-      <section data-background-color="#0f172a">
+      <!-- ============ SLIDE 1: Title ============ -->
+      <section data-background-color="#120e10">
+        <div class="hero-glow hero-glow--rose"></div>
+        <div class="hero-glow hero-glow--blue"></div>
         <div class="module-title">
-          <div class="module-title__number">Paid CME Course</div>
-          <h1 class="module-title__heading">Women's Longevity Medicine</h1>
-          <p class="module-title__subtitle">
-            A 12-week evidence-based clinical education program for physicians
-            and nurse practitioners ready to lead in longevity medicine.
+          <div class="module-title__number">A Systems-Based Clinical Curriculum</div>
+          <h1 class="module-title__heading">The Women's Longevity Method</h1>
+          <div class="ornate-divider">
+            <div class="ornate-divider__line--left"></div>
+            <div class="ornate-divider__dot"></div>
+            <div class="ornate-divider__line--right"></div>
+          </div>
+          <p class="module-title__subtitle" style="max-width: 46ch;">
+            Beyond Hormone Prescribing
           </p>
         </div>
+
+        <aside class="notes">
+          Opening slide. Set the tone: this is not another HRT webinar.
+          This is a systems-level approach to extending women's healthspan.
+        </aside>
       </section>
 
-      <!-- Slide 2: The Opportunity -->
-      <section data-background-color="#0f172a" class="bg-gradient">
-        <h2>The Market Opportunity</h2>
-        <p>Longevity medicine is the fastest-growing specialty in healthcare.</p>
+      <!-- ============ SLIDE 2: The Problem ============ -->
+      <section data-background-color="#120e10" class="bg-gradient">
+        <h2>The Problem</h2>
+        <p>The landscape of women's health is shifting — but clinical practice hasn't kept up.</p>
 
-        <div class="kpi-grid" style="margin-top: var(--space-2xl);">
-          <div class="pitch-stat kpi-card fragment fade-up">
-            <div class="pitch-stat__number">$44B</div>
-            <div class="pitch-stat__label">Global longevity market by 2030</div>
-          </div>
-          <div class="pitch-stat kpi-card fragment fade-up">
-            <div class="pitch-stat__number">78%</div>
-            <div class="pitch-stat__label">of patients want proactive care</div>
-          </div>
-          <div class="pitch-stat kpi-card fragment fade-up">
-            <div class="pitch-stat__number">13.7yr</div>
-            <div class="pitch-stat__label">healthspan gap in women</div>
-          </div>
-        </div>
-
-        <div class="clinical-note fragment fade-up" style="margin-top: var(--space-xl);">
-          <strong>The gap:</strong> Patients are demanding longevity-focused care,
-          but most providers lack structured training. This course fills that gap
-          with a systematic, evidence-based framework.
-        </div>
-      </section>
-
-      <!-- Slide 3: What You'll Learn -->
-      <section data-background-color="#0f172a">
-        <h2>Curriculum Overview</h2>
-        <p>12 modules covering every dimension of women's healthspan optimization.</p>
-
-        <div class="value-grid fragment fade-up">
-          <div class="value-item">
-            <div class="value-item__icon">&#x1F9EC;</div>
-            <div class="value-item__title">Hormonal Mastery</div>
-            <div class="value-item__desc">HRT protocols, bioidentical hormones, monitoring strategies</div>
-          </div>
-          <div class="value-item">
-            <div class="value-item__icon">&#x1F4CA;</div>
-            <div class="value-item__title">Lab Interpretation</div>
-            <div class="value-item__desc">Optimal vs. reference ranges, comprehensive panels, pattern recognition</div>
-          </div>
-          <div class="value-item">
-            <div class="value-item__icon">&#x1F3AF;</div>
-            <div class="value-item__title">Clinical Frameworks</div>
-            <div class="value-item__desc">6-pillar model, systematic assessment, treatment prioritization</div>
-          </div>
-          <div class="value-item">
-            <div class="value-item__icon">&#x1F9E0;</div>
-            <div class="value-item__title">Multi-System Integration</div>
-            <div class="value-item__desc">Metabolic, cardiovascular, cognitive, immune, and musculoskeletal health</div>
-          </div>
-          <div class="value-item">
-            <div class="value-item__icon">&#x1F4DD;</div>
-            <div class="value-item__title">Case-Based Learning</div>
-            <div class="value-item__desc">Real patient cases with step-by-step clinical decision-making</div>
-          </div>
-          <div class="value-item">
-            <div class="value-item__icon">&#x1F4BC;</div>
-            <div class="value-item__title">Practice Building</div>
-            <div class="value-item__desc">Position your practice for the growing longevity market</div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Slide 4: Testimonial / Social Proof -->
-      <section data-background-color="#0f172a" class="bg-gradient">
-        <div style="display: flex; align-items: center; justify-content: center; min-height: 60vh;">
-          <div>
-            <div class="testimonial fragment fade-up">
-              "This course transformed how I practice medicine. The 6-pillar framework
-              gave me a systematic approach I use with every patient over 40."
-            </div>
-            <div class="testimonial__author fragment fade-up" style="text-align:center; margin-top: var(--space-lg); color: var(--text-muted);">
-              &mdash; Dr. Jennifer K., Internal Medicine, Chicago
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Slide 5: Course Format -->
-      <section data-background-color="#0f172a">
-        <h2>Course Format</h2>
-        <p>Designed for busy clinicians who need flexible, high-quality education.</p>
-
-        <div class="split" style="margin-top: var(--space-2xl);">
-          <div>
-            <div class="glass-panel glass-panel--accent">
-              <h3>What's Included</h3>
-              <div class="timeline">
-                <div class="timeline__item fragment fade-up">
-                  <div class="timeline__label">12 Video Modules</div>
-                  <div class="timeline__content">45-60 minute cinematic presentations with clinical animations</div>
-                </div>
-                <div class="timeline__item fragment fade-up">
-                  <div class="timeline__label">Interactive Slides</div>
-                  <div class="timeline__content">Access the full web-based slide decks with animated data visualizations</div>
-                </div>
-                <div class="timeline__item fragment fade-up">
-                  <div class="timeline__label">Case Study Library</div>
-                  <div class="timeline__content">12+ detailed patient cases with lab panels and treatment protocols</div>
-                </div>
-                <div class="timeline__item fragment fade-up">
-                  <div class="timeline__label">PDF Handouts</div>
-                  <div class="timeline__content">Downloadable reference guides, lab interpretation cheat sheets</div>
-                </div>
-                <div class="timeline__item fragment fade-up">
-                  <div class="timeline__label">CME Credits</div>
-                  <div class="timeline__content">Up to 20 hours of Category 1 CME credit</div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="split" style="margin-top: var(--space-xl);">
           <div>
             <div class="glass-panel">
-              <h3>Learning Experience</h3>
-              <p style="font-size: 0.95em;">
-                Every module features premium animated slides with clinical data
-                visualizations, interactive lab panels, and case-based learning
-                that makes complex concepts intuitive.
-              </p>
-              <p style="font-size: 0.95em;">
-                Self-paced access with lifetime updates. Complete on your schedule —
-                on desktop, tablet, or mobile.
-              </p>
-
-              <div class="clinical-note" style="margin-top: var(--space-lg);">
-                <strong>Note:</strong> All clinical content is evidence-based and
-                peer-reviewed. References provided for every module.
+              <h3>Women Are</h3>
+              <ul class="problem-list">
+                <li><span class="marker">▸</span> Living longer</li>
+                <li><span class="marker">▸</span> Developing metabolic disease earlier</li>
+                <li><span class="marker">▸</span> Losing muscle sooner</li>
+                <li><span class="marker">▸</span> Experiencing hormone resistance</li>
+              </ul>
+            </div>
+          </div>
+          <div>
+            <div class="glass-panel glass-panel--alert">
+              <h3 style="color: var(--color-accent);">Clinicians Are</h3>
+              <ul class="problem-list">
+                <li><span class="marker marker--bronze">▸</span> Prescribing HRT</li>
+                <li><span class="marker marker--bronze">▸</span> Adding peptides</li>
+                <li><span class="marker marker--bronze">▸</span> Chasing symptoms</li>
+              </ul>
+              <div class="clinical-note" style="margin-top: var(--space-lg); border-left-color: var(--color-accent);">
+                <strong>But missing the system.</strong>
               </div>
             </div>
           </div>
         </div>
+
+        <aside class="notes">
+          Frame the disconnect between patient reality and clinical response.
+          Providers are doing good things — HRT, peptides — but without a
+          systems framework, they're treating downstream instead of upstream.
+        </aside>
       </section>
 
-      <!-- Slide 6: Pricing -->
-      <section data-background-color="#0f172a" class="bg-gradient">
-        <h2 style="text-align: center;">Investment in Your Practice</h2>
-        <p style="text-align: center;">One enrollment. Lifetime access. Continuous updates.</p>
+      <!-- ============ SLIDE 3: The Gap ============ -->
+      <section data-background-color="#120e10" class="bg-gradient--warm">
+        <h2>The Gap</h2>
+        <p>Hormones optimize tissue response. But if the terrain is compromised, they fail.</p>
 
-        <div class="pricing-card fragment scale-in" style="margin-top: var(--space-2xl);">
-          <div class="badge badge--primary" style="margin-bottom: var(--space-md);">Most Popular</div>
-          <div class="pricing-card__price">$1,997</div>
-          <div class="pricing-card__period">One-time investment &mdash; lifetime access</div>
-          <ul class="pricing-card__features">
-            <li>All 12 video modules + interactive slides</li>
-            <li>Complete case study library</li>
-            <li>Downloadable PDF handouts & protocols</li>
-            <li>Up to 20 CME credits</li>
-            <li>Lifetime updates as new evidence emerges</li>
-            <li>Private community access</li>
+        <div class="glass-panel glass-panel--accent" style="margin-top: var(--space-2xl); max-width: 700px;">
+          <h3 style="text-align: center; margin-bottom: var(--space-lg);">When This Is True</h3>
+
+          <div class="kpi-grid" style="grid-template-columns: repeat(2, 1fr);">
+            <div class="kpi-card kpi-card--warning fragment fade-up">
+              <div class="kpi-card__label">Insulin</div>
+              <div class="kpi-card__value status-warning">Elevated</div>
+            </div>
+            <div class="kpi-card kpi-card--critical fragment fade-up">
+              <div class="kpi-card__label">Inflammation</div>
+              <div class="kpi-card__value status-critical">High</div>
+            </div>
+            <div class="kpi-card kpi-card--warning fragment fade-up">
+              <div class="kpi-card__label">Gut Function</div>
+              <div class="kpi-card__value status-warning">Dysfunctional</div>
+            </div>
+            <div class="kpi-card kpi-card--critical fragment fade-up">
+              <div class="kpi-card__label">Muscle Mass</div>
+              <div class="kpi-card__value status-critical">Low</div>
+            </div>
+          </div>
+
+          <div class="ornate-divider" style="margin: var(--space-xl) 0 var(--space-md);">
+            <div class="ornate-divider__line--left" style="width: 80px;"></div>
+            <div class="ornate-divider__dot"></div>
+            <div class="ornate-divider__line--right" style="width: 80px;"></div>
+          </div>
+
+          <p style="text-align: center; font-size: 1.2em; color: var(--color-primary); font-family: var(--font-heading); font-weight: 500; margin: 0;" class="fragment fade-up">
+            Hormones fail.
+          </p>
+        </div>
+
+        <aside class="notes">
+          This is the core insight that differentiates this curriculum.
+          HRT is necessary but insufficient. The biochemical terrain must
+          support hormone signaling — or hormones simply don't work optimally.
+        </aside>
+      </section>
+
+      <!-- ============ SLIDE 4: The Shift ============ -->
+      <section data-background-color="#120e10">
+        <h2>The Shift</h2>
+        <p>A fundamental reframe in how clinicians approach women's longevity.</p>
+
+        <div class="shift-container">
+          <div class="shift-box shift-box--from fragment fade-up">
+            <p style="color: var(--color-danger); font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: var(--space-sm);">Current Model</p>
+            <p style="font-family: var(--font-heading); font-size: 1.5em; color: var(--text-primary); margin: 0;">
+              Symptom → Prescription
+            </p>
+          </div>
+
+          <div class="shift-arrow fragment fade-up">→</div>
+
+          <div class="shift-box shift-box--to fragment fade-up">
+            <p style="color: var(--color-success); font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: var(--space-sm);">Longevity Model</p>
+            <p style="font-family: var(--font-heading); font-size: 1.5em; color: var(--text-primary); margin: 0;">
+              System → Optimization → Longevity
+            </p>
+          </div>
+        </div>
+
+        <div class="clinical-note fragment fade-up" style="margin-top: var(--space-2xl); max-width: 650px;">
+          <strong>Key Insight:</strong> When you optimize the system first, hormones work better,
+          peptides are more effective, and outcomes compound over time. The order matters.
+        </div>
+
+        <aside class="notes">
+          This slide captures the paradigm shift. Move from reactive
+          symptom management to proactive systems optimization.
+          Emphasize that this isn't anti-HRT — it's pro-optimization.
+        </aside>
+      </section>
+
+      <!-- ============ SLIDE 5: The 6 Pillars Model ============ -->
+      <section data-background-color="#120e10" class="bg-gradient">
+        <h2 style="text-align: center;">The 6-Pillar Longevity Model</h2>
+        <p style="text-align: center;">Six interconnected systems that determine healthspan in women.</p>
+
+        <div class="pillar-grid">
+          <div class="pillar-item fragment fade-up">
+            <div class="pillar-item__icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v20M8 6l4-4 4 4M8 18l4 4 4-4"/></svg>
+            </div>
+            <div class="pillar-item__title">Hormonal Balance</div>
+            <div class="pillar-item__desc">The master regulator — estrogen, progesterone, testosterone, DHEA, and thyroid optimization</div>
+          </div>
+          <div class="pillar-item fragment fade-up">
+            <div class="pillar-item__icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 12h4l3-9 4 18 3-9h4"/></svg>
+            </div>
+            <div class="pillar-item__title">Metabolic Health</div>
+            <div class="pillar-item__desc">Insulin sensitivity, glucose regulation, metabolic flexibility, and body composition</div>
+          </div>
+          <div class="pillar-item fragment fade-up">
+            <div class="pillar-item__icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </div>
+            <div class="pillar-item__title">Cardiovascular</div>
+            <div class="pillar-item__desc">Lipid optimization, endothelial function, and post-menopausal CV risk reduction</div>
+          </div>
+          <div class="pillar-item fragment fade-up">
+            <div class="pillar-item__icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="2" width="12" height="20" rx="2"/><circle cx="12" cy="12" r="4"/></svg>
+            </div>
+            <div class="pillar-item__title">Musculoskeletal</div>
+            <div class="pillar-item__desc">Sarcopenia prevention, bone density preservation, and functional strength optimization</div>
+          </div>
+          <div class="pillar-item fragment fade-up">
+            <div class="pillar-item__icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            </div>
+            <div class="pillar-item__title">Neurocognitive</div>
+            <div class="pillar-item__desc">Neuroprotection, brain glucose metabolism, and hormonal influences on cognition</div>
+          </div>
+          <div class="pillar-item fragment fade-up">
+            <div class="pillar-item__icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l8 4v5c0 5-3.5 9.5-8 11-4.5-1.5-8-6-8-11V7l8-4z"/></svg>
+            </div>
+            <div class="pillar-item__title">Immune & Gut</div>
+            <div class="pillar-item__desc">Microbiome health, estrobolome, mucosal immunity, and systemic inflammation</div>
+          </div>
+        </div>
+
+        <aside class="notes">
+          Present each pillar at high level. The key message: no pillar
+          operates in isolation. The hormonal pillar is the master regulator,
+          but it depends on all the others for effective signaling.
+        </aside>
+      </section>
+
+      <!-- ============ SLIDE 6: What Clinicians Learn ============ -->
+      <section data-background-color="#120e10">
+        <h2>What Clinicians Learn</h2>
+        <p>Practical clinical skills across every dimension of women's longevity.</p>
+
+        <div class="outcome-grid">
+          <div class="outcome-item fragment fade-up">
+            <div class="outcome-item__marker">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 16l4-8 4 6 5-10"/></svg>
+            </div>
+            <div class="outcome-item__text">Interpret advanced metabolic labs beyond standard panels</div>
+          </div>
+          <div class="outcome-item fragment fade-up">
+            <div class="outcome-item__marker">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 4v5c0 5-3.5 9.5-8 11-4.5-1.5-8-6-8-11V7l8-4z"/></svg>
+            </div>
+            <div class="outcome-item__text">Build gut-hormone integration plans that enhance HRT efficacy</div>
+          </div>
+          <div class="outcome-item fragment fade-up">
+            <div class="outcome-item__marker">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="2" width="12" height="20" rx="2"/></svg>
+            </div>
+            <div class="outcome-item__text">Optimize muscle and bone with evidence-based protocols</div>
+          </div>
+          <div class="outcome-item fragment fade-up">
+            <div class="outcome-item__marker">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3h6v5l4 9a2 2 0 01-2 3H7a2 2 0 01-2-3l4-9V3z"/></svg>
+            </div>
+            <div class="outcome-item__text">Use peptides strategically within a systems framework</div>
+          </div>
+          <div class="outcome-item fragment fade-up" style="grid-column: 1 / -1; max-width: 480px; margin: 0 auto;">
+            <div class="outcome-item__marker">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12c2-4 4-6 6-2s4 4 6 0 4-4 6 0"/></svg>
+            </div>
+            <div class="outcome-item__text">Build a scalable longevity medicine model for your practice</div>
+          </div>
+        </div>
+
+        <aside class="notes">
+          These five learning outcomes map to practical skills clinicians
+          can use immediately. Each module delivers concrete tools,
+          not just theoretical frameworks.
+        </aside>
+      </section>
+
+      <!-- ============ SLIDE 7: Outcomes ============ -->
+      <section data-background-color="#120e10" class="bg-gradient--warm">
+        <h2>Outcomes</h2>
+        <p>Clinicians leave with everything needed to transform their practice.</p>
+
+        <div style="display: flex; justify-content: center; margin-top: var(--space-xl);">
+          <ul class="results-list">
+            <li class="fragment fade-up">
+              <span class="check">✦</span>
+              <span>A structured, repeatable clinical framework</span>
+            </li>
+            <li class="fragment fade-up">
+              <span class="check">✦</span>
+              <span>Case-based experience across complex scenarios</span>
+            </li>
+            <li class="fragment fade-up">
+              <span class="check">✦</span>
+              <span>Practice implementation tools and protocols</span>
+            </li>
+            <li class="fragment fade-up">
+              <span class="check">✦</span>
+              <span>A community of like-minded providers</span>
+            </li>
           </ul>
-          <a href="#" class="cta-button">Enroll Now</a>
         </div>
+
+        <aside class="notes">
+          These are the concrete deliverables. Emphasize that clinicians
+          walk away with actionable tools — not just knowledge, but
+          implementation-ready frameworks and a support network.
+        </aside>
       </section>
 
-      <!-- Slide 7: CTA -->
-      <section data-background-color="#0f172a">
-        <div class="module-title">
-          <h1 class="module-title__heading" style="font-size: 2.6em;">
-            Ready to Lead in<br>Longevity Medicine?
-          </h1>
-          <p class="module-title__subtitle" style="max-width: 46ch;">
-            Join hundreds of physicians and NPs transforming their practice with
-            evidence-based longevity medicine education.
+      <!-- ============ SLIDE 8: Invitation ============ -->
+      <section data-background-color="#120e10">
+        <div class="hero-glow hero-glow--rose"></div>
+        <div class="hero-glow hero-glow--bronze"></div>
+        <div class="module-title" style="gap: var(--space-lg);">
+          <p class="invitation-quote fragment fade-up">
+            "This is not another HRT course."
           </p>
-          <a href="#" class="cta-button" style="margin-top: var(--space-2xl);">Start Your Journey &rarr;</a>
-          <p style="color: var(--text-muted); font-size: 0.85em; margin-top: var(--space-lg);">
-            30-day satisfaction guarantee &bull; Flexible payment plans available
+
+          <div class="ornate-divider fragment fade-up">
+            <div class="ornate-divider__line--left" style="width: 60px;"></div>
+            <div class="ornate-divider__dot"></div>
+            <div class="ornate-divider__line--right" style="width: 60px;"></div>
+          </div>
+
+          <p class="invitation-body fragment fade-up">
+            A systems-based, sex-specific longevity curriculum designed to extend women's
+            healthspan — not just manage menopause.
+          </p>
+
+          <a href="#" class="cta-button fragment fade-up">Begin the Journey →</a>
+
+          <p style="color: var(--text-muted); font-size: 0.85em; margin-top: var(--space-lg);" class="fragment fade-up">
+            Evidence-based ◆ CME Eligible ◆ Lifetime Access
           </p>
         </div>
+
+        <aside class="notes">
+          Close with conviction. This curriculum is different because it
+          addresses the root system, not just the hormonal layer.
+          Let the quote land before advancing to the CTA.
+        </aside>
       </section>
 
     </div>
@@ -353,6 +712,27 @@
   <script src="../assets/js/course-engine.js"></script>
 
   <script>
+    // Generate starry background
+    (function() {
+      var container = document.getElementById('starry-bg');
+      for (var i = 0; i < 100; i++) {
+        var star = document.createElement('div');
+        star.className = 'star';
+        var size = 0.3 + Math.random() * 1.2;
+        var opacity = 0.15 + Math.random() * 0.5;
+        star.style.cssText =
+          'left:' + (Math.random() * 100) + '%;' +
+          'top:' + (Math.random() * 100) + '%;' +
+          'width:' + size + 'px;' +
+          'height:' + size + 'px;' +
+          'background:rgba(255,250,245,' + opacity + ');' +
+          'animation-delay:' + (Math.random() * 5) + 's;' +
+          'animation-duration:' + (3 + Math.random() * 4) + 's;';
+        container.appendChild(star);
+      }
+    })();
+
+    // Initialize Reveal.js
     initCoursePresentation({
       center: true,
     });

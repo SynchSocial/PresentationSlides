@@ -6,31 +6,53 @@
   <title>Women's Longevity Medicine — 12-Week Course</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --color-base:    #0f172a;
-      --color-surface: #1e293b;
-      --color-border:  rgba(148,163,184,0.12);
-      --color-primary: #14b8a6;
-      --color-accent:  #f59e0b;
-      --color-success: #22c55e;
-      --color-info:    #3b82f6;
-      --text-primary:  #f1f5f9;
-      --text-secondary:#94a3b8;
-      --text-muted:    #64748b;
-      --font-heading:  'DM Serif Display', Georgia, serif;
+      --color-base:    #120e10;
+      --color-surface: #1e1a1c;
+      --color-border:  rgba(212, 175, 165, 0.1);
+      --color-primary: #c97a8a;
+      --color-accent:  #a6875f;
+      --color-success: #7dba8e;
+      --color-info:    #8ab4c8;
+      --text-primary:  rgba(255, 250, 245, 0.95);
+      --text-secondary:rgba(212, 175, 165, 0.7);
+      --text-muted:    rgba(212, 175, 165, 0.45);
+      --font-heading:  'Cormorant Garamond', Georgia, serif;
       --font-body:     'Inter', -apple-system, sans-serif;
     }
 
     body {
       font-family: var(--font-body);
-      background: var(--color-base);
+      background: linear-gradient(180deg, #120e10 0%, #1a1418 50%, #0d0b0a 100%);
       color: var(--text-primary);
       min-height: 100vh;
       line-height: 1.6;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Starry Background */
+    .starry-bg {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .star {
+      position: absolute;
+      border-radius: 50%;
+      animation: twinkle ease-in-out infinite;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.2; transform: scale(1); }
+      50%      { opacity: 0.8; transform: scale(1.2); }
     }
 
     /* Hero */
@@ -41,18 +63,18 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 100px 24px 80px;
+      padding: 120px 24px 80px;
       overflow: hidden;
+      z-index: 1;
     }
 
     .hero::before {
       content: '';
       position: absolute;
-      width: 800px; height: 800px;
+      width: 700px; height: 700px;
       border-radius: 50%;
-      background: var(--color-primary);
+      background: rgba(201, 122, 138, 0.07);
       filter: blur(180px);
-      opacity: 0.07;
       top: -300px; right: -200px;
       pointer-events: none;
     }
@@ -60,68 +82,103 @@
     .hero::after {
       content: '';
       position: absolute;
-      width: 600px; height: 600px;
+      width: 500px; height: 500px;
       border-radius: 50%;
-      background: var(--color-info);
+      background: rgba(138, 180, 200, 0.05);
       filter: blur(150px);
-      opacity: 0.05;
       bottom: -200px; left: -100px;
       pointer-events: none;
     }
 
     .hero__badge {
       display: inline-block;
-      padding: 4px 16px;
+      padding: 5px 18px;
       border-radius: 9999px;
-      font-size: 0.78em;
-      font-weight: 600;
-      letter-spacing: 0.08em;
+      font-size: 0.75em;
+      font-weight: 500;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      background: rgba(20,184,166,0.12);
+      background: rgba(201, 122, 138, 0.12);
       color: var(--color-primary);
-      border: 1px solid rgba(20,184,166,0.25);
-      margin-bottom: 24px;
+      border: 1px solid rgba(201, 122, 138, 0.25);
+      margin-bottom: 28px;
     }
 
     .hero__title {
       font-family: var(--font-heading);
       font-size: clamp(2.4em, 5vw, 4em);
+      font-weight: 400;
       background: linear-gradient(135deg, var(--text-primary), var(--color-primary));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
       margin-bottom: 16px;
       line-height: 1.15;
+      letter-spacing: 0.04em;
     }
 
     .hero__subtitle {
       font-size: 1.15em;
       color: var(--text-secondary);
       max-width: 54ch;
-      margin-bottom: 40px;
+      margin-bottom: 44px;
     }
 
     .hero__cta {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 14px 32px;
-      background: var(--color-primary);
-      color: var(--color-base);
-      font-weight: 600;
+      padding: 16px 36px;
+      background: linear-gradient(135deg, #c97a8a 0%, #9a5a6a 100%);
+      color: rgba(255, 250, 245, 0.95);
+      font-weight: 500;
       font-size: 1em;
-      border-radius: 8px;
+      border-radius: 28px;
       text-decoration: none;
-      transition: transform 0.2s, box-shadow 0.2s;
+      letter-spacing: 0.03em;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                  box-shadow 0.3s ease;
+      box-shadow: 0 8px 28px rgba(201, 122, 138, 0.25);
     }
 
     .hero__cta:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(20,184,166,0.3);
+      box-shadow: 0 12px 40px rgba(201, 122, 138, 0.35);
+    }
+
+    /* Ornate Divider */
+    .ornate-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin: 20px 0;
+    }
+
+    .ornate-divider__line--left {
+      height: 1px;
+      width: 50px;
+      background: linear-gradient(90deg, transparent, rgba(139, 109, 76, 0.4));
+    }
+
+    .ornate-divider__line--right {
+      height: 1px;
+      width: 50px;
+      background: linear-gradient(90deg, rgba(139, 109, 76, 0.4), transparent);
+    }
+
+    .ornate-divider__dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: rgba(201, 122, 138, 0.5);
+      box-shadow: 0 0 8px rgba(201, 122, 138, 0.3);
     }
 
     /* Module Grid */
     .modules-section {
+      position: relative;
+      z-index: 1;
       max-width: 1100px;
       margin: 0 auto;
       padding: 0 24px 80px;
@@ -130,7 +187,9 @@
     .section-title {
       font-family: var(--font-heading);
       font-size: 2em;
+      font-weight: 400;
       margin-bottom: 8px;
+      letter-spacing: 0.03em;
     }
 
     .section-subtitle {
@@ -145,44 +204,61 @@
     }
 
     .module-card {
+      position: relative;
       display: flex;
       align-items: flex-start;
       gap: 16px;
       padding: 24px;
-      background: rgba(30,41,59,0.5);
+      background: rgba(30, 24, 26, 0.55);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border: 1px solid var(--color-border);
-      border-radius: 12px;
+      border-radius: 16px;
       text-decoration: none;
       color: inherit;
-      transition: transform 0.25s cubic-bezier(0.16,1,0.3,1),
-                  box-shadow 0.25s cubic-bezier(0.16,1,0.3,1),
-                  border-color 0.25s;
+      transition: transform 0.35s cubic-bezier(0.16,1,0.3,1),
+                  box-shadow 0.35s cubic-bezier(0.16,1,0.3,1),
+                  border-color 0.35s ease;
+      overflow: hidden;
+    }
+
+    .module-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(circle at 30% 30%, rgba(201, 122, 138, 0.06) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.35s ease;
+      pointer-events: none;
     }
 
     .module-card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(0,0,0,0.3);
-      border-color: rgba(20,184,166,0.3);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(201, 122, 138, 0.08);
+      border-color: rgba(201, 122, 138, 0.25);
+    }
+
+    .module-card:hover::before {
+      opacity: 1;
     }
 
     .module-card--locked {
-      opacity: 0.5;
+      opacity: 0.45;
       pointer-events: none;
     }
 
     .module-card__num {
       font-family: var(--font-heading);
       font-size: 2em;
+      font-weight: 400;
       line-height: 1;
       color: var(--color-primary);
-      opacity: 0.5;
+      opacity: 0.45;
       min-width: 48px;
     }
 
     .module-card__title {
-      font-weight: 600;
+      font-weight: 500;
       font-size: 1.05em;
       margin-bottom: 4px;
     }
@@ -196,7 +272,7 @@
     .module-card__status {
       display: inline-block;
       margin-top: 8px;
-      padding: 2px 10px;
+      padding: 2px 12px;
       border-radius: 9999px;
       font-size: 0.7em;
       font-weight: 600;
@@ -204,11 +280,13 @@
       letter-spacing: 0.06em;
     }
 
-    .status--available { background: rgba(20,184,166,0.12); color: var(--color-primary); }
-    .status--coming    { background: rgba(148,163,184,0.1);  color: var(--text-muted); }
+    .status--available { background: rgba(201, 122, 138, 0.12); color: var(--color-primary); }
+    .status--coming    { background: rgba(212, 175, 165, 0.08);  color: var(--text-muted); }
 
     /* Footer */
     .footer {
+      position: relative;
+      z-index: 1;
       text-align: center;
       padding: 40px 24px;
       border-top: 1px solid var(--color-border);
@@ -219,6 +297,11 @@
     .footer a {
       color: var(--color-primary);
       text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .footer a:hover {
+      color: rgba(232, 180, 190, 0.9);
     }
 
     /* Pitch link */
@@ -228,17 +311,18 @@
       gap: 6px;
       margin-top: 16px;
       padding: 10px 24px;
-      border: 1px solid rgba(245,158,11,0.3);
-      border-radius: 8px;
+      border: 1px solid rgba(166, 135, 95, 0.25);
+      border-radius: 24px;
       color: var(--color-accent);
       text-decoration: none;
       font-weight: 500;
       font-size: 0.9em;
-      transition: background 0.2s, transform 0.2s;
+      transition: background 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
     }
 
     .pitch-link:hover {
-      background: rgba(245,158,11,0.08);
+      background: rgba(166, 135, 95, 0.08);
+      border-color: rgba(166, 135, 95, 0.4);
       transform: translateY(-1px);
     }
 
@@ -264,9 +348,22 @@
     .module-card:nth-child(10) { animation-delay: 0.50s; }
     .module-card:nth-child(11) { animation-delay: 0.55s; }
     .module-card:nth-child(12) { animation-delay: 0.60s; }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: rgba(18, 14, 16, 0.95); }
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, rgba(139, 109, 76, 0.5), rgba(100, 78, 55, 0.7), rgba(139, 109, 76, 0.5));
+      border-radius: 3px;
+      border: 1px solid rgba(139, 109, 76, 0.3);
+    }
+    * { scrollbar-width: thin; scrollbar-color: rgba(139, 109, 76, 0.6) rgba(18, 14, 16, 0.9); }
   </style>
 </head>
 <body>
+
+  <!-- Starry Background -->
+  <div class="starry-bg" id="starry-bg"></div>
 
   <header class="hero">
     <div class="hero__badge">12-Week CME Course</div>
@@ -275,8 +372,13 @@
       An evidence-based framework for optimizing healthspan — premium slide-based
       education for physicians and nurse practitioners.
     </p>
-    <a href="modules/module-01/" class="hero__cta">Begin Module 1 &rarr;</a>
-    <a href="pitch/" class="pitch-link">View Course Pitch Deck &rarr;</a>
+    <a href="modules/module-01/" class="hero__cta">Begin Module 1 →</a>
+    <div class="ornate-divider" style="margin-top: 28px;">
+      <div class="ornate-divider__line--left"></div>
+      <div class="ornate-divider__dot"></div>
+      <div class="ornate-divider__line--right"></div>
+    </div>
+    <a href="pitch/" class="pitch-link">View Course Pitch Deck →</a>
   </header>
 
   <main class="modules-section">
@@ -395,9 +497,31 @@
   </main>
 
   <footer class="footer">
-    <p>Women's Longevity Medicine &mdash; Premium Clinical Education</p>
-    <p style="margin-top: 8px;">Built with <a href="https://revealjs.com" target="_blank">Reveal.js</a> + GSAP + D3.js &mdash; Deployed on Netlify</p>
+    <p>Women's Longevity Medicine — Premium Clinical Education</p>
+    <p style="margin-top: 8px;">Built with <a href="https://revealjs.com" target="_blank">Reveal.js</a> + GSAP + D3.js — Deployed on Netlify</p>
   </footer>
+
+  <script>
+    // Generate starry background
+    (function() {
+      var container = document.getElementById('starry-bg');
+      for (var i = 0; i < 120; i++) {
+        var star = document.createElement('div');
+        star.className = 'star';
+        var size = 0.3 + Math.random() * 1.2;
+        var opacity = 0.15 + Math.random() * 0.5;
+        star.style.cssText =
+          'left:' + (Math.random() * 100) + '%;' +
+          'top:' + (Math.random() * 100) + '%;' +
+          'width:' + size + 'px;' +
+          'height:' + size + 'px;' +
+          'background:rgba(255,250,245,' + opacity + ');' +
+          'animation-delay:' + (Math.random() * 5) + 's;' +
+          'animation-duration:' + (3 + Math.random() * 4) + 's;';
+        container.appendChild(star);
+      }
+    })();
+  </script>
 
 </body>
 </html>

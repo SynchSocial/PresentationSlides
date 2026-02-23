@@ -352,7 +352,7 @@
 
       arcs.append('path')
         .attr('fill', d => d.data.color)
-        .attr('stroke', '#0f172a')
+        .attr('stroke', '#120e10')
         .attr('stroke-width', 2)
         .transition()
         .duration(1000)
@@ -365,7 +365,7 @@
       arcs.append('text')
         .attr('transform', d => `translate(${arc.centroid(d)})`)
         .attr('text-anchor', 'middle')
-        .attr('fill', '#f1f5f9')
+        .attr('fill', 'rgba(255, 250, 245, 0.95)')
         .attr('font-size', '12px')
         .attr('font-family', 'Inter, sans-serif')
         .attr('opacity', 0)
@@ -418,7 +418,7 @@
         .attr('width', width - margin.left - margin.right)
         .attr('height', y.bandwidth())
         .attr('rx', 4)
-        .attr('fill', 'rgba(148,163,184,0.08)');
+        .attr('fill', 'rgba(212, 175, 165, 0.06)');
 
       // Value bars — animated
       svg.selectAll('.bar-value')
@@ -430,7 +430,7 @@
         .attr('width', 0)
         .attr('height', y.bandwidth())
         .attr('rx', 4)
-        .attr('fill', d => d.color || '#14b8a6')
+        .attr('fill', d => d.color || '#c97a8a')
         .transition()
         .duration(1000)
         .delay((d, i) => i * 120)
@@ -446,7 +446,7 @@
         .attr('y', d => y(d.label) + y.bandwidth() / 2)
         .attr('text-anchor', 'end')
         .attr('dominant-baseline', 'middle')
-        .attr('fill', '#94a3b8')
+        .attr('fill', 'rgba(212, 175, 165, 0.7)')
         .attr('font-size', '13px')
         .attr('font-family', 'Inter, sans-serif')
         .text(d => d.label);
@@ -459,7 +459,7 @@
         .attr('x', d => x(d.value) + 6)
         .attr('y', d => y(d.label) + y.bandwidth() / 2)
         .attr('dominant-baseline', 'middle')
-        .attr('fill', '#f1f5f9')
+        .attr('fill', 'rgba(255, 250, 245, 0.95)')
         .attr('font-size', '13px')
         .attr('font-weight', '600')
         .attr('font-family', 'Inter, sans-serif')
@@ -482,7 +482,7 @@
 
       const width = opts.width || 120;
       const height = opts.height || 40;
-      const color = opts.color || '#14b8a6';
+      const color = opts.color || '#c97a8a';
       const strokeWidth = opts.strokeWidth || 2;
 
       const container = d3.select(selector);
