@@ -1,0 +1,56 @@
+# ============================================================
+# Netlify Configuration — Women's Longevity Medicine Course
+# Static HTML deployment (no build step required)
+# ============================================================
+
+[build]
+  publish = "."
+  # No build command — Reveal.js is pure HTML/CSS/JS
+
+# Headers for performance and security
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+
+# Cache static assets aggressively
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# HTML pages should revalidate
+[[headers]]
+  for = "*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# Redirect root to landing page (if needed)
+[[redirects]]
+  from = "/module-01"
+  to = "/modules/module-01/"
+  status = 301
+
+[[redirects]]
+  from = "/module-01/"
+  to = "/modules/module-01/"
+  status = 301
+
+# Custom 404
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 404

@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Course Pitch — Women's Longevity Medicine</title>
+
+  <!-- Reveal.js 5.x -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/black.css" id="theme">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/monokai.css">
+
+  <!-- Design System -->
+  <link rel="stylesheet" href="../assets/css/design-system.css">
+
+  <!-- Lottie Player -->
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@2.0.8/dist/lottie-player.js"></script>
+
+  <style>
+    .reveal .slides section { background-color: var(--color-base); }
+    .reveal .slide-background { background-color: var(--color-base); }
+
+    .pitch-stat {
+      text-align: center;
+      padding: var(--space-xl);
+    }
+
+    .pitch-stat__number {
+      font-family: var(--font-heading);
+      font-size: 4em;
+      line-height: 1;
+      background: linear-gradient(135deg, var(--color-primary), #5eead4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .pitch-stat__label {
+      font-size: 0.95em;
+      color: var(--text-muted);
+      margin-top: 8px;
+    }
+
+    .pricing-card {
+      text-align: center;
+      padding: var(--space-2xl);
+      background: rgba(30,41,59,0.6);
+      backdrop-filter: blur(20px);
+      border: 2px solid rgba(20,184,166,0.3);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 0 40px rgba(20,184,166,0.15);
+      max-width: 420px;
+      margin: 0 auto;
+    }
+
+    .pricing-card__price {
+      font-family: var(--font-heading);
+      font-size: 3.5em;
+      color: var(--text-primary);
+      line-height: 1;
+    }
+
+    .pricing-card__period {
+      font-size: 0.9em;
+      color: var(--text-muted);
+      margin-bottom: var(--space-lg);
+    }
+
+    .pricing-card__features {
+      list-style: none;
+      padding: 0;
+      text-align: left;
+      margin: var(--space-lg) 0;
+    }
+
+    .pricing-card__features li {
+      padding: 8px 0;
+      border-bottom: 1px solid var(--color-border);
+      color: var(--text-secondary);
+      font-size: 0.9em;
+    }
+
+    .pricing-card__features li::before {
+      content: '\2713';
+      color: var(--color-primary);
+      font-weight: 700;
+      margin-right: 10px;
+    }
+
+    .testimonial {
+      font-family: var(--font-heading);
+      font-size: 1.6em;
+      color: var(--text-primary);
+      line-height: 1.4;
+      text-align: center;
+      max-width: 36ch;
+      margin: 0 auto;
+    }
+
+    .testimonial__author {
+      font-family: var(--font-body);
+      font-size: 0.5em;
+      color: var(--text-muted);
+      margin-top: var(--space-lg);
+      font-style: normal;
+    }
+
+    .value-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-lg);
+      margin-top: var(--space-2xl);
+    }
+
+    .value-item {
+      text-align: center;
+      padding: var(--space-xl);
+      background: rgba(30,41,59,0.4);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--color-border);
+    }
+
+    .value-item__icon {
+      font-size: 2.4em;
+      margin-bottom: var(--space-md);
+    }
+
+    .value-item__title {
+      font-weight: 600;
+      font-size: 1.05em;
+      color: var(--text-primary);
+      margin-bottom: var(--space-sm);
+    }
+
+    .value-item__desc {
+      font-size: 0.85em;
+      color: var(--text-muted);
+    }
+
+    .cta-button {
+      display: inline-block;
+      padding: 16px 40px;
+      background: var(--color-primary);
+      color: var(--color-base);
+      font-weight: 700;
+      font-size: 1.1em;
+      border-radius: 10px;
+      text-decoration: none;
+      margin-top: var(--space-xl);
+      box-shadow: 0 0 30px rgba(20,184,166,0.3);
+    }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- Slide 1: Title -->
+      <section data-background-color="#0f172a">
+        <div class="module-title">
+          <div class="module-title__number">Paid CME Course</div>
+          <h1 class="module-title__heading">Women's Longevity Medicine</h1>
+          <p class="module-title__subtitle">
+            A 12-week evidence-based clinical education program for physicians
+            and nurse practitioners ready to lead in longevity medicine.
+          </p>
+        </div>
+      </section>
+
+      <!-- Slide 2: The Opportunity -->
+      <section data-background-color="#0f172a" class="bg-gradient">
+        <h2>The Market Opportunity</h2>
+        <p>Longevity medicine is the fastest-growing specialty in healthcare.</p>
+
+        <div class="kpi-grid" style="margin-top: var(--space-2xl);">
+          <div class="pitch-stat kpi-card fragment fade-up">
+            <div class="pitch-stat__number">$44B</div>
+            <div class="pitch-stat__label">Global longevity market by 2030</div>
+          </div>
+          <div class="pitch-stat kpi-card fragment fade-up">
+            <div class="pitch-stat__number">78%</div>
+            <div class="pitch-stat__label">of patients want proactive care</div>
+          </div>
+          <div class="pitch-stat kpi-card fragment fade-up">
+            <div class="pitch-stat__number">13.7yr</div>
+            <div class="pitch-stat__label">healthspan gap in women</div>
+          </div>
+        </div>
+
+        <div class="clinical-note fragment fade-up" style="margin-top: var(--space-xl);">
+          <strong>The gap:</strong> Patients are demanding longevity-focused care,
+          but most providers lack structured training. This course fills that gap
+          with a systematic, evidence-based framework.
+        </div>
+      </section>
+
+      <!-- Slide 3: What You'll Learn -->
+      <section data-background-color="#0f172a">
+        <h2>Curriculum Overview</h2>
+        <p>12 modules covering every dimension of women's healthspan optimization.</p>
+
+        <div class="value-grid fragment fade-up">
+          <div class="value-item">
+            <div class="value-item__icon">&#x1F9EC;</div>
+            <div class="value-item__title">Hormonal Mastery</div>
+            <div class="value-item__desc">HRT protocols, bioidentical hormones, monitoring strategies</div>
+          </div>
+          <div class="value-item">
+            <div class="value-item__icon">&#x1F4CA;</div>
+            <div class="value-item__title">Lab Interpretation</div>
+            <div class="value-item__desc">Optimal vs. reference ranges, comprehensive panels, pattern recognition</div>
+          </div>
+          <div class="value-item">
+            <div class="value-item__icon">&#x1F3AF;</div>
+            <div class="value-item__title">Clinical Frameworks</div>
+            <div class="value-item__desc">6-pillar model, systematic assessment, treatment prioritization</div>
+          </div>
+          <div class="value-item">
+            <div class="value-item__icon">&#x1F9E0;</div>
+            <div class="value-item__title">Multi-System Integration</div>
+            <div class="value-item__desc">Metabolic, cardiovascular, cognitive, immune, and musculoskeletal health</div>
+          </div>
+          <div class="value-item">
+            <div class="value-item__icon">&#x1F4DD;</div>
+            <div class="value-item__title">Case-Based Learning</div>
+            <div class="value-item__desc">Real patient cases with step-by-step clinical decision-making</div>
+          </div>
+          <div class="value-item">
+            <div class="value-item__icon">&#x1F4BC;</div>
+            <div class="value-item__title">Practice Building</div>
+            <div class="value-item__desc">Position your practice for the growing longevity market</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 4: Testimonial / Social Proof -->
+      <section data-background-color="#0f172a" class="bg-gradient">
+        <div style="display: flex; align-items: center; justify-content: center; min-height: 60vh;">
+          <div>
+            <div class="testimonial fragment fade-up">
+              "This course transformed how I practice medicine. The 6-pillar framework
+              gave me a systematic approach I use with every patient over 40."
+            </div>
+            <div class="testimonial__author fragment fade-up" style="text-align:center; margin-top: var(--space-lg); color: var(--text-muted);">
+              &mdash; Dr. Jennifer K., Internal Medicine, Chicago
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 5: Course Format -->
+      <section data-background-color="#0f172a">
+        <h2>Course Format</h2>
+        <p>Designed for busy clinicians who need flexible, high-quality education.</p>
+
+        <div class="split" style="margin-top: var(--space-2xl);">
+          <div>
+            <div class="glass-panel glass-panel--accent">
+              <h3>What's Included</h3>
+              <div class="timeline">
+                <div class="timeline__item fragment fade-up">
+                  <div class="timeline__label">12 Video Modules</div>
+                  <div class="timeline__content">45-60 minute cinematic presentations with clinical animations</div>
+                </div>
+                <div class="timeline__item fragment fade-up">
+                  <div class="timeline__label">Interactive Slides</div>
+                  <div class="timeline__content">Access the full web-based slide decks with animated data visualizations</div>
+                </div>
+                <div class="timeline__item fragment fade-up">
+                  <div class="timeline__label">Case Study Library</div>
+                  <div class="timeline__content">12+ detailed patient cases with lab panels and treatment protocols</div>
+                </div>
+                <div class="timeline__item fragment fade-up">
+                  <div class="timeline__label">PDF Handouts</div>
+                  <div class="timeline__content">Downloadable reference guides, lab interpretation cheat sheets</div>
+                </div>
+                <div class="timeline__item fragment fade-up">
+                  <div class="timeline__label">CME Credits</div>
+                  <div class="timeline__content">Up to 20 hours of Category 1 CME credit</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="glass-panel">
+              <h3>Learning Experience</h3>
+              <p style="font-size: 0.95em;">
+                Every module features premium animated slides with clinical data
+                visualizations, interactive lab panels, and case-based learning
+                that makes complex concepts intuitive.
+              </p>
+              <p style="font-size: 0.95em;">
+                Self-paced access with lifetime updates. Complete on your schedule —
+                on desktop, tablet, or mobile.
+              </p>
+
+              <div class="clinical-note" style="margin-top: var(--space-lg);">
+                <strong>Note:</strong> All clinical content is evidence-based and
+                peer-reviewed. References provided for every module.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 6: Pricing -->
+      <section data-background-color="#0f172a" class="bg-gradient">
+        <h2 style="text-align: center;">Investment in Your Practice</h2>
+        <p style="text-align: center;">One enrollment. Lifetime access. Continuous updates.</p>
+
+        <div class="pricing-card fragment scale-in" style="margin-top: var(--space-2xl);">
+          <div class="badge badge--primary" style="margin-bottom: var(--space-md);">Most Popular</div>
+          <div class="pricing-card__price">$1,997</div>
+          <div class="pricing-card__period">One-time investment &mdash; lifetime access</div>
+          <ul class="pricing-card__features">
+            <li>All 12 video modules + interactive slides</li>
+            <li>Complete case study library</li>
+            <li>Downloadable PDF handouts & protocols</li>
+            <li>Up to 20 CME credits</li>
+            <li>Lifetime updates as new evidence emerges</li>
+            <li>Private community access</li>
+          </ul>
+          <a href="#" class="cta-button">Enroll Now</a>
+        </div>
+      </section>
+
+      <!-- Slide 7: CTA -->
+      <section data-background-color="#0f172a">
+        <div class="module-title">
+          <h1 class="module-title__heading" style="font-size: 2.6em;">
+            Ready to Lead in<br>Longevity Medicine?
+          </h1>
+          <p class="module-title__subtitle" style="max-width: 46ch;">
+            Join hundreds of physicians and NPs transforming their practice with
+            evidence-based longevity medicine education.
+          </p>
+          <a href="#" class="cta-button" style="margin-top: var(--space-2xl);">Start Your Journey &rarr;</a>
+          <p style="color: var(--text-muted); font-size: 0.85em; margin-top: var(--space-lg);">
+            30-day satisfaction guarantee &bull; Flexible payment plans available
+          </p>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/markdown/markdown.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="../assets/js/course-engine.js"></script>
+
+  <script>
+    initCoursePresentation({
+      center: true,
+    });
+  </script>
+</body>
+</html>

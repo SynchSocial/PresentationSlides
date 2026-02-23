@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 1 — The Longevity Framework | Women's Longevity Medicine</title>
+
+  <!-- Reveal.js 5.x -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/black.css" id="theme">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/monokai.css">
+
+  <!-- Design System -->
+  <link rel="stylesheet" href="../../assets/css/design-system.css">
+
+  <!-- Lottie Player -->
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@2.0.8/dist/lottie-player.js"></script>
+
+  <style>
+    /* Module-specific overrides */
+    .reveal .slides section {
+      background-color: var(--color-base);
+    }
+    .reveal .slide-background {
+      background-color: var(--color-base);
+    }
+    .hero-glow {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.12;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .hero-glow--teal  { background: var(--color-primary); top: -200px; right: -100px; }
+    .hero-glow--blue  { background: var(--color-info); bottom: -200px; left: -100px; }
+    .hero-glow--amber { background: var(--color-accent); top: 50%; left: 60%; }
+
+    .stat-highlight {
+      font-family: var(--font-heading);
+      font-size: 3.5em;
+      line-height: 1;
+      background: linear-gradient(135deg, var(--color-primary), #5eead4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .reveal .slides section .icon-row {
+      display: flex;
+      gap: var(--space-2xl);
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: var(--space-xl);
+    }
+
+    .icon-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-sm);
+      min-width: 100px;
+    }
+
+    .icon-item__circle {
+      width: 64px;
+      height: 64px;
+      border-radius: var(--radius-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6em;
+      border: 2px solid rgba(20,184,166,0.3);
+      background: rgba(20,184,166,0.08);
+    }
+
+    .icon-item__label {
+      font-size: 0.78em;
+      color: var(--text-muted);
+      text-align: center;
+      font-weight: 500;
+    }
+
+    .agenda-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-md);
+      margin-top: var(--space-xl);
+    }
+
+    .agenda-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      padding: var(--space-md) var(--space-lg);
+      background: rgba(30,41,59,0.4);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--color-border);
+    }
+
+    .agenda-item__num {
+      font-family: var(--font-heading);
+      font-size: 1.8em;
+      color: var(--color-primary);
+      opacity: 0.5;
+      min-width: 40px;
+    }
+
+    .agenda-item__text {
+      font-size: 0.95em;
+      color: var(--text-secondary);
+    }
+
+    .hormone-cascade {
+      display: flex;
+      align-items: center;
+      gap: var(--space-lg);
+      justify-content: center;
+      margin: var(--space-xl) 0;
+      flex-wrap: wrap;
+    }
+
+    .hormone-node {
+      padding: var(--space-md) var(--space-xl);
+      border-radius: var(--radius-md);
+      text-align: center;
+      border: 1px solid;
+      min-width: 140px;
+    }
+
+    .hormone-node__name {
+      font-weight: 600;
+      font-size: 0.95em;
+      margin-bottom: 2px;
+    }
+
+    .hormone-node__detail {
+      font-size: 0.78em;
+      opacity: 0.7;
+    }
+
+    .hormone-arrow {
+      font-size: 1.5em;
+      color: var(--text-muted);
+    }
+
+    .key-takeaway {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-lg);
+      padding: var(--space-xl);
+      background: linear-gradient(135deg, rgba(20,184,166,0.1), rgba(59,130,246,0.05));
+      border: 1px solid rgba(20,184,166,0.2);
+      border-radius: var(--radius-md);
+      margin-top: var(--space-xl);
+    }
+
+    .key-takeaway__icon {
+      font-size: 2em;
+      flex-shrink: 0;
+    }
+
+    .key-takeaway__text {
+      font-size: 1.05em;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .ref-range-row {
+      display: grid;
+      grid-template-columns: 140px 1fr 80px;
+      align-items: center;
+      gap: var(--space-md);
+      padding: var(--space-md) 0;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .ref-range-label {
+      font-size: 0.9em;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    .ref-range-value {
+      font-size: 0.85em;
+      font-weight: 600;
+      text-align: right;
+    }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- ============ SLIDE 1: Module Title ============ -->
+      <section data-background-color="#0f172a">
+        <div class="hero-glow hero-glow--teal"></div>
+        <div class="hero-glow hero-glow--blue"></div>
+        <div class="module-title">
+          <div class="module-title__number">Module 01 of 12</div>
+          <h1 class="module-title__heading">The Longevity Framework</h1>
+          <p class="module-title__subtitle">
+            An evidence-based 6-pillar model for optimizing healthspan in women over 40
+          </p>
+          <div style="margin-top: var(--space-2xl);">
+            <span class="badge badge--primary">12-Week Course</span>
+            <span class="badge badge--accent" style="margin-left: 8px;">CME Eligible</span>
+          </div>
+        </div>
+
+        <aside class="notes">
+          Welcome to Module 1. This module establishes the foundational framework
+          that the remaining 11 modules will build upon. Start by asking participants
+          about their current approach to longevity medicine.
+        </aside>
+      </section>
+
+      <!-- ============ SLIDE 2: The Problem ============ -->
+      <section data-background-color="#0f172a" class="bg-gradient">
+        <h2>The Longevity Gap</h2>
+        <p>Women live longer than men on average — but spend more years in poor health.</p>
+
+        <div class="kpi-grid" style="margin-top: var(--space-2xl);">
+          <div class="kpi-card kpi-card--normal">
+            <div class="kpi-card__label">Female Life Expectancy</div>
+            <div class="kpi-card__value status-normal">81.1</div>
+            <div class="kpi-card__unit">years (US avg)</div>
+          </div>
+          <div class="kpi-card kpi-card--warning">
+            <div class="kpi-card__label">Healthy Life Expectancy</div>
+            <div class="kpi-card__value status-warning">67.4</div>
+            <div class="kpi-card__unit">years (US avg)</div>
+          </div>
+          <div class="kpi-card kpi-card--critical">
+            <div class="kpi-card__label">Disability Gap</div>
+            <div class="kpi-card__value status-critical">13.7</div>
+            <div class="kpi-card__unit">years in decline</div>
+          </div>
+        </div>
+
+        <div class="key-takeaway fragment fade-up">
+          <div class="key-takeaway__icon">&#x1F3AF;</div>
+          <div class="key-takeaway__text">
+            <strong>Our goal:</strong> Close the 13.7-year gap between lifespan and healthspan through proactive, evidence-based intervention across six interconnected pillars.
+          </div>
+        </div>
+
+        <aside class="notes">
+          Emphasize that longevity medicine is not about adding years — it's about
+          adding quality to the years. The 13.7-year gap represents an enormous
+          opportunity for intervention.
+        </aside>
+      </section>
+
+      <!-- ============ SLIDE 3: Course Agenda Overview ============ -->
+      <section data-background-color="#0f172a">
+        <h2>12-Week Journey</h2>
+        <p>Each module builds on the framework introduced today.</p>
+
+        <div class="agenda-grid">
+          <div class="agenda-item fragment fade-up">
+            <div class="agenda-item__num">01</div>
+            <div class="agenda-item__text">The Longevity Framework</div>
+          </div>
+          <div class="agenda-item fragment fade-up">
+            <div class="agenda-item__num">02</div>
+            <div class="agenda-item__text">Hormonal Foundations</div>
+          </div>
+          <div class="agenda-item fragment fade-up">
+            <div class="agenda-item__num">03</div>
+            <div class="agenda-item__text">Metabolic Optimization</div>
+          </div>
+          <div class="agenda-item fragment fade-up">
+            <div class="agenda-item__num">04</div>
+            <div class="agenda-item__text">Cardiovascular Longevity</div>
+          </div>
+          <div class="agenda-item fragment fade-up">
+            <div class="agenda-item__num">05</div>
+            <div class="agenda-item__text">Bone & Musculoskeletal Health</div>
+          </div>
+          <div class="agenda-item fragment fade-up">
+            <div class="agenda-item__num">06</div>
+            <div class="agenda-item__text">Cognitive Preservation</div>
+          </div>
+          <div class="agenda-item fragment fade-up">
+            <div class="agenda-item__num">07</div>
+            <div class="agenda-item__text">Gut-Immune Axis</div>
+          </div>
+          <div class="agenda-item fragment fade-up">
+            <div class="agenda-item__num">08</div>
+            <div class="agenda-item__text">Sleep Architecture</div>
+          </div>
+          <div class="agenda-item fragment fade-up">
+            <div class="agenda-item__num">09</div>
+            <div class="agenda-item__text">Stress Physiology & HPA Axis</div>
+          </div>
+          <div class="agenda-item fragment fade-up">
+            <div class="agenda-item__num">10</div>
+            <div class="agenda-item__text">Advanced Lab Interpretation</div>
+          </div>
+          <div class="agenda-item fragment fade-up">
+            <div class="agenda-item__num">11</div>
+            <div class="agenda-item__text">Therapeutic Protocols</div>
+          </div>
+          <div class="agenda-item fragment fade-up">
+            <div class="agenda-item__num">12</div>
+            <div class="agenda-item__text">Integration & Case Studies</div>
+          </div>
+        </div>
+
+        <aside class="notes">
+          Brief overview of the 12-week trajectory. Emphasize that Modules 2-9
+          each drill into one pillar, Module 10 ties lab work together,
+          Module 11 covers prescribing, and Module 12 synthesizes everything
+          with real patient cases.
+        </aside>
+      </section>
+
+      <!-- ============ SLIDE 4: The 6-Pillar Model (Animated) ============ -->
+      <section data-background-color="#0f172a" class="bg-gradient">
+        <h2 style="text-align:center;">The 6-Pillar Longevity Model</h2>
+        <p style="text-align:center;">Six interconnected domains that drive healthspan in women.</p>
+
+        <div class="pillars-container">
+          <div class="pillar">
+            <div class="pillar__icon">&#x1F9EC;</div>
+            <div class="pillar__column"></div>
+            <div class="pillar__label">Hormonal<br>Balance</div>
+          </div>
+          <div class="pillar">
+            <div class="pillar__icon">&#x1F525;</div>
+            <div class="pillar__column"></div>
+            <div class="pillar__label">Metabolic<br>Health</div>
+          </div>
+          <div class="pillar">
+            <div class="pillar__icon">&#x2764;&#xFE0F;</div>
+            <div class="pillar__column"></div>
+            <div class="pillar__label">Cardio-<br>vascular</div>
+          </div>
+          <div class="pillar">
+            <div class="pillar__icon">&#x1F9B4;</div>
+            <div class="pillar__column"></div>
+            <div class="pillar__label">Musculo-<br>skeletal</div>
+          </div>
+          <div class="pillar">
+            <div class="pillar__icon">&#x1F9E0;</div>
+            <div class="pillar__column"></div>
+            <div class="pillar__label">Neuro-<br>cognitive</div>
+          </div>
+          <div class="pillar">
+            <div class="pillar__icon">&#x1F6E1;&#xFE0F;</div>
+            <div class="pillar__column"></div>
+            <div class="pillar__label">Immune &<br>Gut Health</div>
+          </div>
+        </div>
+
+        <aside class="notes">
+          The 6-pillar animation triggers automatically. Walk through each pillar
+          briefly — hormonal balance as the master regulator, metabolic health
+          as the energy foundation, cardiovascular and musculoskeletal as the
+          structural pillars, neurocognitive for quality of life, and immune/gut
+          as the defense system. Emphasize interconnection.
+        </aside>
+      </section>
+
+      <!-- ============ SLIDE 5: Pillar Deep-Dive Preview ============ -->
+      <section data-background-color="#0f172a">
+        <h2>Pillar Interconnections</h2>
+        <p>No pillar operates in isolation. Hormonal changes cascade across all systems.</p>
+
+        <div class="split" style="margin-top: var(--space-xl);">
+          <div>
+            <div class="glass-panel glass-panel--accent">
+              <h3>Estrogen Decline Cascade</h3>
+              <div class="timeline">
+                <div class="timeline__item fragment fade-up">
+                  <div class="timeline__label">Perimenopause onset</div>
+                  <div class="timeline__content">Estradiol fluctuations begin 2-8 years before final period</div>
+                </div>
+                <div class="timeline__item fragment fade-up">
+                  <div class="timeline__label">Bone loss accelerates</div>
+                  <div class="timeline__content">1-3% annual BMD loss in first 5 years post-menopause</div>
+                </div>
+                <div class="timeline__item fragment fade-up">
+                  <div class="timeline__label">Cardiovascular risk rises</div>
+                  <div class="timeline__content">LDL increases, endothelial function declines</div>
+                </div>
+                <div class="timeline__item fragment fade-up">
+                  <div class="timeline__label">Cognitive changes emerge</div>
+                  <div class="timeline__content">Brain glucose hypometabolism detectable on PET imaging</div>
+                </div>
+                <div class="timeline__item fragment fade-up">
+                  <div class="timeline__label">Metabolic shift</div>
+                  <div class="timeline__content">Visceral adiposity increases, insulin sensitivity decreases</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="glass-panel">
+              <h3>Key Insight</h3>
+              <p style="font-size: 1.1em; color: var(--text-secondary);">
+                The hormonal pillar is the <em>master regulator</em> — estrogen decline
+                drives changes across all other five pillars simultaneously.
+              </p>
+              <p>
+                This is why Module 2 (Hormonal Foundations) precedes all other
+                pillar deep-dives. Understanding this cascade informs every
+                subsequent clinical decision.
+              </p>
+
+              <div class="clinical-note clinical-note--alert" style="margin-top: var(--space-lg);">
+                <strong>Clinical Pearl:</strong> The "window of opportunity" for
+                hormone therapy initiation (within 10 years of menopause or
+                before age 60) exists precisely because early intervention
+                can prevent downstream cascading damage across multiple pillars.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <aside class="notes">
+          This is a critical concept slide. The timeline animation shows the
+          cascade effect. Emphasize that treating each system in isolation
+          (as most conventional medicine does) misses the root cause.
+        </aside>
+      </section>
+
+      <!-- ============ SLIDE 6: Lab Panel Dashboard ============ -->
+      <section data-background-color="#0f172a" class="bg-gradient--warm">
+        <h2>Baseline Lab Panel</h2>
+        <p>The comprehensive panel that informs your 6-pillar assessment.</p>
+
+        <div class="kpi-grid" style="grid-template-columns: repeat(4, 1fr);">
+          <div class="kpi-card kpi-card--warning fragment fade-up">
+            <div class="kpi-card__label">Estradiol</div>
+            <div class="kpi-card__value status-warning">24</div>
+            <div class="kpi-card__unit">pg/mL</div>
+            <div class="kpi-card__trend status-warning">&#x2193; Below optimal</div>
+          </div>
+          <div class="kpi-card kpi-card--critical fragment fade-up">
+            <div class="kpi-card__label">FSH</div>
+            <div class="kpi-card__value status-critical">78</div>
+            <div class="kpi-card__unit">mIU/mL</div>
+            <div class="kpi-card__trend status-critical">&#x2191; Elevated</div>
+          </div>
+          <div class="kpi-card kpi-card--normal fragment fade-up">
+            <div class="kpi-card__label">TSH</div>
+            <div class="kpi-card__value status-normal">1.8</div>
+            <div class="kpi-card__unit">mIU/L</div>
+            <div class="kpi-card__trend status-normal">&#x2713; Optimal</div>
+          </div>
+          <div class="kpi-card kpi-card--warning fragment fade-up">
+            <div class="kpi-card__label">DHEA-S</div>
+            <div class="kpi-card__value status-warning">95</div>
+            <div class="kpi-card__unit">&mu;g/dL</div>
+            <div class="kpi-card__trend status-warning">&#x2193; Low-normal</div>
+          </div>
+          <div class="kpi-card kpi-card--warning fragment fade-up">
+            <div class="kpi-card__label">Fasting Insulin</div>
+            <div class="kpi-card__value status-warning">11.2</div>
+            <div class="kpi-card__unit">&mu;IU/mL</div>
+            <div class="kpi-card__trend status-warning">&#x2191; Suboptimal</div>
+          </div>
+          <div class="kpi-card kpi-card--normal fragment fade-up">
+            <div class="kpi-card__label">HbA1c</div>
+            <div class="kpi-card__value status-normal">5.4</div>
+            <div class="kpi-card__unit">%</div>
+            <div class="kpi-card__trend status-normal">&#x2713; Optimal</div>
+          </div>
+          <div class="kpi-card kpi-card--warning fragment fade-up">
+            <div class="kpi-card__label">hs-CRP</div>
+            <div class="kpi-card__value status-warning">2.1</div>
+            <div class="kpi-card__unit">mg/L</div>
+            <div class="kpi-card__trend status-warning">&#x2191; Mild elevation</div>
+          </div>
+          <div class="kpi-card kpi-card--normal fragment fade-up">
+            <div class="kpi-card__label">Vitamin D</div>
+            <div class="kpi-card__value status-normal">52</div>
+            <div class="kpi-card__unit">ng/mL</div>
+            <div class="kpi-card__trend status-normal">&#x2713; Optimal</div>
+          </div>
+        </div>
+
+        <aside class="notes">
+          Walk through each lab value. The color coding (green/amber/red) is
+          based on OPTIMAL ranges, not just reference ranges. Emphasize the
+          difference — a "normal" fasting insulin of 11.2 is not optimal.
+          This distinction is central to longevity medicine.
+        </aside>
+      </section>
+
+      <!-- ============ SLIDE 7: Case Study Introduction ============ -->
+      <section data-background-color="#0f172a">
+        <h2>Case Study: Sarah M.</h2>
+
+        <div class="case-study">
+          <div class="case-study__avatar">SM</div>
+          <div>
+            <div class="case-study__header">
+              <div class="case-study__name">Sarah M.</div>
+              <div class="case-study__demographics">
+                52 y/o &bull; Physician (IM) &bull; BMI 26.8 &bull; Post-menopause 2 years
+              </div>
+            </div>
+            <div class="case-study__complaint">
+              "I'm a doctor and I feel like I'm aging faster than my patients. Brain fog is
+              affecting my clinical decision-making. I can't sleep. I've gained 15 pounds
+              despite no dietary changes. My joints ache every morning."
+            </div>
+
+            <div class="kpi-grid" style="grid-template-columns: repeat(3, 1fr); margin-top: var(--space-lg);">
+              <div class="kpi-card kpi-card--critical fragment fade-up">
+                <div class="kpi-card__label">Estradiol</div>
+                <div class="kpi-card__value status-critical">12</div>
+                <div class="kpi-card__unit">pg/mL</div>
+              </div>
+              <div class="kpi-card kpi-card--warning fragment fade-up">
+                <div class="kpi-card__label">Fasting Insulin</div>
+                <div class="kpi-card__value status-warning">14.8</div>
+                <div class="kpi-card__unit">&mu;IU/mL</div>
+              </div>
+              <div class="kpi-card kpi-card--critical fragment fade-up">
+                <div class="kpi-card__label">Vitamin D</div>
+                <div class="kpi-card__value status-critical">18</div>
+                <div class="kpi-card__unit">ng/mL</div>
+              </div>
+            </div>
+
+            <div class="glass-panel fragment fade-up" style="margin-top: var(--space-lg);">
+              <h3>6-Pillar Assessment</h3>
+              <p>Which pillars are affected? <em>All six.</em> Her estradiol of 12 pg/mL is driving a multi-system cascade. This case demonstrates why a framework-based approach outperforms symptom-by-symptom treatment.</p>
+            </div>
+          </div>
+        </div>
+
+        <aside class="notes">
+          Sarah is an intentionally relatable case for the audience — she's a
+          physician experiencing exactly the symptoms she advises patients on.
+          This builds empathy and engagement. We'll return to Sarah's case
+          throughout the course as we address each pillar.
+        </aside>
+      </section>
+
+      <!-- ============ SLIDE 8: D3.js Data Visualization ============ -->
+      <section data-background-color="#0f172a" class="bg-gradient">
+        <h2>Estrogen Decline by Decade</h2>
+        <p>Average estradiol levels across reproductive stages.</p>
+
+        <div class="split">
+          <div id="estrogen-chart" style="margin-top: var(--space-xl);"></div>
+          <div>
+            <div class="glass-panel">
+              <h3>Clinical Significance</h3>
+              <div class="timeline">
+                <div class="timeline__item">
+                  <div class="timeline__label">30s — Peak function</div>
+                  <div class="timeline__content">Optimal bone density accrual, cardiovascular protection</div>
+                </div>
+                <div class="timeline__item">
+                  <div class="timeline__label">40s — Perimenopause</div>
+                  <div class="timeline__content">Erratic fluctuations, first symptoms emerge</div>
+                </div>
+                <div class="timeline__item">
+                  <div class="timeline__label">50s — Post-menopause</div>
+                  <div class="timeline__content">Sustained low levels, multi-system impact</div>
+                </div>
+                <div class="timeline__item">
+                  <div class="timeline__label">60s+ — Chronic deficit</div>
+                  <div class="timeline__content">Accelerated aging without intervention</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <aside class="notes">
+          The D3 bar chart animates when the slide appears. Use this to show
+          the dramatic cliff in estradiol that occurs in the menopausal transition.
+          Point out that the drop from ~150 to ~30 pg/mL in just a few years
+          is one of the most abrupt hormonal changes in human physiology.
+        </aside>
+      </section>
+
+      <!-- ============ SLIDE 9: Hormone Cascade Diagram ============ -->
+      <section data-background-color="#0f172a">
+        <h2>The Hormonal Cascade</h2>
+        <p>Understanding upstream-downstream relationships guides treatment priority.</p>
+
+        <div class="hormone-cascade" style="margin-top: var(--space-2xl);">
+          <div class="hormone-node fragment fade-up" style="border-color: var(--color-primary); background: var(--color-primary-dim);">
+            <div class="hormone-node__name" style="color: var(--color-primary);">Pregnenolone</div>
+            <div class="hormone-node__detail">Master precursor</div>
+          </div>
+          <div class="hormone-arrow fragment fade-up">&#x2192;</div>
+          <div class="hormone-node fragment fade-up" style="border-color: var(--color-info); background: rgba(59,130,246,0.1);">
+            <div class="hormone-node__name" style="color: var(--color-info);">Progesterone</div>
+            <div class="hormone-node__detail">Calming, bone-building</div>
+          </div>
+          <div class="hormone-arrow fragment fade-up">&#x2192;</div>
+          <div class="hormone-node fragment fade-up" style="border-color: var(--color-accent); background: var(--color-accent-dim);">
+            <div class="hormone-node__name" style="color: var(--color-accent);">DHEA</div>
+            <div class="hormone-node__detail">Vitality marker</div>
+          </div>
+          <div class="hormone-arrow fragment fade-up">&#x2192;</div>
+          <div class="hormone-node fragment fade-up" style="border-color: var(--color-success); background: rgba(34,197,94,0.1);">
+            <div class="hormone-node__name" style="color: var(--color-success);">Estradiol &amp; Testosterone</div>
+            <div class="hormone-node__detail">End-organ effects</div>
+          </div>
+        </div>
+
+        <div class="clinical-note fragment fade-up" style="margin-top: var(--space-2xl);">
+          <strong>Clinical Pearl:</strong> Always assess upstream hormones before replacing downstream ones.
+          A patient with low DHEA-S and low estradiol may benefit from DHEA supplementation alone,
+          as it converts to both androgens and estrogens. Treating the precursor addresses multiple
+          downstream deficiencies simultaneously.
+        </div>
+
+        <aside class="notes">
+          The cascade diagram builds left-to-right. Explain that this is a
+          simplified view — the actual steroidogenesis pathway has many branches.
+          The clinical pearl about upstream treatment is a key differentiator
+          in longevity medicine vs conventional HRT.
+        </aside>
+      </section>
+
+      <!-- ============ SLIDE 10: Reference Ranges ============ -->
+      <section data-background-color="#0f172a" class="bg-gradient--warm">
+        <h2>Optimal vs. "Normal" Ranges</h2>
+        <p>Longevity medicine targets the optimal range, not just the reference range.</p>
+
+        <div class="glass-panel" style="margin-top: var(--space-xl);">
+          <div class="ref-range-row" style="border-bottom: 2px solid var(--color-primary);">
+            <div class="ref-range-label" style="color: var(--color-primary); font-weight: 600;">Biomarker</div>
+            <div style="display: flex; gap: 4px; font-size: 0.75em; color: var(--text-muted);">
+              <span style="flex:1;">Low</span>
+              <span style="flex:1; text-align:center;">Ref Range</span>
+              <span style="flex:1; text-align:center; color: var(--color-success);">Optimal</span>
+              <span style="flex:1; text-align:right;">High</span>
+            </div>
+            <div style="font-size: 0.75em; color: var(--color-primary); font-weight: 600; text-align:right;">Target</div>
+          </div>
+
+          <div class="ref-range-row fragment fade-up">
+            <div class="ref-range-label">Estradiol</div>
+            <div>
+              <div class="range-bar">
+                <div class="range-bar__fill" data-width="65%" style="width:0%; background: linear-gradient(90deg, var(--color-danger), var(--color-accent), var(--color-success), var(--color-accent));"></div>
+                <div class="range-bar__marker" style="left:25%; background: var(--color-accent);" title="Typical post-meno"></div>
+                <div class="range-bar__marker" style="left:65%; background: var(--color-success);" title="Optimal target"></div>
+              </div>
+            </div>
+            <div class="ref-range-value status-normal">50-200 pg/mL</div>
+          </div>
+
+          <div class="ref-range-row fragment fade-up">
+            <div class="ref-range-label">Fasting Insulin</div>
+            <div>
+              <div class="range-bar">
+                <div class="range-bar__fill" data-width="30%" style="width:0%; background: linear-gradient(90deg, var(--color-success), var(--color-accent), var(--color-danger));"></div>
+                <div class="range-bar__marker" style="left:30%; background: var(--color-success);" title="Optimal"></div>
+              </div>
+            </div>
+            <div class="ref-range-value status-normal">&lt; 6 &mu;IU/mL</div>
+          </div>
+
+          <div class="ref-range-row fragment fade-up">
+            <div class="ref-range-label">Vitamin D</div>
+            <div>
+              <div class="range-bar">
+                <div class="range-bar__fill" data-width="70%" style="width:0%; background: linear-gradient(90deg, var(--color-danger), var(--color-accent), var(--color-success), var(--color-success));"></div>
+                <div class="range-bar__marker" style="left:70%; background: var(--color-success);" title="Optimal"></div>
+              </div>
+            </div>
+            <div class="ref-range-value status-normal">50-80 ng/mL</div>
+          </div>
+
+          <div class="ref-range-row fragment fade-up">
+            <div class="ref-range-label">hs-CRP</div>
+            <div>
+              <div class="range-bar">
+                <div class="range-bar__fill" data-width="20%" style="width:0%; background: linear-gradient(90deg, var(--color-success), var(--color-accent), var(--color-danger));"></div>
+                <div class="range-bar__marker" style="left:20%; background: var(--color-success);" title="Optimal"></div>
+              </div>
+            </div>
+            <div class="ref-range-value status-normal">&lt; 1.0 mg/L</div>
+          </div>
+        </div>
+
+        <aside class="notes">
+          This slide is crucial for reframing how attendees read labs. The bars
+          animate to show the gradient from danger to optimal. Stress that
+          "normal" reference ranges are based on population averages (which
+          include sick people), while optimal ranges come from outcomes data
+          in healthy populations.
+        </aside>
+      </section>
+
+      <!-- ============ SLIDE 11: Framework Application ============ -->
+      <section data-background-color="#0f172a">
+        <h2>Applying the Framework</h2>
+        <p>A systematic approach to every patient encounter.</p>
+
+        <div class="split" style="margin-top: var(--space-xl);">
+          <div>
+            <div class="icon-row" style="flex-direction: column; gap: var(--space-lg);">
+              <div class="glass-panel fragment fade-up" style="padding: var(--space-lg);">
+                <h3 style="margin-bottom: var(--space-sm);">Step 1: Comprehensive Assessment</h3>
+                <p style="margin:0; font-size:0.9em;">Full lab panel + symptom mapping across all 6 pillars. No pillar is skipped.</p>
+              </div>
+              <div class="glass-panel fragment fade-up" style="padding: var(--space-lg);">
+                <h3 style="margin-bottom: var(--space-sm);">Step 2: Root Cause Identification</h3>
+                <p style="margin:0; font-size:0.9em;">Trace symptoms upstream. Which pillar is the primary driver?</p>
+              </div>
+              <div class="glass-panel fragment fade-up" style="padding: var(--space-lg);">
+                <h3 style="margin-bottom: var(--space-sm);">Step 3: Prioritized Protocol</h3>
+                <p style="margin:0; font-size:0.9em;">Address the root cause first. Downstream improvements often follow without direct intervention.</p>
+              </div>
+              <div class="glass-panel fragment fade-up" style="padding: var(--space-lg);">
+                <h3 style="margin-bottom: var(--space-sm);">Step 4: Monitor & Iterate</h3>
+                <p style="margin:0; font-size:0.9em;">Retest at 8-12 weeks. Reassess all pillars — improvement in one often cascades.</p>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="glass-panel glass-panel--accent">
+              <h3>Returning to Sarah M.</h3>
+              <p style="font-size:0.95em;">
+                Applying our framework to Sarah's case:
+              </p>
+              <ul style="list-style: none; padding: 0; font-size: 0.9em; color: var(--text-secondary);">
+                <li style="padding: 6px 0; border-bottom: 1px solid var(--color-border);">
+                  <span class="badge badge--danger">Root Cause</span>
+                  Estradiol 12 pg/mL — severe deficiency driving multi-system decline
+                </li>
+                <li style="padding: 6px 0; border-bottom: 1px solid var(--color-border);">
+                  <span class="badge badge--accent">Priority 1</span>
+                  Hormone replacement: transdermal E2 + micronized progesterone
+                </li>
+                <li style="padding: 6px 0; border-bottom: 1px solid var(--color-border);">
+                  <span class="badge badge--primary">Priority 2</span>
+                  Vitamin D repletion: 10,000 IU/day × 8 weeks, then 5,000 IU maintenance
+                </li>
+                <li style="padding: 6px 0;">
+                  <span class="badge badge--success">Expected</span>
+                  Downstream improvements in insulin sensitivity, inflammation, cognition, sleep
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <aside class="notes">
+          Tie Sarah's case back to the framework. The four-step process gives
+          attendees a repeatable clinical workflow. Point out that by treating
+          the hormonal root cause, we expect cascading improvements in the
+          metabolic, inflammatory, cognitive, and sleep pillars without
+          needing separate interventions for each.
+        </aside>
+      </section>
+
+      <!-- ============ SLIDE 12: Key Takeaways ============ -->
+      <section data-background-color="#0f172a" class="bg-gradient">
+        <h2>Module 1 — Key Takeaways</h2>
+
+        <div style="display: grid; gap: var(--space-lg); margin-top: var(--space-xl); max-width: 900px;">
+          <div class="key-takeaway fragment fade-up">
+            <div class="key-takeaway__icon">1</div>
+            <div class="key-takeaway__text">
+              The <strong>13.7-year healthspan gap</strong> in women represents the central problem longevity medicine addresses. Our goal is healthspan, not just lifespan.
+            </div>
+          </div>
+          <div class="key-takeaway fragment fade-up">
+            <div class="key-takeaway__icon">2</div>
+            <div class="key-takeaway__text">
+              The <strong>6-pillar model</strong> (hormonal, metabolic, cardiovascular, musculoskeletal, neurocognitive, immune/gut) provides a systematic framework for comprehensive assessment.
+            </div>
+          </div>
+          <div class="key-takeaway fragment fade-up">
+            <div class="key-takeaway__icon">3</div>
+            <div class="key-takeaway__text">
+              <strong>Optimal ranges differ from reference ranges.</strong> Longevity medicine targets evidence-based optimal levels, not population averages.
+            </div>
+          </div>
+          <div class="key-takeaway fragment fade-up">
+            <div class="key-takeaway__icon">4</div>
+            <div class="key-takeaway__text">
+              <strong>Treat upstream, observe downstream.</strong> Addressing root-cause hormonal deficiency often resolves symptoms across multiple pillars simultaneously.
+            </div>
+          </div>
+        </div>
+
+        <div style="text-align: center; margin-top: var(--space-2xl);" class="fragment fade-up">
+          <p style="color: var(--color-primary); font-weight: 600; font-size: 1.1em;">
+            Next Module: Hormonal Foundations — Deep-diving into the master regulator
+          </p>
+          <span class="badge badge--primary">Module 02 →</span>
+        </div>
+
+        <aside class="notes">
+          Summarize the four key takeaways. Assignment for next module:
+          Have participants review their own recent lab panels through the
+          lens of optimal vs. reference ranges. Module 2 will deep-dive
+          into the hormonal pillar.
+        </aside>
+      </section>
+
+    </div><!-- /.slides -->
+  </div><!-- /.reveal -->
+
+  <!-- ========== Scripts ========== -->
+  <!-- Reveal.js 5.x -->
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/markdown/markdown.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+
+  <!-- GSAP 3.x + Plugins -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+
+  <!-- D3.js -->
+  <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+
+  <!-- Course Engine -->
+  <script src="../../assets/js/course-engine.js"></script>
+
+  <script>
+    // Initialize
+    initCoursePresentation();
+
+    // D3 chart: Estrogen decline by decade
+    Reveal.on('slidechanged', function (event) {
+      if (event.currentSlide.querySelector('#estrogen-chart')) {
+        CourseCharts.horizontalBars('#estrogen-chart', [
+          { label: '30s', value: 150, max: 300, color: '#22c55e', unit: ' pg/mL' },
+          { label: 'Early 40s', value: 120, max: 300, color: '#22c55e', unit: ' pg/mL' },
+          { label: 'Late 40s', value: 60,  max: 300, color: '#f59e0b', unit: ' pg/mL' },
+          { label: 'Early 50s', value: 30,  max: 300, color: '#ef4444', unit: ' pg/mL' },
+          { label: '60s+', value: 15,  max: 300, color: '#ef4444', unit: ' pg/mL' },
+        ], { width: 480, height: 280 });
+      }
+    });
+
+    // Also trigger on initial load if we're already on the chart slide
+    Reveal.on('ready', function () {
+      const currentSlide = Reveal.getCurrentSlide();
+      if (currentSlide && currentSlide.querySelector('#estrogen-chart')) {
+        CourseCharts.horizontalBars('#estrogen-chart', [
+          { label: '30s', value: 150, max: 300, color: '#22c55e', unit: ' pg/mL' },
+          { label: 'Early 40s', value: 120, max: 300, color: '#22c55e', unit: ' pg/mL' },
+          { label: 'Late 40s', value: 60,  max: 300, color: '#f59e0b', unit: ' pg/mL' },
+          { label: 'Early 50s', value: 30,  max: 300, color: '#ef4444', unit: ' pg/mL' },
+          { label: '60s+', value: 15,  max: 300, color: '#ef4444', unit: ' pg/mL' },
+        ], { width: 480, height: 280 });
+      }
+    });
+  </script>
+</body>
+</html>

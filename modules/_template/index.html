@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module XX — TITLE | Women's Longevity Medicine</title>
+
+  <!-- Reveal.js 5.x -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/black.css" id="theme">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/monokai.css">
+
+  <!-- Design System -->
+  <link rel="stylesheet" href="../../assets/css/design-system.css">
+
+  <!-- Lottie Player -->
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@2.0.8/dist/lottie-player.js"></script>
+
+  <style>
+    .reveal .slides section { background-color: var(--color-base); }
+    .reveal .slide-background { background-color: var(--color-base); }
+    /* Add module-specific styles here */
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- ============ TITLE SLIDE ============ -->
+      <section data-background-color="#0f172a">
+        <div class="module-title">
+          <div class="module-title__number">Module XX of 12</div>
+          <h1 class="module-title__heading">Module Title</h1>
+          <p class="module-title__subtitle">
+            Brief subtitle describing the module focus.
+          </p>
+          <div style="margin-top: var(--space-2xl);">
+            <span class="badge badge--primary">Week XX</span>
+          </div>
+        </div>
+
+        <aside class="notes">
+          Speaker notes for the title slide.
+        </aside>
+      </section>
+
+      <!-- ============ CONTENT SLIDE — Assertion-Evidence ============ -->
+      <section data-background-color="#0f172a" class="bg-gradient">
+        <h2>Clinical Assertion Goes Here</h2>
+        <p>Supporting context that frames the evidence.</p>
+
+        <!-- KPI Cards -->
+        <div class="kpi-grid">
+          <div class="kpi-card kpi-card--normal fragment fade-up">
+            <div class="kpi-card__label">Label</div>
+            <div class="kpi-card__value status-normal">42</div>
+            <div class="kpi-card__unit">units</div>
+            <div class="kpi-card__trend status-normal">&#x2713; Optimal</div>
+          </div>
+          <!-- Add more KPI cards as needed -->
+        </div>
+
+        <aside class="notes">Speaker notes.</aside>
+      </section>
+
+      <!-- ============ SPLIT LAYOUT with Glass Panels ============ -->
+      <section data-background-color="#0f172a">
+        <h2>Split Content Layout</h2>
+        <p>Two-column layout for visual-narrative pairings.</p>
+
+        <div class="split">
+          <div>
+            <div class="glass-panel glass-panel--accent">
+              <h3>Left Panel</h3>
+              <div class="timeline">
+                <div class="timeline__item fragment fade-up">
+                  <div class="timeline__label">Phase 1</div>
+                  <div class="timeline__content">Description of timeline event.</div>
+                </div>
+                <!-- Add more timeline items -->
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="glass-panel">
+              <h3>Right Panel</h3>
+              <p>Supporting content, clinical notes, or additional context.</p>
+
+              <div class="clinical-note">
+                <strong>Clinical Pearl:</strong> Key insight for practitioners.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <aside class="notes">Speaker notes.</aside>
+      </section>
+
+      <!-- ============ CASE STUDY SLIDE ============ -->
+      <section data-background-color="#0f172a">
+        <h2>Case Study: Patient Name</h2>
+
+        <div class="case-study">
+          <div class="case-study__avatar">XX</div>
+          <div>
+            <div class="case-study__header">
+              <div class="case-study__name">Patient Name</div>
+              <div class="case-study__demographics">
+                Age &bull; Occupation &bull; Key demographics
+              </div>
+            </div>
+            <div class="case-study__complaint">
+              "Chief complaint in the patient's own words."
+            </div>
+
+            <div class="kpi-grid" style="grid-template-columns: repeat(3, 1fr);">
+              <div class="kpi-card kpi-card--warning fragment fade-up">
+                <div class="kpi-card__label">Biomarker</div>
+                <div class="kpi-card__value status-warning">Value</div>
+                <div class="kpi-card__unit">units</div>
+              </div>
+              <!-- Add more lab cards -->
+            </div>
+          </div>
+        </div>
+
+        <aside class="notes">Speaker notes.</aside>
+      </section>
+
+      <!-- ============ DATA VISUALIZATION SLIDE ============ -->
+      <section data-background-color="#0f172a" class="bg-gradient">
+        <h2>Data Visualization Title</h2>
+        <p>Context for the chart or visualization.</p>
+
+        <div class="split">
+          <div id="chart-container"></div>
+          <div>
+            <div class="glass-panel">
+              <h3>Interpretation</h3>
+              <p>Explain the clinical significance of the data shown.</p>
+            </div>
+          </div>
+        </div>
+
+        <aside class="notes">Speaker notes.</aside>
+      </section>
+
+      <!-- ============ KEY TAKEAWAYS ============ -->
+      <section data-background-color="#0f172a" class="bg-gradient">
+        <h2>Module XX — Key Takeaways</h2>
+
+        <div style="display: grid; gap: var(--space-lg); margin-top: var(--space-xl); max-width: 900px;">
+          <div class="key-takeaway fragment fade-up">
+            <div style="font-family: var(--font-heading); font-size: 1.4em; color: var(--color-primary); min-width: 32px;">1</div>
+            <div class="key-takeaway__text">
+              <strong>Takeaway title.</strong> Supporting detail.
+            </div>
+          </div>
+          <!-- Add more takeaways -->
+        </div>
+
+        <div style="text-align: center; margin-top: var(--space-2xl);" class="fragment fade-up">
+          <p style="color: var(--color-primary); font-weight: 600;">
+            Next Module: Title
+          </p>
+          <span class="badge badge--primary">Module XX &rarr;</span>
+        </div>
+
+        <aside class="notes">Speaker notes.</aside>
+      </section>
+
+    </div><!-- /.slides -->
+  </div><!-- /.reveal -->
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/markdown/markdown.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+  <script src="../../assets/js/course-engine.js"></script>
+
+  <script>
+    initCoursePresentation();
+
+    // Module-specific D3 charts or GSAP timelines go here
+    // Example:
+    // Reveal.on('slidechanged', function (event) {
+    //   if (event.currentSlide.querySelector('#chart-container')) {
+    //     CourseCharts.horizontalBars('#chart-container', [...], {...});
+    //   }
+    // });
+  </script>
+</body>
+</html>

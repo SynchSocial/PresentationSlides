@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Women's Longevity Medicine — 12-Week Course</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --color-base:    #0f172a;
+      --color-surface: #1e293b;
+      --color-border:  rgba(148,163,184,0.12);
+      --color-primary: #14b8a6;
+      --color-accent:  #f59e0b;
+      --color-success: #22c55e;
+      --color-info:    #3b82f6;
+      --text-primary:  #f1f5f9;
+      --text-secondary:#94a3b8;
+      --text-muted:    #64748b;
+      --font-heading:  'DM Serif Display', Georgia, serif;
+      --font-body:     'Inter', -apple-system, sans-serif;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--color-base);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 100px 24px 80px;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 800px; height: 800px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      filter: blur(180px);
+      opacity: 0.07;
+      top: -300px; right: -200px;
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: var(--color-info);
+      filter: blur(150px);
+      opacity: 0.05;
+      bottom: -200px; left: -100px;
+      pointer-events: none;
+    }
+
+    .hero__badge {
+      display: inline-block;
+      padding: 4px 16px;
+      border-radius: 9999px;
+      font-size: 0.78em;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: rgba(20,184,166,0.12);
+      color: var(--color-primary);
+      border: 1px solid rgba(20,184,166,0.25);
+      margin-bottom: 24px;
+    }
+
+    .hero__title {
+      font-family: var(--font-heading);
+      font-size: clamp(2.4em, 5vw, 4em);
+      background: linear-gradient(135deg, var(--text-primary), var(--color-primary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 16px;
+      line-height: 1.15;
+    }
+
+    .hero__subtitle {
+      font-size: 1.15em;
+      color: var(--text-secondary);
+      max-width: 54ch;
+      margin-bottom: 40px;
+    }
+
+    .hero__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 32px;
+      background: var(--color-primary);
+      color: var(--color-base);
+      font-weight: 600;
+      font-size: 1em;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .hero__cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(20,184,166,0.3);
+    }
+
+    /* Module Grid */
+    .modules-section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+    }
+
+    .section-title {
+      font-family: var(--font-heading);
+      font-size: 2em;
+      margin-bottom: 8px;
+    }
+
+    .section-subtitle {
+      color: var(--text-muted);
+      margin-bottom: 40px;
+    }
+
+    .module-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .module-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 24px;
+      background: rgba(30,41,59,0.5);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.25s cubic-bezier(0.16,1,0.3,1),
+                  box-shadow 0.25s cubic-bezier(0.16,1,0.3,1),
+                  border-color 0.25s;
+    }
+
+    .module-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+      border-color: rgba(20,184,166,0.3);
+    }
+
+    .module-card--locked {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    .module-card__num {
+      font-family: var(--font-heading);
+      font-size: 2em;
+      line-height: 1;
+      color: var(--color-primary);
+      opacity: 0.5;
+      min-width: 48px;
+    }
+
+    .module-card__title {
+      font-weight: 600;
+      font-size: 1.05em;
+      margin-bottom: 4px;
+    }
+
+    .module-card__desc {
+      font-size: 0.85em;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .module-card__status {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 2px 10px;
+      border-radius: 9999px;
+      font-size: 0.7em;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .status--available { background: rgba(20,184,166,0.12); color: var(--color-primary); }
+    .status--coming    { background: rgba(148,163,184,0.1);  color: var(--text-muted); }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 40px 24px;
+      border-top: 1px solid var(--color-border);
+      color: var(--text-muted);
+      font-size: 0.85em;
+    }
+
+    .footer a {
+      color: var(--color-primary);
+      text-decoration: none;
+    }
+
+    /* Pitch link */
+    .pitch-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 16px;
+      padding: 10px 24px;
+      border: 1px solid rgba(245,158,11,0.3);
+      border-radius: 8px;
+      color: var(--color-accent);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9em;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .pitch-link:hover {
+      background: rgba(245,158,11,0.08);
+      transform: translateY(-1px);
+    }
+
+    /* Animation */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-in {
+      animation: fadeUp 0.6s cubic-bezier(0.16,1,0.3,1) both;
+    }
+
+    .module-card:nth-child(1)  { animation-delay: 0.05s; }
+    .module-card:nth-child(2)  { animation-delay: 0.10s; }
+    .module-card:nth-child(3)  { animation-delay: 0.15s; }
+    .module-card:nth-child(4)  { animation-delay: 0.20s; }
+    .module-card:nth-child(5)  { animation-delay: 0.25s; }
+    .module-card:nth-child(6)  { animation-delay: 0.30s; }
+    .module-card:nth-child(7)  { animation-delay: 0.35s; }
+    .module-card:nth-child(8)  { animation-delay: 0.40s; }
+    .module-card:nth-child(9)  { animation-delay: 0.45s; }
+    .module-card:nth-child(10) { animation-delay: 0.50s; }
+    .module-card:nth-child(11) { animation-delay: 0.55s; }
+    .module-card:nth-child(12) { animation-delay: 0.60s; }
+  </style>
+</head>
+<body>
+
+  <header class="hero">
+    <div class="hero__badge">12-Week CME Course</div>
+    <h1 class="hero__title">Women's Longevity Medicine</h1>
+    <p class="hero__subtitle">
+      An evidence-based framework for optimizing healthspan — premium slide-based
+      education for physicians and nurse practitioners.
+    </p>
+    <a href="modules/module-01/" class="hero__cta">Begin Module 1 &rarr;</a>
+    <a href="pitch/" class="pitch-link">View Course Pitch Deck &rarr;</a>
+  </header>
+
+  <main class="modules-section">
+    <h2 class="section-title">Course Modules</h2>
+    <p class="section-subtitle">12 weeks of structured, evidence-based clinical education.</p>
+
+    <div class="module-grid">
+      <a href="modules/module-01/" class="module-card animate-in">
+        <div class="module-card__num">01</div>
+        <div>
+          <div class="module-card__title">The Longevity Framework</div>
+          <div class="module-card__desc">6-pillar model for healthspan optimization, baseline lab interpretation, case study introduction.</div>
+          <div class="module-card__status status--available">Available</div>
+        </div>
+      </a>
+
+      <div class="module-card animate-in module-card--locked">
+        <div class="module-card__num">02</div>
+        <div>
+          <div class="module-card__title">Hormonal Foundations</div>
+          <div class="module-card__desc">Estrogen, progesterone, testosterone, DHEA — the master regulators of female aging.</div>
+          <div class="module-card__status status--coming">Coming Soon</div>
+        </div>
+      </div>
+
+      <div class="module-card animate-in module-card--locked">
+        <div class="module-card__num">03</div>
+        <div>
+          <div class="module-card__title">Metabolic Optimization</div>
+          <div class="module-card__desc">Insulin sensitivity, body composition, metabolic flexibility, and glucose management.</div>
+          <div class="module-card__status status--coming">Coming Soon</div>
+        </div>
+      </div>
+
+      <div class="module-card animate-in module-card--locked">
+        <div class="module-card__num">04</div>
+        <div>
+          <div class="module-card__title">Cardiovascular Longevity</div>
+          <div class="module-card__desc">Lipid optimization, endothelial function, post-menopausal cardiovascular risk reduction.</div>
+          <div class="module-card__status status--coming">Coming Soon</div>
+        </div>
+      </div>
+
+      <div class="module-card animate-in module-card--locked">
+        <div class="module-card__num">05</div>
+        <div>
+          <div class="module-card__title">Bone & Musculoskeletal Health</div>
+          <div class="module-card__desc">BMD preservation, sarcopenia prevention, exercise prescription, and fall risk reduction.</div>
+          <div class="module-card__status status--coming">Coming Soon</div>
+        </div>
+      </div>
+
+      <div class="module-card animate-in module-card--locked">
+        <div class="module-card__num">06</div>
+        <div>
+          <div class="module-card__title">Cognitive Preservation</div>
+          <div class="module-card__desc">Neuroprotection, brain glucose metabolism, hormonal influences on cognition.</div>
+          <div class="module-card__status status--coming">Coming Soon</div>
+        </div>
+      </div>
+
+      <div class="module-card animate-in module-card--locked">
+        <div class="module-card__num">07</div>
+        <div>
+          <div class="module-card__title">Gut-Immune Axis</div>
+          <div class="module-card__desc">Microbiome, estrobolome, mucosal immunity, and systemic inflammation.</div>
+          <div class="module-card__status status--coming">Coming Soon</div>
+        </div>
+      </div>
+
+      <div class="module-card animate-in module-card--locked">
+        <div class="module-card__num">08</div>
+        <div>
+          <div class="module-card__title">Sleep Architecture</div>
+          <div class="module-card__desc">Menopausal sleep disruption, circadian optimization, and restorative sleep protocols.</div>
+          <div class="module-card__status status--coming">Coming Soon</div>
+        </div>
+      </div>
+
+      <div class="module-card animate-in module-card--locked">
+        <div class="module-card__num">09</div>
+        <div>
+          <div class="module-card__title">Stress Physiology & HPA Axis</div>
+          <div class="module-card__desc">Cortisol patterns, adrenal function, psychoneuroimmunology in women.</div>
+          <div class="module-card__status status--coming">Coming Soon</div>
+        </div>
+      </div>
+
+      <div class="module-card animate-in module-card--locked">
+        <div class="module-card__num">10</div>
+        <div>
+          <div class="module-card__title">Advanced Lab Interpretation</div>
+          <div class="module-card__desc">Comprehensive panel analysis, optimal vs. reference ranges, pattern recognition.</div>
+          <div class="module-card__status status--coming">Coming Soon</div>
+        </div>
+      </div>
+
+      <div class="module-card animate-in module-card--locked">
+        <div class="module-card__num">11</div>
+        <div>
+          <div class="module-card__title">Therapeutic Protocols</div>
+          <div class="module-card__desc">HRT prescribing, nutraceuticals, peptide therapy, and compounding considerations.</div>
+          <div class="module-card__status status--coming">Coming Soon</div>
+        </div>
+      </div>
+
+      <div class="module-card animate-in module-card--locked">
+        <div class="module-card__num">12</div>
+        <div>
+          <div class="module-card__title">Integration & Case Studies</div>
+          <div class="module-card__desc">Complex multi-pillar cases, treatment planning, and long-term follow-up strategies.</div>
+          <div class="module-card__status status--coming">Coming Soon</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>Women's Longevity Medicine &mdash; Premium Clinical Education</p>
+    <p style="margin-top: 8px;">Built with <a href="https://revealjs.com" target="_blank">Reveal.js</a> + GSAP + D3.js &mdash; Deployed on Netlify</p>
+  </footer>
+
+</body>
+</html>
