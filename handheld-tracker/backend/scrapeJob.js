@@ -3,9 +3,10 @@
 // number of sources that returned a price). Run via `npm run scrape` or cron.
 
 import "dotenv/config";
-import { DEVICES, sourcesFor } from "./devices.js";
+import { sourcesFor } from "./devices.js";
 import { scrapePrice } from "./firecrawl.js";
 import { load, save, upsert, today } from "./store.js";
+import { getCatalog } from "./catalog.js";
 
 function average(sources) {
   const got = sources.filter(s => typeof s.price === "number");
@@ -18,7 +19,7 @@ export async function runScrape({ log = true } = {}) {
   const date = today();
   let ok = 0, fail = 0;
 
-  for (const d of DEVICES) {
+  for (const d of getCatalog(db)) {
     const sources = await Promise.all(sourcesFor(d).map(src => scrapePrice(src, d)));
     const avg = average(sources);
     if (avg == null) { fail++; if (log) console.log(`✗ ${d.name}: no price`); continue; }

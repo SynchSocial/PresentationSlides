@@ -44,23 +44,30 @@ npm run dev
 ```bash
 curl -s localhost:8787/api/health
 curl -s localhost:8787/api/devices | head -c 400
-curl -s -X POST localhost:8787/api/refresh   # force a fresh scrape
+curl -s -X POST localhost:8787/api/refresh    # force a fresh price scrape
+curl -s -X POST localhost:8787/api/discover   # find + auto-publish new handhelds
 ```
 Then open http://localhost:5173, sort by "Best value", expand any device — you should see two
 buy links, the averaged price, and a price-over-time chart.
 
 ## How it works (for context)
-- `backend/devices.js` — 37-device catalog + scoring + a 2-source resolver (primary store +
-  Amazon) per device.
+- `backend/devices.js` — seed catalog + scoring rubric: emulation profiles, chip→profile
+  benchmarks (`PROFILE_BENCHMARK`/`KNOWN_CHIPS`), the 2-source resolver, and the
+  `screenSpec()` resolution/aspect parser.
+- `backend/catalog.js` — the live catalog (in the DB). Seeds itself from `devices.js` on
+  first boot, then is the runtime source of devices.
+- `backend/discover.js` — the self-building job: find new handhelds → scrape specs → rate the
+  chip (known profile, or benchmark→nearest tier) → validate → auto-publish. `POST /api/discover`
+  or weekly cron (`CRON_DISCOVER`).
 - `backend/scrapeJob.js` — scrapes both sources, averages them (`(a+b)/2`), writes ONE data
   point per device per day into the SQLite DB (`backend/data/history.db`).
 - `backend/firecrawl.js` — Firecrawl v2 `/scrape` JSON extraction (`price`, `buyUrl`,
   `inStock`); falls back to mock when no key.
-- `backend/store.js` — SQLite persistence (`better-sqlite3`): normalized `price_point` /
-  `price_source` tables, one row per device per day. Seeds itself once from the shipped
-  `data/history.json` snapshot if the DB is empty on first boot.
+- `backend/store.js` — SQLite persistence (`better-sqlite3`): `price_point`/`price_source`
+  price history plus `device`/`chip_profile` catalog tables. Imports the shipped
+  `data/history.json` snapshot once if the DB is empty on first boot.
 - `backend/server.js` — REST API (`/api/devices`, `/api/history/:id`, `/api/refresh`,
-  `/api/health`) + in-process daily cron.
+  `/api/discover`, `/api/health`) + daily price cron + weekly discovery cron.
 - `frontend/src/App.jsx` — reads the API, ranks by performance-per-dollar, shows the run/choke
   emulation matrix, dual buy links, and a recharts price chart.
 
