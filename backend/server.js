@@ -7,7 +7,7 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import cron from "node-cron";
-import { DEVICES, sourcesFor, scoreOf, SYSTEMS } from "./devices.js";
+import { DEVICES, sourcesFor, scoreOf, screenSpec, SYSTEMS } from "./devices.js";
 import { load, history, latest, today } from "./store.js";
 import { runScrape } from "./scrapeJob.js";
 
@@ -23,8 +23,10 @@ app.get("/api/devices", (_req, res) => {
     const last = latest(db, d.id);
     const price = last?.avg ?? d.street;
     const fallbackSources = sourcesFor(d).map(s => ({ store: s.store, price: null, buyUrl: s.url }));
+    const screen = screenSpec(d);
     return {
       id: d.id, name: d.name, brand: d.brand, chip: d.chip, ram: d.ram, screen: d.screen,
+      screenSize: screen.size, resolution: screen.resolution, aspect: screen.aspect,
       form: d.form, os: d.os, tier: d.tier, msrp: d.msrp, hr: d.hr, tracked: !!d.tracked,
       emu: d.emu,
       ...scoreOf(d, price),

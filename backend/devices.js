@@ -52,6 +52,51 @@ export function sourcesFor(d) {
   return [primary, amazon(d.name)];
 }
 
+// ── Screen spec parsing ──────────────────────────────────────────────────────
+// Derive { size, resolution, aspect, w, h } from a device's `screen` string
+// (e.g. '3.2" 1024×768 120Hz'). Falls back to res tokens (1080p/720p/750p) and
+// finally an explicit `device.res` override ("960×544") when the string has no
+// pixels. Aspect snaps to the nearest common ratio so odd panels read cleanly
+// (1334×750 -> 16:9), else shows the exact reduced ratio.
+const COMMON_RATIOS = [[16,9],[16,10],[21,9],[5,3],[3,2],[5,4],[4,3],[1,1]];
+const RES_TOKENS = { "1080p": [1920,1080], "720p": [1280,720], "750p": [1334,750] };
+
+function aspectLabel(w, h) {
+  const W = Math.max(w, h), H = Math.min(w, h);
+  const r = W / H;
+  for (const [a, b] of COMMON_RATIOS) {
+    if (Math.abs(r - a / b) / (a / b) < 0.02) return `${a}:${b}`;
+  }
+  const gcd = (x, y) => (y ? gcd(y, x % y) : x);
+  const d = gcd(W, H);
+  return `${W / d}:${H / d}`;
+}
+
+export function screenSpec(d) {
+  const str = d.screen || "";
+  const size = (str.match(/[\d.]+"/) || [null])[0];
+
+  let w, h;
+  const wh = str.match(/(\d{3,4})\s*[×x]\s*(\d{3,4})/i);
+  if (wh) { w = +wh[1]; h = +wh[2]; }
+  else {
+    const tok = Object.keys(RES_TOKENS).find(t => str.includes(t));
+    if (tok) { [w, h] = RES_TOKENS[tok]; }
+    else if (d.res) {
+      const m = d.res.match(/(\d{3,4})\s*[×x]\s*(\d{3,4})/i);
+      if (m) { w = +m[1]; h = +m[2]; }
+    }
+  }
+
+  return {
+    size: size || null,
+    resolution: w && h ? `${w}×${h}` : null,
+    aspect: w && h ? aspectLabel(w, h) : null,
+    w: w || null,
+    h: h || null,
+  };
+}
+
 export const DEVICES = [
   { id:"miniplus", name:"Miyoo Mini Plus", brand:"Miyoo", chip:"SigmaStar SSD202D", ram:"128MB", screen:'3.5" 640×480', form:"Vertical", os:"Linux", tier:"Budget", msrp:55, street:52, hr:null, emu:emu("ssd202") },
   { id:"miniflip", name:"Miyoo Mini Flip", brand:"Miyoo", chip:"SigmaStar SSD202D", ram:"128MB", screen:'2.8" 750×560', form:"Clamshell", os:"Linux", tier:"Budget", msrp:70, street:70, hr:null, emu:emu("ssd202") },
@@ -71,7 +116,7 @@ export const DEVICES = [
   { id:"mangmiairx", name:"Mangmi Air X", brand:"Mangmi", chip:"Snapdragon 662", ram:"4GB", screen:'5.5" 1080p', form:"Horizontal", os:"Android", tier:"Mid", msrp:106, street:100, hr:107, emu:emu("g99",{Saturn:0,"3DS":0}) },
   { id:"rg405m", name:"Anbernic RG405M", brand:"Anbernic", chip:"Unisoc T618", ram:"4GB", screen:'4.0" 640×480', form:"Horizontal", os:"Android", tier:"Mid", msrp:120, street:110, hr:145, emu:emu("t618") },
   { id:"rg405v", name:"Anbernic RG405V", brand:"Anbernic", chip:"Unisoc T618", ram:"4GB", screen:'4.0" 640×480 OLED', form:"Vertical", os:"Android", tier:"Mid", msrp:120, street:115, hr:145, emu:emu("t618") },
-  { id:"rg505", name:"Anbernic RG505", brand:"Anbernic", chip:"Unisoc T618", ram:"4GB", screen:'4.0" OLED', form:"Vertical", os:"Android", tier:"Mid", msrp:158, street:120, hr:140, emu:emu("t618") },
+  { id:"rg505", name:"Anbernic RG505", brand:"Anbernic", chip:"Unisoc T618", ram:"4GB", screen:'4.0" OLED', res:"960×544", form:"Vertical", os:"Android", tier:"Mid", msrp:158, street:120, hr:140, emu:emu("t618") },
   { id:"rgcube", name:"Anbernic RG Cube", brand:"Anbernic", chip:"Unisoc T820", ram:"8GB", screen:'3.95" 720×720', form:"Square", os:"Android 13", tier:"Mid", msrp:170, street:135, hr:253, emu:emu("t820") },
   { id:"rg556", name:"Anbernic RG556", brand:"Anbernic", chip:"Unisoc T820", ram:"8GB", screen:'5.48" 1080p AMOLED', form:"Horizontal", os:"Android", tier:"Mid", msrp:185, street:180, hr:256, emu:emu("t820") },
   { id:"rg406h", name:"Anbernic RG406H", brand:"Anbernic", chip:"Unisoc T820", ram:"8GB", screen:'4.0" 960×720', form:"Horizontal", os:"Android", tier:"Mid", msrp:168, street:150, hr:256, emu:emu("t820") },

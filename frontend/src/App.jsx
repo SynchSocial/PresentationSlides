@@ -163,7 +163,9 @@ export default function App() {
                       <span style={{ fontSize: 10, padding: "2px 7px", borderRadius: 999, background: TIER_COLOR[d.tier] + "22", color: TIER_COLOR[d.tier], fontWeight: 600 }}>{d.tier}</span>
                       {d.tracked && <span style={{ fontSize: 10, padding: "2px 7px", borderRadius: 999, background: "#1e3a5f", color: "#7dd3fc", fontWeight: 600 }}>tracked</span>}
                     </div>
-                    <div style={{ fontSize: 12, color: "#8b909c", marginTop: 3 }}>{d.chip} · {d.ram} · {d.screen}</div>
+                    <div style={{ fontSize: 12, color: "#8b909c", marginTop: 3 }}>
+                      {d.chip} · {d.ram} · {d.screen}{d.aspect ? ` · ${d.aspect}` : ""}
+                    </div>
                     <div style={{ display: "flex", gap: 2, marginTop: 7, flexWrap: "wrap" }}>
                       {SYSTEMS.map(s => (
                         <div key={s} title={`${s}: ${d.emu[s] === 2 ? "full" : d.emu[s] === 1 ? "playable" : "chokes"}`}
@@ -185,6 +187,7 @@ export default function App() {
                       <Stat label="Composite" v={fmt(d.composite) + " / 100"} />
                       <Stat label="Emulation score" v={fmt(d.emu100) + " / 100"} />
                       <Stat label="HandheldRank" v={d.hr != null ? d.hr : "—"} />
+                      <Stat label="Screen" v={[d.screenSize, d.resolution, d.aspect].filter(Boolean).join(" · ") || "—"} />
                       <Stat label="Form / OS" v={`${d.form} · ${d.os}`} />
                       <Stat label="MSRP" v={"$" + d.msrp} />
                     </div>
