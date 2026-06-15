@@ -1,0 +1,19 @@
+{
+  "name": "handheld-tracker-backend",
+  "version": "1.0.0",
+  "description": "Firecrawl-backed daily price tracker for retro gaming handhelds. Scrapes 2 sources per device, stores a daily averaged data point, serves buy links + price history.",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "scrape": "node scrapeJob.js",
+    "seed": "node seedMock.js"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.8.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "node-cron": "^3.0.3"
+  }
+}

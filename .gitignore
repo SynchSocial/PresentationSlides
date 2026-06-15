@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.DS_Store
+*.log
+.env
+
+# SQLite database (generated; seeded from data/history.json on first boot)
+backend/data/*.db
+backend/data/*.db-wal
+backend/data/*.db-shm
