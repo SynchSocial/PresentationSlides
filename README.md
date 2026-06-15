@@ -12,11 +12,13 @@ handheld-tracker/
 │   ├── server.js       Express API + daily cron
 │   ├── scrapeJob.js    scrape both sources → average → store one daily point
 │   ├── firecrawl.js    Firecrawl v2 /scrape client (price + buy URL); mock fallback
-│   ├── devices.js      37-device catalog, scoring, 2-source resolver
-│   ├── store.js        SQLite daily-history persistence (1 point/day/device)
+│   ├── devices.js      seed catalog + scoring rubric (profiles, chip benchmarks, helpers)
+│   ├── catalog.js      DB-backed device catalog (seeds itself from devices.js once)
+│   ├── discover.js     finds + specs + validates + auto-publishes new handhelds
+│   ├── store.js        SQLite persistence (price history + device/chip-profile tables)
 │   ├── seedMock.js     backfill N days so charts have a trend on day one
 │   └── data/
-│       ├── history.json   one-time seed snapshot (imported into the DB on first boot)
+│       ├── history.json   one-time price seed (imported into the DB on first boot)
 │       └── history.db      SQLite database (generated, git-ignored)
 └── frontend/
     └── HandheldValueTracker.jsx   reads the API; recharts price chart + buy links
@@ -46,10 +48,32 @@ npm install lucide-react recharts
 ## API
 | Method | Route | Returns |
 |---|---|---|
-| GET | `/api/devices` | every device with score, value, latest avg price, 2 buy links |
+| GET | `/api/devices` | every device with score, value, latest avg price, screen resolution + aspect, 2 buy links |
 | GET | `/api/history/:id` | daily averaged price series for one device |
-| POST | `/api/refresh` | trigger a scrape immediately |
+| POST | `/api/refresh` | trigger a price scrape immediately |
+| POST | `/api/discover` | find + auto-publish newly released handhelds |
 | GET | `/api/health` | `{ ok, mock }` |
+
+## Self-building catalog
+The catalog isn't a fixed list — it grows itself as new handhelds and processors
+release. A weekly **discovery** sweep (`discover.js`, or `POST /api/discover`):
+1. **Finds** newly released handhelds (Firecrawl web search).
+2. **Specs** each one (chip, RAM, screen + resolution, form, MSRP).
+3. **Rates the processor** — a known chip uses its hand-tuned emulation profile; a
+   chip never seen before gets a scraped **benchmark** (≈ AnTuTu v10) mapped to the
+   nearest tier in `PROFILE_BENCHMARK`, and that mapping is cached in `chip_profile`
+   so the next device with that SoC resolves instantly.
+4. **Validates hard** then **auto-publishes**. Survivors enter the ranking
+   immediately (no "unverified" flag); the validation gate is the safety net —
+   required fields, sane MSRP/price bounds, a plausible street-vs-MSRP ratio, a
+   resolvable emulation profile, and dedupe. Anything that fails is rejected and
+   logged, never published.
+
+So a new device that undercuts the field on performance-per-dollar can break into
+the top of the list the moment discovery finds it. Tune the schedule with
+`CRON_DISCOVER` (default weekly, Mondays 10:00). Runs in MOCK mode too — discovery
+uses a deterministic set of "just-released" candidates so the whole path is testable
+without a key.
 
 ## How a price is built
 Each device has two sources (a brand/primary store + Amazon, see `STORE`/`sourcesFor` in
@@ -75,12 +99,16 @@ to any device in `devices.js`.
 - **Frontend**: Vercel / Netlify — set `VITE_API_URL` to the deployed backend.
 
 ## Storage
-History lives in a **SQLite** database (`backend/data/history.db`, via `better-sqlite3`) with
-two normalized tables — `price_point(device_id, date, avg)` and
-`price_source(device_id, date, store, price, buy_url, in_stock)` — so each daily scrape upserts
-just the rows that changed instead of rewriting one growing JSON blob. The DB is generated
-locally (git-ignored); on first boot, if it's empty, the shipped `data/history.json` snapshot is
-imported once so the charts render immediately.
+Everything lives in a **SQLite** database (`backend/data/history.db`, via `better-sqlite3`):
+- `price_point(device_id, date, avg)` + `price_source(device_id, date, store, price, buy_url, in_stock)`
+  — daily price history, so each scrape upserts just the changed rows instead of rewriting a
+  growing JSON blob.
+- `device(...)` — the catalog itself (seeded once from `devices.js`, then grown by discovery).
+- `chip_profile(chip, profile, benchmark)` — chip → emulation-profile mappings the system
+  learns over time.
+
+The DB is generated locally (git-ignored); on first boot it seeds the catalog from `devices.js`
+and imports the shipped `data/history.json` price snapshot so the charts render immediately.
 
 ## Upgrade path
 For years of history or multi-instance deploys, swap SQLite for Postgres (the `store.js` API —

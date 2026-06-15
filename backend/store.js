@@ -48,10 +48,105 @@ function connect() {
       PRIMARY KEY (device_id, date, store)
     );
     CREATE INDEX IF NOT EXISTS idx_point_device ON price_point(device_id, date);
+
+    CREATE TABLE IF NOT EXISTS device (
+      id         TEXT PRIMARY KEY,
+      name       TEXT NOT NULL,
+      brand      TEXT,
+      chip       TEXT,
+      ram        TEXT,
+      screen     TEXT,
+      res        TEXT,
+      form       TEXT,
+      os         TEXT,
+      tier       TEXT,
+      msrp       INTEGER,
+      street     INTEGER,
+      hr         INTEGER,
+      tracked    INTEGER DEFAULT 0,
+      emu_json   TEXT NOT NULL,
+      profile    TEXT,
+      source     TEXT DEFAULT 'seed',
+      created_at TEXT
+    );
+    -- chip -> emulation profile mappings the system learns over time
+    CREATE TABLE IF NOT EXISTS chip_profile (
+      chip      TEXT PRIMARY KEY,
+      profile   TEXT NOT NULL,
+      benchmark INTEGER,
+      source    TEXT DEFAULT 'seed'
+    );
   `);
 
   maybeSeed(_db);
   return _db;
+}
+
+// ── Device-catalog persistence ───────────────────────────────────────────────
+
+const DEVICE_COLS = [
+  "id","name","brand","chip","ram","screen","res","form","os","tier",
+  "msrp","street","hr","tracked","emu_json","profile","source","created_at",
+];
+
+function rowToDevice(r) {
+  if (!r) return null;
+  return {
+    id: r.id, name: r.name, brand: r.brand, chip: r.chip, ram: r.ram,
+    screen: r.screen, res: r.res, form: r.form, os: r.os, tier: r.tier,
+    msrp: r.msrp, street: r.street, hr: r.hr, tracked: !!r.tracked,
+    emu: JSON.parse(r.emu_json), profile: r.profile, source: r.source,
+    createdAt: r.created_at,
+  };
+}
+
+export function getDevices(conn) {
+  return conn.prepare("SELECT * FROM device").all().map(rowToDevice);
+}
+
+export function getDevice(conn, id) {
+  return rowToDevice(conn.prepare("SELECT * FROM device WHERE id = ?").get(id));
+}
+
+export function deviceCount(conn) {
+  return conn.prepare("SELECT COUNT(*) AS n FROM device").get().n;
+}
+
+// Insert/replace one catalog device. `rec.emu` is a 16-system object.
+export function upsertDevice(conn, rec) {
+  const row = {
+    ...rec,
+    tracked: rec.tracked ? 1 : 0,
+    emu_json: JSON.stringify(rec.emu),
+    created_at: rec.createdAt || new Date().toISOString(),
+  };
+  const placeholders = DEVICE_COLS.map(c => `@${c}`).join(", ");
+  conn.prepare(
+    `INSERT INTO device (${DEVICE_COLS.join(", ")}) VALUES (${placeholders})
+     ON CONFLICT(id) DO UPDATE SET ${DEVICE_COLS.filter(c => c !== "id")
+       .map(c => `${c} = excluded.${c}`).join(", ")}`
+  ).run({
+    id: row.id, name: row.name, brand: row.brand ?? null, chip: row.chip ?? null,
+    ram: row.ram ?? null, screen: row.screen ?? null, res: row.res ?? null,
+    form: row.form ?? null, os: row.os ?? null, tier: row.tier ?? null,
+    msrp: row.msrp ?? null, street: row.street ?? null, hr: row.hr ?? null,
+    tracked: row.tracked, emu_json: row.emu_json, profile: row.profile ?? null,
+    source: row.source ?? "seed", created_at: row.created_at,
+  });
+  return conn;
+}
+
+export function getChipProfile(conn, chip) {
+  return conn.prepare("SELECT * FROM chip_profile WHERE chip = ?").get(chip) || null;
+}
+
+export function upsertChipProfile(conn, chip, profile, benchmark, source = "seed") {
+  conn.prepare(
+    `INSERT INTO chip_profile (chip, profile, benchmark, source) VALUES (?, ?, ?, ?)
+     ON CONFLICT(chip) DO UPDATE SET profile = excluded.profile,
+       benchmark = excluded.benchmark, source = excluded.source`
+  ).run(chip, profile, benchmark ?? null, source);
+  return conn;
 }
 
 // Import the legacy JSON snapshot once, only if the DB has no data yet.
