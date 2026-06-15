@@ -43,7 +43,9 @@ export async function scrapePrice(source, device) {
       body: JSON.stringify({
         url: source.url,
         onlyMainContent: true,
-        proxy: "auto",
+        // "stealth" survives AliExpress/store anti-bot (captcha) walls far more
+        // often than "auto" (which resolves to "basic" and gets challenged).
+        proxy: "stealth",
         formats: [{
           type: "json",
           prompt: `Find the "${device.name}" retro handheld on this page. Return its current lowest price in USD as a number, whether it is in stock, and the direct product/buy URL for the cheapest listing.`,
