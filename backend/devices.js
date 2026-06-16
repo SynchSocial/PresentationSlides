@@ -92,11 +92,26 @@ const STORE = {
 };
 const amazon = n => ({ store: "Amazon", url: `https://www.amazon.com/s?k=${encodeURIComponent(n)}` });
 
-// Build the 2 sources for a device (explicit override wins)
+import { retailersForBrand } from "./watchlist.js";
+
+// Build the price sources for a device: the brand's official store (if any) +
+// the watchlist retailers that carry the brand + Amazon. Explicit override wins.
+// Deduped by store name. Add/remove tracked retailers in watchlist.js.
 export function sourcesFor(d) {
-  if (d.sources && d.sources.length) return d.sources.slice(0, 2);
-  const primary = (STORE[d.brand] || amazon)(d.name);
-  return [primary, amazon(d.name)];
+  if (d.sources && d.sources.length) return d.sources;
+  const builders = [];
+  if (STORE[d.brand]) builders.push(STORE[d.brand]);
+  builders.push(...retailersForBrand(d.brand));
+  builders.push(amazon);
+  const seen = new Set();
+  const sources = [];
+  for (const build of builders) {
+    const s = build(d.name);
+    if (seen.has(s.store)) continue;
+    seen.add(s.store);
+    sources.push(s);
+  }
+  return sources;
 }
 
 // ── Screen spec parsing ──────────────────────────────────────────────────────

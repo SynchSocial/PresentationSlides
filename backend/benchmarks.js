@@ -13,6 +13,7 @@
 // To refresh: re-scrape nanoreview (see scrapeBenchmark) or update inline.
 
 import { chipBenchmark as scrapeBenchmark } from "./firecrawl.js";
+import { NEXT_GEN_SOCS } from "./watchlist.js";
 
 export const CHIP_BENCHMARKS = {
   // embedded Linux SoCs — nominal anchors (no public AnTuTu)
@@ -58,10 +59,19 @@ export const PROFILE_BENCHMARK = {
   sd8elite: CHIP_BENCHMARKS["Snapdragon 8 Elite"],
 };
 
-// Benchmark for a chip: curated real value if we have one, else scrape it live
-// (nanoreview via Firecrawl; deterministic mock without a key). Returns a number
-// or null.
+// A chip at/above this is flagship-class ("known-good for everything").
+export const FLAGSHIP_BENCHMARK = PROFILE_BENCHMARK.sd8g2; // ~1.75M (8 Gen 2)
+export const isFlagship = (benchmark) => typeof benchmark === "number" && benchmark >= FLAGSHIP_BENCHMARK;
+
+// Benchmark for a chip, best source first:
+//   1. curated real value (CHIP_BENCHMARKS)
+//   2. next-gen "known-good" watchlist value (so a flagship we already trust
+//      lands top-tier even before public benchmark DBs list it — and isn't
+//      mis-rated by a noisy scrape)
+//   3. live scrape (nanoreview via Firecrawl; deterministic mock without a key)
+// Returns a number or null.
 export async function resolveBenchmark(chip) {
   if (CHIP_BENCHMARKS[chip] != null) return CHIP_BENCHMARKS[chip];
+  if (NEXT_GEN_SOCS[chip] != null) return NEXT_GEN_SOCS[chip];
   return await scrapeBenchmark(chip);
 }
