@@ -87,7 +87,7 @@ export default function App() {
           <div>
             <h1 style={{ fontSize: 26, fontWeight: 800, margin: 0, letterSpacing: -0.5 }}>Retro Handheld Value Tracker</h1>
             <p style={{ margin: "4px 0 0", color: "#8b909c", fontSize: 13 }}>
-              {data.devices.length} handhelds · averaged from 2 sources daily · performance-per-dollar
+              {data.devices.length} handhelds · averaged across tracked retailers daily · performance-per-dollar
             </p>
           </div>
           <div style={{ textAlign: "right" }}>
@@ -139,7 +139,7 @@ export default function App() {
           </div>
           {showInfo && (
             <div style={{ marginTop: 12, fontSize: 12, color: "#9aa0ac", lineHeight: 1.6, borderTop: "1px solid #232a36", paddingTop: 10 }}>
-              Price = the average of 2 store sources, scraped once a day by the Firecrawl backend (sum of both prices ÷ 2). Each of the 16 systems is a "test": full speed = 2, playable = 1, chokes = 0. <b style={{color:"#cbd0da"}}>Emulation score</b> = total ÷ 32 × 100, averaged with the normalized HandheldRank index where available to form the <b style={{color:"#cbd0da"}}>Composite</b>. <b style={{color:"#cbd0da"}}>Value</b> = composite ÷ price × 10. Expand any device for its daily price chart and both buy links.
+              Price = the average of the tracked retail sources (brand store, MechDIY, LitNXT, GoGameGeek, Amazon via Keepa), scraped once a day, with Amazon auto-vetted for a legitimate listing from a reputable seller. Each of the 16 systems is a "test": full speed = 2, playable = 1, chokes = 0. <b style={{color:"#cbd0da"}}>Emulation score</b> = total ÷ 32 × 100, averaged with the normalized HandheldRank index where available to form the <b style={{color:"#cbd0da"}}>Composite</b>. <b style={{color:"#cbd0da"}}>Value</b> = composite ÷ price × 10. Expand any device for its daily price chart and both buy links.
             </div>
           )}
         </div>
@@ -244,7 +244,7 @@ export default function App() {
         </div>
 
         <p style={{ marginTop: 24, fontSize: 11, color: "#5b616d", lineHeight: 1.6 }}>
-          Prices are a daily average of 2 store sources via Firecrawl. Emulation ceilings are cross-source consensus (Retro Game Corps, Retro Handhelds, DROIX, GBAtemp, r/SBCGaming). HandheldRank index corroborated by Geekbench 6 / AnTuTu. Verify before buying.
+          Prices are a daily average of the tracked retailers (Firecrawl) with Amazon via the Keepa API (auto-vetted listing). Emulation ceilings are cross-source consensus (Retro Game Corps, Retro Handhelds, DROIX, GBAtemp, r/SBCGaming); chip benchmarks from nanoreview (AnTuTu). Verify before buying.
         </p>
       </div>
       <style>{`@keyframes spin{to{transform:rotate(360deg)}} select option{background:#161a22}`}</style>

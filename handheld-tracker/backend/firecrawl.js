@@ -76,40 +76,39 @@ export async function scrapePrice(source, device) {
 }
 
 // ── Discovery: find newly released handhelds ─────────────────────────────────
-// In live mode this runs a Firecrawl web search; in mock mode it returns a
-// deterministic set of "just-released" candidates so the pipeline is testable
-// end-to-end (the mock names below double as a self-test of the discovery path).
+// In live mode this runs several Firecrawl web searches (from watchlist's
+// DISCOVERY_QUERIES) and unions the device names found; in mock mode it returns
+// a deterministic set of "just-released" candidates — including a next-gen
+// flagship and a TrimUI-with-sticks device — so the pipeline self-tests.
 const MOCK_CANDIDATES = [
   "Anbernic RG477V", "Retroid Pocket 7", "Powkiddy X75", "Miyoo Mini V4",
-  "AYN Odin 3 Mini", "TrimUI Smart Pro 2", "GKD Bubble", "AYANEO Pocket Vert",
+  "TrimUI Smart Pro 2", "GKD Bubble", "AYANEO Pocket Vert",
+  "TrimUI Brick S with Sticks", "AYN Odin 4",        // <- new TrimUI + next-gen flagship
 ];
+const BRAND_RX = /\b(Anbernic|Retroid|Miyoo|Powkiddy|TrimUI|AYANEO|AYN|GKD|MagicX|Mangmi|ModRetro)\s+[A-Za-z0-9][\w\s-]{1,28}/i;
 
-export async function discoverCandidates() {
+export async function discoverCandidates(queries) {
   if (MOCK) return MOCK_CANDIDATES.map(name => ({ name }));
-  try {
-    const res = await fetch(SEARCH_ENDPOINT, {
-      method: "POST",
-      headers: { Authorization: `Bearer ${KEY}`, "Content-Type": "application/json" },
-      body: JSON.stringify({
-        query: "newly released retro gaming handheld console 2026 specs",
-        limit: 20,
-      }),
-    });
-    if (!res.ok) throw new Error(`Firecrawl search ${res.status}`);
-    const data = await res.json();
-    const items = data?.data || data?.results || [];
-    // Pull plausible "<Brand> <Model>" device names out of result titles.
-    const names = new Set();
-    for (const it of items) {
-      const m = String(it.title || "").match(
-        /\b(Anbernic|Retroid|Miyoo|Powkiddy|TrimUI|AYANEO|AYN|GKD|MagicX|Mangmi)\s+[A-Za-z0-9][\w\s-]{1,28}/i
-      );
-      if (m) names.add(m[0].replace(/\s+/g, " ").trim());
-    }
-    return [...names].map(name => ({ name }));
-  } catch (e) {
-    return [];
+  const { DISCOVERY_QUERIES } = await import("./watchlist.js");
+  const qs = queries && queries.length ? queries : DISCOVERY_QUERIES;
+  const names = new Set();
+  for (const query of qs) {
+    try {
+      const res = await fetch(SEARCH_ENDPOINT, {
+        method: "POST",
+        headers: { Authorization: `Bearer ${KEY}`, "Content-Type": "application/json" },
+        body: JSON.stringify({ query, limit: 15 }),
+      });
+      if (!res.ok) continue;
+      const data = await res.json();
+      const items = data?.data || data?.results || [];
+      for (const it of items) {
+        const m = String(it.title || "").match(BRAND_RX);
+        if (m) names.add(m[0].replace(/\s+/g, " ").trim());
+      }
+    } catch { /* skip a failed query, keep the rest */ }
   }
+  return [...names].map(name => ({ name }));
 }
 
 const SPEC_SCHEMA = {
@@ -138,8 +137,13 @@ function mockSpecs(name) {
     ["Snapdragon 8 Gen 4", "16GB", '6.0" 1080p', 399], // unknown chip -> benchmark path
     ["Rockchip RK3566", "1GB", '4" 720×720', 85],
   ];
+  // Named cases so discovery's flagship + TrimUI-with-sticks paths self-test.
+  const SPECIAL = {
+    "AYN Odin 4": ["Snapdragon 8 Elite Gen 2", "16GB", '6.0" 1080p', 449], // next-gen flagship (watchlist fallback)
+    "TrimUI Brick S with Sticks": ["Allwinner A133P", "1GB", '3.2" 1024×768', 95],
+  };
   const brandM = name.match(/^(Anbernic|Retroid|Miyoo|Powkiddy|TrimUI|AYANEO|AYN|GKD|MagicX|Mangmi)/i);
-  const [chip, ram, screen, msrp] = chips[h % chips.length];
+  const [chip, ram, screen, msrp] = SPECIAL[name] || chips[h % chips.length];
   return {
     brand: brandM ? brandM[1] : name.split(" ")[0],
     chip, ram, screen, msrp,

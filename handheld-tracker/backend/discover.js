@@ -7,8 +7,9 @@
 
 import { discoverCandidates, scrapeSpecs } from "./firecrawl.js";
 import { resolveEmu, KNOWN_CHIPS, SYSTEMS, PROFILE_BENCHMARK } from "./devices.js";
-import { resolveBenchmark } from "./benchmarks.js";
-import { load, getDevice, upsertDevice, upsertChipProfile } from "./store.js";
+import { resolveBenchmark, isFlagship } from "./benchmarks.js";
+import { isKeepaLive, resolveBestListing } from "./keepa.js";
+import { load, getDevice, upsertDevice, upsertChipProfile, setDeviceAsin } from "./store.js";
 import { ensureSeeded } from "./catalog.js";
 
 const slug = (name) =>
@@ -43,7 +44,7 @@ export async function runDiscovery({ log = true } = {}) {
   ensureSeeded(db);
 
   const candidates = await discoverCandidates();
-  let added = 0, skipped = 0;
+  let added = 0, skipped = 0, flagships = 0;
   const rejected = [];
 
   for (const c of candidates) {
@@ -98,14 +99,26 @@ export async function runDiscovery({ log = true } = {}) {
     if (!known) upsertChipProfile(db, specs.chip, profile, benchmark, "discovered");
     upsertDevice(db, rec);
     added++;
-    if (log) console.log(`+ ${rec.name}  [${specs.chip} -> ${profile}, ${rec.tier}, $${msrp}]`);
+
+    const flagship = isFlagship(benchmark);
+    if (flagship) flagships++;
+
+    // Immediately auto-vet + pin an Amazon (Keepa) listing so a freshly found
+    // device starts tracking prices/deals right away — no manual picking.
+    let pinned = "";
+    if (isKeepaLive()) {
+      const best = await resolveBestListing(rec.name, rec);
+      if (best) { setDeviceAsin(db, id, best.asin); pinned = `  pinned ${best.asin} $${best.price}`; }
+    }
+
+    if (log) console.log(`+ ${flagship ? "★ FLAGSHIP " : ""}${rec.name}  [${specs.chip} -> ${profile}, ${rec.tier}, $${msrp}]${pinned}`);
   }
 
   if (log) {
-    console.log(`\nDiscovery: ${candidates.length} found, ${added} added, ${skipped} already known, ${rejected.length} rejected.`);
+    console.log(`\nDiscovery: ${candidates.length} found, ${added} added (${flagships} flagship), ${skipped} already known, ${rejected.length} rejected.`);
     for (const r of rejected) console.log(`  ✗ ${r.name}: ${r.errors.join(", ")}`);
   }
-  return { found: candidates.length, added, skipped, rejected };
+  return { found: candidates.length, added, skipped, flagships, rejected };
 }
 
 // run directly
