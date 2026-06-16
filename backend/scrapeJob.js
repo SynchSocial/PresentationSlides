@@ -5,7 +5,7 @@
 import "dotenv/config";
 import { sourcesFor } from "./devices.js";
 import { scrapePrice } from "./firecrawl.js";
-import { isKeepaLive, resolveAsin, keepaPrice, amazonUrl } from "./keepa.js";
+import { isKeepaLive, resolveBestListing, keepaPrice } from "./keepa.js";
 import { load, save, upsert, today, setDeviceAsin } from "./store.js";
 import { getCatalog } from "./catalog.js";
 
@@ -21,13 +21,14 @@ export async function runScrape({ log = true } = {}) {
   let ok = 0, fail = 0;
 
   for (const d of getCatalog(db)) {
-    // When Keepa is configured, the Amazon source comes from its API (accurate
-    // price + history) instead of scraping Amazon search. Resolve & cache the
-    // device's ASIN once, then reuse it on every run.
+    // When Keepa is configured, the Amazon source comes from its API. The first
+    // time we see a device we auto-vet listings (right device, real brand, sane
+    // price, reputable seller) and pin the winner's ASIN — or pin nothing if no
+    // listing is trustworthy. After that we reuse the pinned ASIN every run.
     let asin = d.asin;
     if (isKeepaLive() && !asin) {
-      asin = await resolveAsin(d.name);
-      if (asin) setDeviceAsin(db, d.id, asin);
+      const best = await resolveBestListing(d.name, d);
+      if (best) { asin = best.asin; setDeviceAsin(db, d.id, asin); }
     }
     const sources = await Promise.all(sourcesFor(d).map(src => {
       if (src.store === "Amazon" && isKeepaLive() && asin) return keepaPrice(asin);
