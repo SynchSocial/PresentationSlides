@@ -182,16 +182,18 @@ export async function chipBenchmark(chip) {
     return Math.min(3000000, base + bump);
   }
   try {
+    // Search-scrape the chip's AnTuTu from public benchmark databases
+    // (nanoreview, kimovil, etc.) — robust to whatever the SoC's slug is.
     const res = await fetch(ENDPOINT, {
       method: "POST",
       headers: { Authorization: `Bearer ${KEY}`, "Content-Type": "application/json" },
       body: JSON.stringify({
-        url: `https://nanoreview.net/en/soc-list/rating?q=${encodeURIComponent(chip)}`,
+        url: `https://www.google.com/search?q=${encodeURIComponent(`${chip} AnTuTu total score nanoreview`)}`,
         onlyMainContent: true,
         proxy: "stealth",
         formats: [{
           type: "json",
-          prompt: `Return the AnTuTu v10 total benchmark score (a number) for the "${chip}" mobile processor.`,
+          prompt: `Return the AnTuTu total benchmark score (a single number, e.g. 757199) for the "${chip}" processor. Use the most recent AnTuTu version reported.`,
           schema: { type: "object", properties: { antutu: { type: "number" } }, required: ["antutu"] },
         }],
       }),
@@ -199,7 +201,8 @@ export async function chipBenchmark(chip) {
     if (!res.ok) throw new Error(`Firecrawl ${res.status}`);
     const data = await res.json();
     const n = Number(data?.data?.json?.antutu);
-    return n > 0 ? n : null;
+    // Sanity-bound so a misparse can't crown a no-name chip as flagship-class.
+    return n >= 20000 && n <= 4000000 ? n : null;
   } catch {
     return null;
   }

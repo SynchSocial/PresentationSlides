@@ -32,50 +32,32 @@ const emu = (profile, overrides = {}) => {
 
 export const PROFILES = P;
 
-// Representative benchmark (≈ AnTuTu v10 total) for each emulation tier, in
-// ascending power. A brand-new chip's scraped benchmark is mapped to the
-// highest tier whose representative score it meets — this is how the catalog
-// rates processors it has never seen before, so the list can self-build.
-export const PROFILE_BENCHMARK = {
-  a33:       70000,
-  ssd202:    90000,
-  rk3326s:   120000,
-  h700:      130000,
-  a133p:     150000,
-  rk3566:    190000,
-  t618:      260000,
-  g99:       370000,
-  t820:      430000,
-  d1100:     540000,
-  sd865:     700000,
-  g2gen2:    820000,
-  g3x:       1150000,
-  d8300:     1280000,
-  sd8g2:     1500000,
-  sd8elite:  2600000,
-};
+// Real processor benchmarks + the tier scale live in benchmarks.js.
+import { PROFILE_BENCHMARK, CHIP_BENCHMARKS } from "./benchmarks.js";
+export { PROFILE_BENCHMARK, CHIP_BENCHMARKS };
 
-// Known chips already in the catalog -> their hand-tuned profile + benchmark.
-// Seeds the chip_profile table; discovered devices with these chips map directly.
+// Known chips already in the catalog -> their hand-tuned emulation profile.
+// Seeds the chip_profile table; discovered devices with these chips map directly
+// (benchmarks come from CHIP_BENCHMARKS in benchmarks.js).
 export const KNOWN_CHIPS = {
-  "SigmaStar SSD202D":          { profile: "ssd202",   benchmark: 90000 },
-  "Allwinner A33":              { profile: "a33",      benchmark: 70000 },
-  "Allwinner A133P":            { profile: "a133p",    benchmark: 150000 },
-  "Allwinner H700":             { profile: "h700",     benchmark: 130000 },
-  "Rockchip RK3566":            { profile: "rk3566",   benchmark: 190000 },
-  "Rockchip RK3326S":           { profile: "rk3326s",  benchmark: 120000 },
-  "Unisoc T618":                { profile: "t618",     benchmark: 260000 },
-  "Unisoc T820":                { profile: "t820",     benchmark: 430000 },
-  "MediaTek Helio G99":         { profile: "g99",      benchmark: 370000 },
-  "Snapdragon 662":             { profile: "g99",      benchmark: 320000 },
-  "MediaTek Dimensity 1100":    { profile: "d1100",    benchmark: 540000 },
-  "Dimensity 1100 / 8300":      { profile: "d1100",    benchmark: 540000 },
-  "Snapdragon 865":             { profile: "sd865",    benchmark: 700000 },
-  "MediaTek Dimensity 8300":    { profile: "d8300",    benchmark: 1280000 },
-  "Snapdragon 8 Gen 2":         { profile: "sd8g2",    benchmark: 1500000 },
-  "Snapdragon G2 Gen 2":        { profile: "g2gen2",   benchmark: 820000 },
-  "Snapdragon G3x Gen 2":       { profile: "g3x",      benchmark: 1150000 },
-  "Snapdragon 8 Elite":         { profile: "sd8elite", benchmark: 2600000 },
+  "SigmaStar SSD202D":          "ssd202",
+  "Allwinner A33":              "a33",
+  "Allwinner A133P":            "a133p",
+  "Allwinner H700":             "h700",
+  "Rockchip RK3566":            "rk3566",
+  "Rockchip RK3326S":           "rk3326s",
+  "Unisoc T618":                "t618",
+  "Unisoc T820":                "t820",
+  "MediaTek Helio G99":         "g99",
+  "Snapdragon 662":             "g99",
+  "MediaTek Dimensity 1100":    "d1100",
+  "Dimensity 1100 / 8300":      "d1100",
+  "Snapdragon 865":             "sd865",
+  "MediaTek Dimensity 8300":    "d8300",
+  "Snapdragon 8 Gen 2":         "sd8g2",
+  "Snapdragon G2 Gen 2":        "g2gen2",
+  "Snapdragon G3x Gen 2":       "g3x",
+  "Snapdragon 8 Elite":         "sd8elite",
 };
 
 // Pick the strongest tier whose representative benchmark the score meets.
@@ -91,8 +73,7 @@ export function profileForBenchmark(score) {
 // Resolve a 16-system emulation matrix for a chip. Known chips use their tuned
 // profile; unknown chips fall back to the benchmark-derived tier.
 export function resolveEmu(chip, benchmark) {
-  const known = KNOWN_CHIPS[chip];
-  const profile = known ? known.profile : profileForBenchmark(benchmark || 0);
+  const profile = KNOWN_CHIPS[chip] || profileForBenchmark(benchmark || 0);
   return { profile, emu: emu(profile) };
 }
 
