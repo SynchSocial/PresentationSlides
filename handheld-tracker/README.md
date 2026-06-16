@@ -12,7 +12,8 @@ handheld-tracker/
 │   ├── server.js       Express API + daily cron
 │   ├── scrapeJob.js    scrape both sources → average → store one daily point
 │   ├── firecrawl.js    Firecrawl v2 /scrape client (price + buy URL); mock fallback
-│   ├── devices.js      seed catalog + scoring rubric (profiles, chip benchmarks, helpers)
+│   ├── devices.js      seed catalog + scoring rubric (emulation profiles, helpers)
+│   ├── benchmarks.js   real AnTuTu scores per SoC (nanoreview) + tier scale + live resolver
 │   ├── catalog.js      DB-backed device catalog (seeds itself from devices.js once)
 │   ├── discover.js     finds + specs + validates + auto-publishes new handhelds
 │   ├── store.js        SQLite persistence (price history + device/chip-profile tables)
@@ -60,9 +61,11 @@ release. A weekly **discovery** sweep (`discover.js`, or `POST /api/discover`):
 1. **Finds** newly released handhelds (Firecrawl web search).
 2. **Specs** each one (chip, RAM, screen + resolution, form, MSRP).
 3. **Rates the processor** — a known chip uses its hand-tuned emulation profile; a
-   chip never seen before gets a scraped **benchmark** (≈ AnTuTu v10) mapped to the
-   nearest tier in `PROFILE_BENCHMARK`, and that mapping is cached in `chip_profile`
-   so the next device with that SoC resolves instantly.
+   chip never seen before gets a real **AnTuTu benchmark** (curated in `benchmarks.js`
+   from nanoreview.net, or scraped live for genuinely-new SoCs) mapped to the nearest
+   tier on the benchmark scale, and that mapping is cached in `chip_profile` so the
+   next device with that SoC resolves instantly. If a new chip can't be benchmarked at
+   all, the device is rejected rather than mis-rated.
 4. **Validates hard** then **auto-publishes**. Survivors enter the ranking
    immediately (no "unverified" flag); the validation gate is the safety net —
    required fields, sane MSRP/price bounds, a plausible street-vs-MSRP ratio, a

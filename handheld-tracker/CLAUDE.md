@@ -52,8 +52,9 @@ buy links, the averaged price, and a price-over-time chart.
 
 ## How it works (for context)
 - `backend/devices.js` — seed catalog + scoring rubric: emulation profiles, chip→profile
-  benchmarks (`PROFILE_BENCHMARK`/`KNOWN_CHIPS`), the 2-source resolver, and the
-  `screenSpec()` resolution/aspect parser.
+  map (`KNOWN_CHIPS`), the 2-source resolver, and the `screenSpec()` resolution/aspect parser.
+- `backend/benchmarks.js` — real AnTuTu scores per SoC (sourced from nanoreview.net), the
+  benchmark→tier scale, and `resolveBenchmark()` (curated value, or live scrape for new chips).
 - `backend/catalog.js` — the live catalog (in the DB). Seeds itself from `devices.js` on
   first boot, then is the runtime source of devices.
 - `backend/discover.js` — the self-building job: find new handhelds → scrape specs → rate the

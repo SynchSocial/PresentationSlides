@@ -5,8 +5,9 @@
 // the nearest tier), validate hard, and auto-publish the survivors into the
 // ranked catalog. No "unverified" flag — the validation gate is the safety net.
 
-import { discoverCandidates, scrapeSpecs, chipBenchmark } from "./firecrawl.js";
+import { discoverCandidates, scrapeSpecs } from "./firecrawl.js";
 import { resolveEmu, KNOWN_CHIPS, SYSTEMS, PROFILE_BENCHMARK } from "./devices.js";
+import { resolveBenchmark } from "./benchmarks.js";
 import { load, getDevice, upsertDevice, upsertChipProfile } from "./store.js";
 import { ensureSeeded } from "./catalog.js";
 
@@ -14,8 +15,8 @@ const slug = (name) =>
   String(name).toLowerCase().replace(/[^a-z0-9]+/g, "").slice(0, 28);
 
 function tierFor(benchmark) {
-  if (benchmark >= PROFILE_BENCHMARK.sd865) return "High";   // ~700k+
-  if (benchmark >= PROFILE_BENCHMARK.t618) return "Mid";     // ~260k+
+  if (benchmark >= PROFILE_BENCHMARK.d1100) return "High";  // Dimensity 1100 / SD865 class+
+  if (benchmark >= PROFILE_BENCHMARK.t618) return "Mid";    // Unisoc T618 class+
   return "Budget";
 }
 
@@ -56,10 +57,15 @@ export async function runDiscovery({ log = true } = {}) {
       continue;
     }
 
-    // Rate the processor: known chip uses its tuned benchmark; unknown chip
-    // gets a scraped benchmark, then both map to an emulation tier.
-    const known = KNOWN_CHIPS[specs.chip];
-    const benchmark = known ? known.benchmark : await chipBenchmark(specs.chip);
+    // Rate the processor: known chips use their curated real benchmark; unknown
+    // chips get one scraped live (nanoreview), then both map to an emulation tier.
+    const known = KNOWN_CHIPS[specs.chip] != null;
+    const benchmark = await resolveBenchmark(specs.chip);
+    if (!known && benchmark == null) {
+      // Can't rate an unseen chip without a benchmark — reject rather than guess.
+      rejected.push({ name: c.name, errors: [`no benchmark for chip "${specs.chip}"`] });
+      continue;
+    }
     const { profile, emu } = resolveEmu(specs.chip, benchmark);
 
     const msrp = Math.round(Number(specs.msrp) || 0);
