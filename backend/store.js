@@ -66,6 +66,7 @@ function connect() {
       tracked    INTEGER DEFAULT 0,
       emu_json   TEXT NOT NULL,
       profile    TEXT,
+      asin       TEXT,
       source     TEXT DEFAULT 'seed',
       created_at TEXT
     );
@@ -78,6 +79,10 @@ function connect() {
     );
   `);
 
+  // Lightweight migration: add columns introduced after a DB was first created.
+  const deviceCols = _db.prepare("PRAGMA table_info(device)").all().map(c => c.name);
+  if (!deviceCols.includes("asin")) _db.exec("ALTER TABLE device ADD COLUMN asin TEXT");
+
   maybeSeed(_db);
   return _db;
 }
@@ -86,7 +91,7 @@ function connect() {
 
 const DEVICE_COLS = [
   "id","name","brand","chip","ram","screen","res","form","os","tier",
-  "msrp","street","hr","tracked","emu_json","profile","source","created_at",
+  "msrp","street","hr","tracked","emu_json","profile","asin","source","created_at",
 ];
 
 function rowToDevice(r) {
@@ -95,8 +100,8 @@ function rowToDevice(r) {
     id: r.id, name: r.name, brand: r.brand, chip: r.chip, ram: r.ram,
     screen: r.screen, res: r.res, form: r.form, os: r.os, tier: r.tier,
     msrp: r.msrp, street: r.street, hr: r.hr, tracked: !!r.tracked,
-    emu: JSON.parse(r.emu_json), profile: r.profile, source: r.source,
-    createdAt: r.created_at,
+    emu: JSON.parse(r.emu_json), profile: r.profile, asin: r.asin,
+    source: r.source, createdAt: r.created_at,
   };
 }
 
@@ -131,8 +136,14 @@ export function upsertDevice(conn, rec) {
     form: row.form ?? null, os: row.os ?? null, tier: row.tier ?? null,
     msrp: row.msrp ?? null, street: row.street ?? null, hr: row.hr ?? null,
     tracked: row.tracked, emu_json: row.emu_json, profile: row.profile ?? null,
-    source: row.source ?? "seed", created_at: row.created_at,
+    asin: row.asin ?? null, source: row.source ?? "seed", created_at: row.created_at,
   });
+  return conn;
+}
+
+// Cache a resolved Amazon ASIN on a device.
+export function setDeviceAsin(conn, id, asin) {
+  conn.prepare("UPDATE device SET asin = ? WHERE id = ?").run(asin ?? null, id);
   return conn;
 }
 
