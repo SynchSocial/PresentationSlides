@@ -15,9 +15,13 @@ const CLIENT_ID = process.env.EBAY_CLIENT_ID;
 const CLIENT_SECRET = process.env.EBAY_CLIENT_SECRET;
 const MOCK = !(CLIENT_ID && CLIENT_SECRET) || process.env.MOCK === "1";
 const MARKETPLACE = process.env.EBAY_MARKETPLACE || "EBAY_US";
-const OAUTH_URL = "https://api.ebay.com/identity/v1/oauth2/token";
-const BROWSE_URL = "https://api.ebay.com/buy/browse/v1/item_summary/search";
-const ANALYTICS_URL = "https://api.ebay.com/developer/analytics/v1_beta/rate_limit/";
+// Sandbox vs Production — test with Sandbox keys first, then flip to production.
+const HOST = (process.env.EBAY_ENV || "production").toLowerCase() === "sandbox"
+  ? "https://api.sandbox.ebay.com"
+  : "https://api.ebay.com";
+const OAUTH_URL = `${HOST}/identity/v1/oauth2/token`;
+const BROWSE_URL = `${HOST}/buy/browse/v1/item_summary/search`;
+const ANALYTICS_URL = `${HOST}/developer/analytics/v1_beta/rate_limit/`;
 const API_SCOPE = "https://api.ebay.com/oauth/api_scope";
 // A pinned eBay listing must come from a seller at least this reputable.
 const MIN_FEEDBACK_PCT = Number(process.env.EBAY_MIN_FEEDBACK_PCT || 95);   // % positive
