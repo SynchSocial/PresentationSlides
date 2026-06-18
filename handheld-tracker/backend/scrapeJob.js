@@ -6,6 +6,7 @@ import "dotenv/config";
 import { sourcesFor } from "./devices.js";
 import { scrapePrice } from "./firecrawl.js";
 import { isKeepaLive, resolveBestListing, keepaPrice } from "./keepa.js";
+import { isEbayLive, ebayPrice } from "./ebay.js";
 import { load, save, upsert, today, setDeviceAsin } from "./store.js";
 import { getCatalog } from "./catalog.js";
 
@@ -34,6 +35,8 @@ export async function runScrape({ log = true } = {}) {
       if (src.store === "Amazon" && isKeepaLive() && asin) return keepaPrice(asin);
       return scrapePrice(src, d);
     }));
+    // eBay (Browse API), auto-vetted, added as an extra source when configured.
+    if (isEbayLive()) sources.push(await ebayPrice(d));
     const avg = average(sources);
     if (avg == null) { fail++; if (log) console.log(`✗ ${d.name}: no price`); continue; }
     upsert(db, d.id, {
