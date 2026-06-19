@@ -11,7 +11,10 @@ import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianG
 // Requires: lucide-react, recharts.
 // =============================================================================
 
-const API = (typeof import.meta !== "undefined" && import.meta.env && import.meta.env.VITE_API_URL) || "http://localhost:8787";
+// Default to same-origin (relative /api): works when the backend serves this
+// build in production, and via the Vite dev proxy in development. Override with
+// VITE_API_URL only if the API runs on a different host.
+const API = (typeof import.meta !== "undefined" && import.meta.env && import.meta.env.VITE_API_URL) || "";
 const SYSTEMS = ["NES","SNES","Genesis","GB/GBC","GBA","PS1","NDS","N64","Dreamcast","PSP","Saturn","GameCube","PS2","Wii","3DS","Switch"];
 const TIER_COLOR = { Budget: "#22c55e", Mid: "#eab308", High: "#a855f7" };
 const fmt = (n, d = 1) => Number(n).toFixed(d);
@@ -39,7 +42,7 @@ export default function App() {
       if (!r.ok) throw new Error("api");
       setData(await r.json());
     } catch {
-      setErr(`Can't reach the tracker API at ${API}. Start the backend (npm start) or set VITE_API_URL.`);
+      setErr(`Can't reach the tracker API${API ? ` at ${API}` : ""}. Start the backend (npm start) or set VITE_API_URL.`);
     } finally { setLoading(false); }
   }
 

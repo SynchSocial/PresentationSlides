@@ -8,12 +8,17 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import cron from "node-cron";
+import os from "os";
+import { existsSync } from "fs";
+import { dirname, join } from "path";
+import { fileURLToPath } from "url";
 import { sourcesFor, scoreOf, screenSpec, SYSTEMS } from "./devices.js";
 import { load, history, latest, today } from "./store.js";
 import { getCatalog } from "./catalog.js";
 import { runScrape } from "./scrapeJob.js";
 import { runDiscovery } from "./discover.js";
 
+const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -61,9 +66,36 @@ app.post("/api/discover", async (_req, res) => {
   res.json(r);
 });
 
+// In production, serve the built frontend from this same server so the whole
+// app is one service on one port (no CORS / no localhost API URL on the LAN).
+// The frontend calls the API at a relative path, so same-origin just works.
+const DIST = join(__dirname, "../frontend/dist");
+if (existsSync(DIST)) {
+  app.use(express.static(DIST));
+  app.use((req, res, next) => {
+    if (req.method === "GET" && !req.path.startsWith("/api")) return res.sendFile(join(DIST, "index.html"));
+    next();
+  });
+}
+
+// Print the LAN address(es) so it's easy to reach from other devices at home.
+function lanUrls(port) {
+  const out = [];
+  for (const ifaces of Object.values(os.networkInterfaces())) {
+    for (const i of ifaces || []) {
+      if (i.family === "IPv4" && !i.internal) out.push(`http://${i.address}:${port}`);
+    }
+  }
+  return out;
+}
+
 const PORT = process.env.PORT || 8787;
-app.listen(PORT, () => {
-  console.log(`Handheld tracker API on :${PORT} (mock=${process.env.MOCK === "1" || !process.env.FIRECRAWL_API_KEY})`);
+const HOST = process.env.HOST || "0.0.0.0"; // bind all interfaces so the LAN can reach it
+app.listen(PORT, HOST, () => {
+  const mock = process.env.MOCK === "1" || !process.env.FIRECRAWL_API_KEY;
+  console.log(`Handheld tracker on http://localhost:${PORT} (mock=${mock})`);
+  for (const u of lanUrls(PORT)) console.log(`  on your network: ${u}`);
+  if (!existsSync(DIST)) console.log("  (frontend build not found — run `npm run build` to serve the UI here)");
   const db = load();
   // ensure today's prices exist on boot (covers any device missing today's point)
   const missing = getCatalog(db).some(d => latest(db, d.id)?.date !== today());
