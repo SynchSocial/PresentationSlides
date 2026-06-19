@@ -9,7 +9,9 @@
     "dev": "concurrently -n api,web -c blue,green \"npm:dev:api\" \"npm:dev:web\"",
     "dev:api": "cd backend && npm start",
     "dev:web": "cd frontend && npm run dev",
-    "build": "cd frontend && npm run build"
+    "build": "cd frontend && npm install && npm run build",
+    "start": "cd backend && node server.js",
+    "deploy": "npm run build && npm start"
   },
   "devDependencies": {
     "concurrently": "^9.1.0"
