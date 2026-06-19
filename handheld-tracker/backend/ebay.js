@@ -98,7 +98,10 @@ export async function ebayRateLimits() {
   const token = await appToken();
   const res = await fetch(`${ANALYTICS_URL}?api_context=buy&api_name=browse`, { headers: { Authorization: `Bearer ${token}` } });
   if (!res.ok) throw new Error(`eBay Analytics ${res.status}`);
-  return res.json();
+  // Auth succeeded; the endpoint can return 204 / an empty body (e.g. in sandbox
+  // or before any calls are made) — treat that as "OK, no quota data yet".
+  const text = await res.text();
+  return text ? JSON.parse(text) : { ok: true, status: res.status, note: "auth OK; no rate-limit data returned" };
 }
 
 // TODO (after Marketplace Insights approval): ebaySoldPrice(device) using
