@@ -59,6 +59,36 @@ pm2 save && pm2 startup     # follow the printed command to enable on reboot
 
 ---
 
+## Windows / Mac PC notes
+
+**Which path?**
+- **Windows → use Docker Desktop (Option A).** It avoids native-build pain and
+  auto-starts cleanly. Install Docker Desktop, enable "Start Docker Desktop when
+  you log in", then run `docker compose up -d --build` in the project folder.
+- **Mac → either works.** Bare Node (Option B) is easy if you install the build
+  tools: `xcode-select --install` (needed once, so `better-sqlite3` can compile).
+
+**Find the LAN IP to open from other devices:**
+- macOS: `ipconfig getifaddr en0` (Wi-Fi) — or System Settings → Network.
+- Windows: `ipconfig` → your adapter's **IPv4 Address**.
+The server also prints it on boot (`on your network: http://…:8787`).
+
+**Allow it through the firewall** the first time:
+- macOS / Windows will prompt to allow `node` (or Docker) to accept incoming
+  connections — choose **Allow on private networks**, or other devices can't reach it.
+
+**Keep the PC awake** so daily scrapes run:
+- The app scrapes on startup for any missed day, so intermittent uptime still
+  backfills. For true daily 9am scrapes, stop the machine from sleeping
+  (Windows: Power & sleep → "When plugged in, sleep: Never"; macOS: Settings →
+  Battery/Energy → prevent sleeping, or run under `caffeinate`).
+
+**Auto-start on boot/login:**
+- Docker Desktop: `restart: unless-stopped` + "start Docker on login" handles it.
+- Bare Node on Mac: `pm2 startup` (launchd) as shown above.
+- Bare Node on Windows: `npm i -g pm2 pm2-windows-startup && pm2-startup install`,
+  then `pm2 start ... && pm2 save`.
+
 ## API keys (optional but recommended)
 
 Without keys the app runs in **mock mode** (realistic fake prices) — fully usable
