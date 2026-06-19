@@ -57,8 +57,9 @@ export default function App() {
     if (histCache[id]) return;
     try {
       const r = await fetch(`${API}/api/history/${id}`);
+      if (!r.ok) throw new Error("history");
       const j = await r.json();
-      setHistCache(c => ({ ...c, [id]: j.history }));
+      setHistCache(c => ({ ...c, [id]: Array.isArray(j.history) ? j.history : [] }));
     } catch { setHistCache(c => ({ ...c, [id]: [] })); }
   }
 
