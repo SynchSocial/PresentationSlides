@@ -18,7 +18,10 @@ import { readFileSync, existsSync, mkdirSync } from "fs";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 
-const DB_PATH = fileURLToPath(new URL("./data/history.db", import.meta.url));
+// DB_FILE lets a deploy point at its own database file (e.g. when a mounted
+// volume already contains a different app's history.db).
+const DB_FILE = process.env.DB_FILE || "history.db";
+const DB_PATH = fileURLToPath(new URL(`./data/${DB_FILE}`, import.meta.url));
 const SEED_PATH = fileURLToPath(new URL("./data/history.json", import.meta.url));
 
 let _db;
