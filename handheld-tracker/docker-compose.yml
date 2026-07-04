@@ -1,0 +1,16 @@
+# Home-network deployment. From this folder:
+#   cp backend/.env.example backend/.env   # add your keys (optional; runs in mock without them)
+#   docker compose up -d --build
+# Then open http://<this-machine-LAN-IP>:8787 from any device on your network.
+
+services:
+  tracker:
+    build: .
+    container_name: handheld-tracker
+    ports:
+      - "8787:8787"          # change the left number to use a different host port
+    env_file:
+      - backend/.env         # API keys + cron schedule (create from backend/.env.example)
+    volumes:
+      - ./backend/data:/app/backend/data   # persist the SQLite DB across restarts/updates
+    restart: unless-stopped
