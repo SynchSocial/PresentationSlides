@@ -20,6 +20,7 @@ COPY backend/ ./
 COPY --from=web /web/dist /app/frontend/dist
 ENV NODE_ENV=production PORT=8787 HOST=0.0.0.0
 EXPOSE 8787
-# SQLite DB + seed live here; mount a volume to persist across restarts
-VOLUME ["/app/backend/data"]
+# SQLite DB + seed live in /app/backend/data — mount a volume there to persist
+# (docker-compose does this via `volumes:`; Railway via an attached Volume).
+# No VOLUME instruction: Railway's builder rejects it.
 CMD ["node", "server.js"]
